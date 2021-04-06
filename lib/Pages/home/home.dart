@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_than_so_hoc_2/Pages/detail/detail.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
-import 'file:///E:/AndroidStudioProjects/flutter_app_than_so_hoc_2/lib/Pages/detail/detail.dart';
+import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
+
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
@@ -29,16 +31,15 @@ Future<int> tinh_scd(date_) async {
 
 class _MyHomePageState extends State<HomePage> {
   dynamic name;
-  static DateTime dateCur;
-  String ngay;
-  String thang;
-  String nam;
-  int dateValue;
+  static DateTime dateCur = DateTime.now();
+  late String ngay;
+  late String thang;
+  late String nam;
+  late int dateValue;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    dateCur ??= DateTime.now();
     name = DateFormat('dd-MM-yyyy').format(dateCur);
   }
 
@@ -103,7 +104,7 @@ class _MyHomePageState extends State<HomePage> {
               ),
               SizedBox(height: 30),
               Text(
-                'Hãy chọn ngày sinh của bạn.',
+                S.of(context).hay_chon_ngay_sinh_cua_ban,
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.white70,
@@ -157,7 +158,7 @@ class _MyHomePageState extends State<HomePage> {
                 //   size: 30,
                 // ),
                 child: Text(
-                  'Xem',
+                  S.of(context).xem,
                   style: TextStyle(color: Colors.black54, fontSize: 24),
                 ),
               ),

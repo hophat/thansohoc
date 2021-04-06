@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 class Tab4Page extends StatefulWidget {
   final MyDate;
 
-  const Tab4Page({Key key, this.MyDate}) : super(key: key);
+  const Tab4Page({ this.MyDate});
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -18,7 +18,7 @@ class Tab4Page extends StatefulWidget {
 }
 
 class _My_tab4 extends State<Tab4Page> {
-  ListNumber listNumber;
+  late ListNumber listNumber;
 
   @override
   void initState() {

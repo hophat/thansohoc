@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/tabs/diengiai_tab3.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/tabs/tab1.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/tabs/tab2.dart';
+import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ import 'package:html/parser.dart' show parse;
 
 class DetailPage extends StatefulWidget {
   final Res res;
-  const DetailPage({Key key, this.res}) : super(key: key);
+  const DetailPage({ required this.res});
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -176,9 +177,9 @@ class _MyDetailPage extends State<DetailPage> {
         appBar: AppBar(
           bottom: TabBar(
             tabs: [
-              Tab(text: 'Tổng quan'),
-              Tab(text: 'Mốc cuộc đời'),
-              Tab(text: 'Biểu đồ ngày sinh'),
+              Tab(text:  S.of(context).tong_quan),
+              Tab(text: S.of(context).moc_cuoc_doi),
+              Tab(text:  S.of(context).bieu_do_ngay_sinh),
             ],
           ),
           title: Text('Số $scdNumber'),

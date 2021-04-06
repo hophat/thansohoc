@@ -14,7 +14,6 @@ class diengiai_tab2_Page extends StatefulWidget {
   final tuoi_4;
 
   const diengiai_tab2_Page({
-    Key key,
     this.data1,
     this.data2,
     this.data3,
@@ -23,7 +22,7 @@ class diengiai_tab2_Page extends StatefulWidget {
     this.tuoi_2,
     this.tuoi_3,
     this.tuoi_4,
-  }) : super(key: key);
+  });
 
   @override
   State<StatefulWidget> createState() {

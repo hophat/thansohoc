@@ -13,15 +13,14 @@ class tab1_Page extends StatefulWidget {
   final scdUuDiem;
 
   const tab1_Page(
-      {Key key,
+      {
       this.scdNumber,
       this.scdDacDiemNoiBat,
       this.scdMucDich,
       this.scdKhuyetDiem,
       this.scdDeXuatPhatTrien,
       this.scdUuDiem,
-      this.scdNgheNghiep})
-      : super(key: key);
+      this.scdNgheNghiep});
 
   @override
   State<StatefulWidget> createState() {

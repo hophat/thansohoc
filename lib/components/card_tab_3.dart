@@ -8,7 +8,7 @@ class card_tab_3 extends StatelessWidget {
   final content;
   final so_key;
 
-  const card_tab_3({Key key, this.so_key, this.content}) : super(key: key);
+  const card_tab_3({this.so_key, this.content});
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

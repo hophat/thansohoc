@@ -8,7 +8,7 @@ class box_card extends StatelessWidget {
   final data_box;
   final dinh;
 
-  const box_card({Key key, this.data_box, this.dinh}) : super(key: key);
+  const box_card({this.data_box, this.dinh});
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

@@ -10,8 +10,7 @@ class diengiai_tab3_Page extends StatefulWidget {
   final data_3;
   final MyDate;
 
-  const diengiai_tab3_Page({Key key, this.data_3, this.MyDate})
-      : super(key: key);
+  const diengiai_tab3_Page({ this.data_3, this.MyDate});
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -20,7 +19,7 @@ class diengiai_tab3_Page extends StatefulWidget {
 }
 
 class _My_tab3 extends State<diengiai_tab3_Page> {
-  ListNumber listNumber;
+   late ListNumber listNumber;
   @override
   void initState() {
     // TODO: implement initState
@@ -65,7 +64,7 @@ class _My_tab3 extends State<diengiai_tab3_Page> {
         ListNumber(one, two, three, four, five, six, seven, eight, nine);
   }
 
-  List<card_tab_3> getListCard3(List<dynamic> list) {
+   Iterable<card_tab_3> getListCard3(List<dynamic> list) {
     return list.map((item) =>
         card_tab_3(content: item['sns_content'], so_key: item['sns_key']));
   }
