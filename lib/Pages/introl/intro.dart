@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
 
 // ignore: camel_case_types
 class introPage extends StatelessWidget {
@@ -24,7 +25,7 @@ class introPage extends StatelessWidget {
               children: <Widget>[
                 ListTile(
                   title: Text(
-                    "THẦN SỐ HỌC LÀ GÌ ?",
+                    S.of(context).than_so_hoc_la_gi,
                     style: TextStyle(fontSize: 26, color: Colors.white),
                   ),
                 ),
@@ -34,16 +35,13 @@ class introPage extends StatelessWidget {
                 ),
                 ListTile(
                   subtitle: Text(
-                    "Thần số học sẽ dựa trên tên và ngày sinh của bạn để dự đoán về bạn một cách toàn diện."
-                    " Với Thần số học toàn diện, hãy xem những con số quan trọng có ảnh hưởng như thế nào với cuộc sống của bạn.",
+                    S.of(context).introl_1,
                     style: TextStyle(fontSize: 18, color: Colors.white70),
                   ),
                 ),
                 ListTile(
                   subtitle: Text(
-                    "Ứng dụng sẽ phân tích tên và ngày sinh của bạn để đưa ra kết quả trong chớp mắt! Tìm hiểu về số"
-                    " sinh hoặc số đường đời (nói lên tính cách và quan điểm của bạn trong cuộc sống)"
-                    ". Hãy xem những con số này nói điều gì về bạn.",
+                    S.of(context).introl_2,
                     style: TextStyle(fontSize: 18, color: Colors.white70),
                   ),
                 ),

@@ -47,20 +47,20 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `home`
+  /// `Home`
   String get home {
     return Intl.message(
-      'home',
+      'Home',
       name: 'home',
       desc: '',
       args: [],
     );
   }
 
-  /// `Please select your date`
+  /// `Please select your date of birth`
   String get hay_chon_ngay_sinh_cua_ban {
     return Intl.message(
-      'Please select your date',
+      'Please select your date of birth',
       name: 'hay_chon_ngay_sinh_cua_ban',
       desc: '',
       args: [],
@@ -77,10 +77,10 @@ class S {
     );
   }
 
-  /// `overview`
+  /// `Overview`
   String get tong_quan {
     return Intl.message(
-      'overview',
+      'Overview',
       name: 'tong_quan',
       desc: '',
       args: [],
@@ -112,6 +112,186 @@ class S {
     return Intl.message(
       'Select language',
       name: 'chon_ngon_ngu',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Home`
+  String get xem_ngay_sinh {
+    return Intl.message(
+      'Home',
+      name: 'xem_ngay_sinh',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Introl`
+  String get gioi_thieu {
+    return Intl.message(
+      'Introl',
+      name: 'gioi_thieu',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get ngon_ngu {
+    return Intl.message(
+      'Language',
+      name: 'ngon_ngu',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Number`
+  String get so {
+    return Intl.message(
+      'Number',
+      name: 'so',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your fateful number`
+  String get con_so_chu_dao_cua_ban_la {
+    return Intl.message(
+      'Your fateful number',
+      name: 'con_so_chu_dao_cua_ban_la',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Featured`
+  String get noi_bat {
+    return Intl.message(
+      'Featured',
+      name: 'noi_bat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Life goals`
+  String get muc_dich_cuoc_song {
+    return Intl.message(
+      'Life goals',
+      name: 'muc_dich_cuoc_song',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Advantages`
+  String get uu_diem {
+    return Intl.message(
+      'Advantages',
+      name: 'uu_diem',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Weakness`
+  String get khuyet_diem {
+    return Intl.message(
+      'Weakness',
+      name: 'khuyet_diem',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Proposed development`
+  String get de_xuat {
+    return Intl.message(
+      'Proposed development',
+      name: 'de_xuat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Suitable occupation`
+  String get nghe_nghiep_phu_hop {
+    return Intl.message(
+      'Suitable occupation',
+      name: 'nghe_nghiep_phu_hop',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Year old`
+  String get tuoi {
+    return Intl.message(
+      'Year old',
+      name: 'tuoi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Growth`
+  String get phat_trien_theo_so {
+    return Intl.message(
+      'Growth',
+      name: 'phat_trien_theo_so',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `MEANING THE NUMBERS OF THE GRAPH`
+  String get y_nghia_cac_con_so_tren_bieu_do {
+    return Intl.message(
+      'MEANING THE NUMBERS OF THE GRAPH',
+      name: 'y_nghia_cac_con_so_tren_bieu_do',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Explain`
+  String get giai_thich {
+    return Intl.message(
+      'Explain',
+      name: 'giai_thich',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `WHAT IS Numerology ?`
+  String get than_so_hoc_la_gi {
+    return Intl.message(
+      'WHAT IS Numerology ?',
+      name: 'than_so_hoc_la_gi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Numerology is based on your name and date of birth to predict you comprehensively. With Numerology, see how important numbers affect your life.`
+  String get introl_1 {
+    return Intl.message(
+      'Numerology is based on your name and date of birth to predict you comprehensively. With Numerology, see how important numbers affect your life.',
+      name: 'introl_1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The app will analyze your name and date of birth to show the results in the blink of an eye! Learn about birth numbers or life lines (express your personality and outlook in life). Let's see what these numbers say about you`
+  String get introl_2 {
+    return Intl.message(
+      'The app will analyze your name and date of birth to show the results in the blink of an eye! Learn about birth numbers or life lines (express your personality and outlook in life). Let\'s see what these numbers say about you',
+      name: 'introl_2',
       desc: '',
       args: [],
     );

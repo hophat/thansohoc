@@ -20,8 +20,8 @@ class _MySettingPage extends State<settingPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-  print(Intl.getCurrentLocale());
-    if(  Intl.getCurrentLocale() == 'vi') {
+
+    if(Intl.getCurrentLocale() == 'vi' || Intl.getCurrentLocale() == 'vi_VN') {
       _character = SingingCharacter.VI;
     }else{
       _character = SingingCharacter.EN;
@@ -52,7 +52,7 @@ class _MySettingPage extends State<settingPage> {
             children: <Widget>[
               ListTile(
                 title: Text(
-                  S.of(context).chon_ngon_ngu,
+                  S.current.chon_ngon_ngu,
                   style: TextStyle(fontSize: 26, color: Colors.white),
                 ),
               ),
@@ -72,14 +72,14 @@ class _MySettingPage extends State<settingPage> {
                   onChanged: (SingingCharacter? value) {
                     setState(() {
                       _character = value;
-                      S.load(Locale('en', 'US'));
+                      S.load(Locale('en'));
                     });
                   },
                 ),
                   onTap: (()=>{
                   setState(() {
                   _character = SingingCharacter.EN;
-                  S.load(Locale('en', 'US'));
+                  S.load(Locale('en'));
                   }),
                   }),
               ),
@@ -95,14 +95,14 @@ class _MySettingPage extends State<settingPage> {
                   onChanged: (SingingCharacter ? value) {
                     setState(() {
                       _character = value;
-                      S.load(Locale('vi', 'VN'));
+                      S.load(Locale('vi'));
                     });
                   },
                 ),
                 onTap: (()=>{
                   setState(() {
                     _character = SingingCharacter.VI;
-                    S.load(Locale('vi', 'VN'));
+                    S.load(Locale('vi'));
                   }),
                 }),
               ),

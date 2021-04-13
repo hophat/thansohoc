@@ -31,6 +31,7 @@ class diengiai_tab2_Page extends StatefulWidget {
   }
 }
 
+// ignore: camel_case_types
 class _My_tab2 extends State<diengiai_tab2_Page> {
   @override
   void initState() {

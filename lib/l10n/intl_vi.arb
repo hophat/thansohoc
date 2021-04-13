@@ -1,8 +1,27 @@
 {
+  "home": "THẦN SỐ HỌC",
   "hay_chon_ngay_sinh_cua_ban":  "Hãy chọn ngày sinh của bạn",
   "xem":  "Xem",
   "tong_quan": "Tổng quan",
   "moc_cuoc_doi": "Mốc cuộc đời",
   "bieu_do_ngay_sinh": "Biểu đồ ngày sinh",
-  "chon_ngon_ngu": "Chọn ngôn ngữ"
+  "chon_ngon_ngu": "Chọn ngôn ngữ",
+  "xem_ngay_sinh":"Xem ngày sinh",
+  "gioi_thieu": "Giới thiệu",
+  "ngon_ngu": "Ngôn ngữ",
+  "so": "Con số",
+  "con_so_chu_dao_cua_ban_la": "Số chủ đạo của bạn là",
+  "noi_bat":"Nổi bật",
+  "muc_dich_cuoc_song":"Mục đích cuộc sống",
+  "uu_diem": "Ưu điểm",
+  "khuyet_diem": "Khuyết điểm",
+  "de_xuat": "Đề xuất",
+  "nghe_nghiep_phu_hop": "Nghề nghiệp phù hợp",
+  "tuoi" : "Tuổi",
+  "phat_trien_theo_so" : "Phát triển mạnh số",
+  "y_nghia_cac_con_so_tren_bieu_do": "MÝ NGHĨA CÁC CON SỐ TRÊN BIỂU ĐỒ",
+  "giai_thich" : "Giải thích",
+  "than_so_hoc_la_gi": "THẦN SỐ HỌC LÀ GÌ ?",
+  "introl_1" : "Thần số học sẽ dựa trên tên và ngày sinh của bạn để dự đoán về bạn một cách toàn diện. Với Thần số học toàn diện, hãy xem những con số quan trọng có ảnh hưởng như thế nào với cuộc sống của bạn.",
+  "introl_2" : "Ứng dụng sẽ phân tích tên và ngày sinh của bạn để đưa ra kết quả trong chớp mắt! Tìm hiểu về số sinh hoặc số đường đời (nói lên tính cách và quan điểm của bạn trong cuộc sống). Hãy xem những con số này nói điều gì về bạn"
 }

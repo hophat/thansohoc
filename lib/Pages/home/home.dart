@@ -36,11 +36,19 @@ class _MyHomePageState extends State<HomePage> {
   late String thang;
   late String nam;
   late int dateValue;
+  late String lang;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    name = DateFormat('dd-MM-yyyy').format(dateCur);
+    lang = Intl.getCurrentLocale().toString();
+    if(Intl.getCurrentLocale().toString() == "vi_VN" || Intl.getCurrentLocale().toString() == "vi") {
+      name = DateFormat('dd-MM-yyyy').format(dateCur);
+    }else{
+      name = DateFormat('yyyy-MM-dd').format(dateCur);
+    }
+
   }
 
   void _changeDate(_dateCur) async {
@@ -57,7 +65,7 @@ class _MyHomePageState extends State<HomePage> {
     nam = DateFormat('yyyy').format(dateCur);
     EasyLoading.show(status: 'loading...');
     var url =
-        'https://edu.gulagi.com:443/admin/api/tsh_so_chu_dao/all?start=0&limit=1&filter=$dateValue&field=scd_number';
+        'https://edu.gulagi.com:443/admin/api/tsh_so_chu_dao/get_v2?scd_number=$dateValue&langapp=$lang';
     Map<String, String> requestHeaders = {
       'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',
     };
@@ -81,6 +89,10 @@ class _MyHomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var locate =  LocaleType.en;
+    if(Intl.getCurrentLocale().toString() == "vi_VN") {
+      locate =  LocaleType.vi;
+    }
     return Material(
       shape: BeveledRectangleBorder(
         borderRadius: BorderRadius.only(topLeft: Radius.circular(46.0)),
@@ -124,7 +136,7 @@ class _MyHomePageState extends State<HomePage> {
                         showTitleActions: true,
                         onChanged: (date) {}, onConfirm: (date) {
                       this._changeDate(date);
-                    }, currentTime: dateCur, locale: LocaleType.vi);
+                    }, currentTime: dateCur, locale: locate);
                   },
                   child: RichText(
                     text: TextSpan(
@@ -145,21 +157,17 @@ class _MyHomePageState extends State<HomePage> {
                 // height: 60.0,
                 // minWidth: 200,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                    side: BorderSide(color: Colors.yellowAccent)),
+                    borderRadius: BorderRadius.circular(10.0),
+                    side: BorderSide(color: Colors.black12)),
                 color: Color(0xffcdae59),
                 // splashColor: Colors.white,
-                padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
+                padding: EdgeInsets.fromLTRB(30, 14, 30, 15),
                 onPressed: () {
                   this._submit();
                 },
-                // child: Icon(
-                //   Icons.ac_unit,
-                //   size: 30,
-                // ),
                 child: Text(
                   S.of(context).xem,
-                  style: TextStyle(color: Colors.black54, fontSize: 24),
+                  style: TextStyle(color: Colors.black, fontSize: 22),
                 ),
               ),
             ],

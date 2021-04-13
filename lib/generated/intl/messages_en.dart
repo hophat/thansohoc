@@ -23,10 +23,28 @@ class MessageLookup extends MessageLookupByLibrary {
   static _notInlinedMessages(_) => <String, Function> {
     "bieu_do_ngay_sinh" : MessageLookupByLibrary.simpleMessage("Birth date chart"),
     "chon_ngon_ngu" : MessageLookupByLibrary.simpleMessage("Select language"),
-    "hay_chon_ngay_sinh_cua_ban" : MessageLookupByLibrary.simpleMessage("Please select your date"),
-    "home" : MessageLookupByLibrary.simpleMessage("home"),
+    "con_so_chu_dao_cua_ban_la" : MessageLookupByLibrary.simpleMessage("Your fateful number"),
+    "de_xuat" : MessageLookupByLibrary.simpleMessage("Proposed development"),
+    "giai_thich" : MessageLookupByLibrary.simpleMessage("Explain"),
+    "gioi_thieu" : MessageLookupByLibrary.simpleMessage("Introl"),
+    "hay_chon_ngay_sinh_cua_ban" : MessageLookupByLibrary.simpleMessage("Please select your date of birth"),
+    "home" : MessageLookupByLibrary.simpleMessage("Home"),
+    "introl_1" : MessageLookupByLibrary.simpleMessage("Numerology is based on your name and date of birth to predict you comprehensively. With Numerology, see how important numbers affect your life."),
+    "introl_2" : MessageLookupByLibrary.simpleMessage("The app will analyze your name and date of birth to show the results in the blink of an eye! Learn about birth numbers or life lines (express your personality and outlook in life). Let\'s see what these numbers say about you"),
+    "khuyet_diem" : MessageLookupByLibrary.simpleMessage("Weakness"),
     "moc_cuoc_doi" : MessageLookupByLibrary.simpleMessage("Life milestones"),
-    "tong_quan" : MessageLookupByLibrary.simpleMessage("overview"),
-    "xem" : MessageLookupByLibrary.simpleMessage("Submit")
+    "muc_dich_cuoc_song" : MessageLookupByLibrary.simpleMessage("Life goals"),
+    "nghe_nghiep_phu_hop" : MessageLookupByLibrary.simpleMessage("Suitable occupation"),
+    "ngon_ngu" : MessageLookupByLibrary.simpleMessage("Language"),
+    "noi_bat" : MessageLookupByLibrary.simpleMessage("Featured"),
+    "phat_trien_theo_so" : MessageLookupByLibrary.simpleMessage("Growth"),
+    "so" : MessageLookupByLibrary.simpleMessage("Number"),
+    "than_so_hoc_la_gi" : MessageLookupByLibrary.simpleMessage("WHAT IS Numerology ?"),
+    "tong_quan" : MessageLookupByLibrary.simpleMessage("Overview"),
+    "tuoi" : MessageLookupByLibrary.simpleMessage("Year old"),
+    "uu_diem" : MessageLookupByLibrary.simpleMessage("Advantages"),
+    "xem" : MessageLookupByLibrary.simpleMessage("Submit"),
+    "xem_ngay_sinh" : MessageLookupByLibrary.simpleMessage("Home"),
+    "y_nghia_cac_con_so_tren_bieu_do" : MessageLookupByLibrary.simpleMessage("MEANING THE NUMBERS OF THE GRAPH")
   };
 }

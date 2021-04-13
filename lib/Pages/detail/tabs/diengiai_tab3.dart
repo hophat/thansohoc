@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_than_so_hoc_2/class/ListNumber.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
 import 'package:flutter_app_than_so_hoc_2/components/card_tab_3.dart';
+import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
 import 'package:http/http.dart' as http;
 
 class diengiai_tab3_Page extends StatefulWidget {
@@ -84,7 +85,7 @@ class _My_tab3 extends State<diengiai_tab3_Page> {
           Center(
               child: Column(
             children: <Widget>[
-              Text('BIỂU ĐỒ NGÀY SINH',
+              Text( S.of(context).bieu_do_ngay_sinh,
                   style: TextStyle(fontSize: 20, color: Colors.white70)),
               SizedBox(
                 height: 20,
@@ -95,7 +96,7 @@ class _My_tab3 extends State<diengiai_tab3_Page> {
                 height: 30,
                 width: 100,
               ),
-              Text('Ý NGHĨA CÁC CON SỐ TRÊN BIỂU ĐỒ',
+              Text(S.of(context).y_nghia_cac_con_so_tren_bieu_do,
                   style: TextStyle(fontSize: 18, color: Colors.white70)),
               SizedBox(
                 height: 20,

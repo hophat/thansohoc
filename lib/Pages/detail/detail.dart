@@ -8,9 +8,11 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
 import 'package:html/parser.dart' show parse;
+import 'package:intl/intl.dart';
 
 class DetailPage extends StatefulWidget {
   final Res res;
+
   const DetailPage({ required this.res});
   @override
   State<StatefulWidget> createState() {
@@ -45,10 +47,10 @@ Future<int> tinh_dinh_cao_1(date_) async {
 
 // Future<Res>
 
-get4(dinh_cao) async {
+get4(dinh_cao, lang) async {
   // lây thông tin của 4 moc thoi gian
   var url =
-      'https://edu.gulagi.com:443/admin/api/tsh_dinh_cao/all?start=0&limit=1&filter=$dinh_cao&field=dinh_cao_key';
+      'https://edu.gulagi.com:443/admin/api/tsh_dinh_cao/get_v2?dinh_cao_key=$dinh_cao&langapp=$lang';
   Map<String, String> requestHeaders = {
     'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',
   };
@@ -61,6 +63,8 @@ get4(dinh_cao) async {
 }
 
 class _MyDetailPage extends State<DetailPage> {
+  String lang =  Intl.getCurrentLocale().toString();
+
   dynamic thang;
   dynamic ngay;
   dynamic nam;
@@ -89,44 +93,45 @@ class _MyDetailPage extends State<DetailPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     ngay = widget.res.data['ngay'];
     thang = widget.res.data['thang'];
     nam = widget.res.data['nam'];
 
     this.loaded(ngay, thang, nam).then((res) {
-      get4(dinh_1).then((res) {
+      get4(dinh_1, lang).then((res) {
         setState(() {
           data1 = res;
         });
       });
 
-      get4(dinh_2).then((res) {
+      get4(dinh_2,lang).then((res) {
         setState(() {
           data2 = res;
         });
       });
 
-      get4(dinh_3).then((res) {
+      get4(dinh_3,lang).then((res) {
         setState(() {
           data3 = res;
         });
       });
 
-      get4(dinh_4).then((res) {
+      get4(dinh_4,lang).then((res) {
         setState(() {
           data4 = res;
         });
       });
     });
 
-    get_so_ngay_sinh(ngay + thang + nam).then((res) {
-      print(ngay + thang + nam);
+    get_so_ngay_sinh(ngay + thang + nam, lang).then((res) {
       setState(() {
         data_tab3 = res.data;
       });
     });
   }
 
+  // ignore: non_constant_identifier_names
   lay_dinh_1(scdNumber) async {
     return await tinh_dinh_cao_1(scdNumber);
   }
@@ -168,7 +173,6 @@ class _MyDetailPage extends State<DetailPage> {
 
     Widget tab3 =
         diengiai_tab3_Page(data_3: data_tab3, MyDate: ngay + thang + nam);
-    // Widget tab4 = Tab4Page(MyDate: ngay + thang + nam);
 
     return DefaultTabController(
       length: 3,
@@ -177,12 +181,12 @@ class _MyDetailPage extends State<DetailPage> {
         appBar: AppBar(
           bottom: TabBar(
             tabs: [
-              Tab(text:  S.of(context).tong_quan),
+              Tab(text: S.of(context).tong_quan),
               Tab(text: S.of(context).moc_cuoc_doi),
-              Tab(text:  S.of(context).bieu_do_ngay_sinh),
+              Tab(text: S.of(context).bieu_do_ngay_sinh),
             ],
           ),
-          title: Text('Số $scdNumber'),
+          title: Text(S.of(context).so + ' $scdNumber'),
           backgroundColor: Color(0xff000d24),
         ),
         body: TabBarView(
@@ -190,7 +194,6 @@ class _MyDetailPage extends State<DetailPage> {
             tab1,
             tab2,
             tab3,
-            // Icon(Icons.directions_bike),
           ],
         ),
       ),
@@ -198,10 +201,10 @@ class _MyDetailPage extends State<DetailPage> {
   }
 }
 
-get_so_ngay_sinh(sns_key) async {
+get_so_ngay_sinh(sns_key, lang) async {
   // lây thông tin của 4 moc thoi gian
   var url =
-      'https://edu.gulagi.com:443/admin/api/tsh_so_ngay_sinh/list/$sns_key';
+      'https://edu.gulagi.com:443/admin/api/tsh_so_ngay_sinh/list_v2?sns_key=$sns_key&langapp=$lang';
   print(url);
   Map<String, String> requestHeaders = {
     'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',

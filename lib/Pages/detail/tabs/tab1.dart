@@ -1,3 +1,4 @@
+import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,7 @@ class _My_tab1 extends State<tab1_Page> {
             Center(
                 child: Column(
               children: [
-                Text('Số chủ đạo của bạn là:',
+                Text(S.of(context).con_so_chu_dao_cua_ban_la,
                     style: TextStyle(fontSize: 20, color: Colors.white70)),
                 Text(widget.scdNumber,
                     style: TextStyle(
@@ -68,7 +69,7 @@ class _My_tab1 extends State<tab1_Page> {
                 children: <Widget>[
                   ListTile(
                     title: Text(
-                      'Nổi Bật',
+                      S.of(context).noi_bat,
                       style: TextStyle(
                         fontSize: 22,
                         color: Colors.yellow,
@@ -95,7 +96,7 @@ class _My_tab1 extends State<tab1_Page> {
                   ListTile(
                     // leading: Icon(Icons.check),
                     title: Text(
-                      'Mục đích cuộc sống',
+                      S.of(context).muc_dich_cuoc_song,
                       style: TextStyle(
                         fontSize: 22,
                         color: Colors.yellow,
@@ -123,7 +124,7 @@ class _My_tab1 extends State<tab1_Page> {
                   ListTile(
                     // leading: Icon(Icons.check),
                     title: Text(
-                      'ưu điểm',
+                      S.of(context).uu_diem,
                       style: TextStyle(
                         fontSize: 22,
                         color: Colors.yellow,
@@ -150,7 +151,7 @@ class _My_tab1 extends State<tab1_Page> {
                   ListTile(
                     // leading: Icon(Icons.check),
                     title: Text(
-                      'Khuyết điểm',
+                      S.of(context).khuyet_diem,
                       style: TextStyle(
                         fontSize: 22,
                         color: Colors.yellow,
@@ -179,7 +180,7 @@ class _My_tab1 extends State<tab1_Page> {
                   ListTile(
                     // leading: Icon(Icons.check),
                     title: Text(
-                      'Đề Xuất',
+                      S.of(context).de_xuat,
                       style: TextStyle(
                         fontSize: 22,
                         color: Colors.yellow,
@@ -207,7 +208,7 @@ class _My_tab1 extends State<tab1_Page> {
                   ListTile(
                     // leading: Icon(Icons.check),
                     title: Text(
-                      'Nghề nghiệp phù hợp',
+                      S.of(context).nghe_nghiep_phu_hop,
                       style: TextStyle(
                         fontSize: 22,
                         color: Colors.yellow,
