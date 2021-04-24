@@ -1,16 +1,18 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:backdrop/backdrop.dart';
-import 'package:flutter_app_than_so_hoc_2/Pages/setting/setting.dart';
+
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
-import 'Pages/introl/intro.dart';
 
-import 'Pages/home/home.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
+
+import 'Pages/home/home.dart';
+import 'Pages/introl/intro.dart';
+import 'Pages/setting/setting.dart';
 import 'generated/l10n.dart';
 
 void main() => runApp(new MyApp());

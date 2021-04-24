@@ -1,32 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_than_so_hoc_2/class/Lang.dart';
 import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
 import 'package:intl/intl.dart';
-enum SingingCharacter {  EN, VI }
+
+String langCur = 'en' ;
+
+final listLang = [
+  new Lang('en', "English"),
+  new Lang('vi', "VN"),
+  new Lang('ru', "RU"),
+];
+
 // ignore: camel_case_types
 class settingPage extends StatefulWidget {
-
-
   @override
   State<StatefulWidget> createState() {
     return _MySettingPage();
   }
-
-
 }
+
 class _MySettingPage extends State<settingPage> {
 
-  SingingCharacter?  _character = SingingCharacter.EN;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    this.detectLang();
+  }
 
-    if(Intl.getCurrentLocale() == 'vi' || Intl.getCurrentLocale() == 'vi_VN') {
-      _character = SingingCharacter.VI;
-    }else{
-      _character = SingingCharacter.EN;
-    }
-
+  detectLang() {
+    listLang.forEach((ele) {
+      if(Intl.getCurrentLocale() == ele.key) {
+        langCur = ele.key;
+      }
+    });
   }
 
   @override
@@ -45,74 +53,50 @@ class _MySettingPage extends State<settingPage> {
         ),
         child: Center(
           child: Card(
-          color: Color(0x000d2421),
+            color: Color(0x000d2421),
             child: ListView(
               // mainAxisSize: MainAxisSize.min,
               padding: EdgeInsets.all(20.0),
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                  S.current.chon_ngon_ngu,
-                  style: TextStyle(fontSize: 26, color: Colors.white),
+              children: <Widget>[
+                ListTile(
+                  title: Text(
+                    S.current.chon_ngon_ngu,
+                    style: TextStyle(fontSize: 26, color: Colors.white),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 20,
-                width: 100,
-              ),
-              ListTile(
-                title: Text(
-                  "English",
-                  style: TextStyle(fontSize: 22, color: Colors.white),
+                SizedBox(
+                  height: 20,
+                  width: 100,
                 ),
-                leading: Radio(
-                  activeColor:Colors.white,
-                  value: SingingCharacter.EN,
-                  groupValue: _character,
-                  onChanged: (SingingCharacter? value) {
-                    setState(() {
-                      _character = value;
-                      S.load(Locale('en'));
-                    });
-                  },
-                ),
-                  onTap: (()=>{
-                  setState(() {
-                  _character = SingingCharacter.EN;
-                  S.load(Locale('en'));
-                  }),
-                  }),
-              ),
-              ListTile(
-                title: Text(
-                  "Viet Nam",
-                  style: TextStyle(fontSize: 22, color: Colors.white),
-                ),
-                leading: Radio(
-                  activeColor:Colors.white,
-                  value: SingingCharacter.VI,
-                  groupValue: _character,
-                  onChanged: (SingingCharacter ? value) {
-                    setState(() {
-                      _character = value;
-                      S.load(Locale('vi'));
-                    });
-                  },
-                ),
-                onTap: (()=>{
-                  setState(() {
-                    _character = SingingCharacter.VI;
-                    S.load(Locale('vi'));
-                  }),
-                }),
-              ),
-            ],
+                for (var item in listLang)
+                  ListTile(
+                    title: Text(
+                      item.lable,
+                      style: TextStyle(fontSize: 22, color: Colors.white),
+                    ),
+                    leading: Radio(
+                      activeColor: Colors.white,
+                      value: item.key,
+                      groupValue: langCur,
+                      onChanged: (value) {
+                        setState(() {
+                          print(value);
+                          S.load(Locale(item.key));
+                        });
+                      },
+                    ),
+                    onTap: (() => {
+                          setState(() {
+                            langCur = item.key;
+                            S.load(Locale(item.key));
+                          }),
+                        }),
+                  )
+              ],
+            ),
           ),
-        ),
         ),
       ),
     );
   }
-
 }
-
