@@ -1,6 +1,7 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:backdrop/backdrop.dart';
+import 'package:flutter_app_than_so_hoc_2/Pages/hangngay/hangngay.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
@@ -46,20 +47,20 @@ class _MyAppState extends State<MyApp> {
   }
 
   int _currentIndex = 0;
-  final List<Widget> _pages = [HomePage(), introPage(), settingPage()];
+  final List<Widget> _pages = [HomePage(), HangNgayPage(), settingPage()];
 
   @override
   Widget build(BuildContext context) {
     title_app = 'Home';
     title_app_2 = 'Home';
     menu_1 = 'Home';
-    menu_2 = 'Introl';
+    menu_2 = 'Today';
     menu_3 = 'Languages';
     if (Intl.getCurrentLocale() == 'vi_VN' || Intl.getCurrentLocale() == 'vi') {
       title_app = "Thần Số Học";
       title_app_2 = "Thần Số Học";
       menu_1 = "Xem ngày sinh";
-      menu_2 = "Giới thiệu";
+      menu_2 = "Tử vi hôm nay";
       menu_3 = "Ngôn ngữ";
     }
     return MaterialApp(

@@ -7,8 +7,14 @@ String langCur = 'en' ;
 
 final listLang = [
   new Lang('en', "English"),
-  new Lang('vi', "VN"),
-  new Lang('ru', "RU"),
+  new Lang('vi', "Vietnamese"), // vn
+  new Lang('ru', "русский язык"),// nga
+  new Lang('lo', "ພາສາລາວ"), // lào
+  new Lang('hi', "Hindi"), // Ấn
+  new Lang('fr', "français"), // pháp
+  new Lang('zh', "中国"), // pháp
+  new Lang('id', "Indonesian"), // indonesia
+  new Lang('pt', "Portuguese"), // bo đầu nha
 ];
 
 // ignore: camel_case_types

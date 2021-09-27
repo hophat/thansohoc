@@ -2,20 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/detail.dart';
 
 import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
+import 'package:flutter_app_than_so_hoc_2/components/box_card.dart';
 import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
 
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/style.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HomePage extends StatefulWidget {
+class HangNgayPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _MyHomePageState();
+    return _HangNgayPageState();
   }
 }
 
@@ -37,9 +41,10 @@ extension ParseToString on LocaleType {
   }
 }
 
-class _MyHomePageState extends State<HomePage> {
-  dynamic name;
-  static DateTime dateCur = DateTime.parse('1996-01-01');
+class _HangNgayPageState extends State<HangNgayPage> {
+  dynamic name = null;
+  static dynamic today_content = null;
+  static DateTime dateCur = DateTime.parse("1996-01-01");
   late String ngay;
   late String thang;
   late String nam;
@@ -50,15 +55,15 @@ class _MyHomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    // this.today_content = null;
+
     lang = Intl.getCurrentLocale().toString();
     this._get_birh_date();
-  }
+    if (today_content == null) {
+      this._submit();
+    }
 
-  void _changeDate(_dateCur) async {
-    setState(() {
-      name = DateFormat('dd-MM-yyyy').format(_dateCur);
-      dateCur = _dateCur;
-    });
   }
 
   void _get_birh_date() async {
@@ -75,35 +80,42 @@ class _MyHomePageState extends State<HomePage> {
     });
   }
 
+  void _changeDate(_dateCur) async {
+    setState(() {
+      name = DateFormat('dd-MM-yyyy').format(_dateCur);
+      dateCur = _dateCur;
+    });
+  }
+
   void _submit() async {
     dateValue = await tinh_scd(DateFormat('yyyyMMdd').format(dateCur));
-    ngay = DateFormat('dd').format(dateCur);
-    thang = DateFormat('MM').format(dateCur);
     nam = DateFormat('yyyy').format(dateCur);
-    EasyLoading.show(status: 'loading...');
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('birh_date_store', dateCur.toString());
+
+    EasyLoading.show(status: 'loading...');
+    this.get_today(nam).then((res) => {
+          // print(res)
+          setState(() {
+            EasyLoading.dismiss();
+            today_content = res;
+          })
+        });
+  }
+
+  get_today(year) async {
+    // lây thông tin của 4 moc thoi gian
     var url =
-        'https://edu.gulagi.com:443/admin/api/tsh_so_chu_dao/get_v2?scd_number=$dateValue&langapp=$lang';
+        'https://edu.gulagi.com/admin/api/tsh_so_ngay_sinh/get_today/?year=$year&_lang=$lang' ;
+    print(url);
     Map<String, String> requestHeaders = {
       'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',
     };
-    http.get(url, headers: requestHeaders).then((response) {
-      EasyLoading.dismiss();
-      var dataDecode = jsonDecode(response.body);
-
-      final res =
-          Res(dataDecode['status'], dataDecode['message'], dataDecode['data']);
-      res.data['ngay'] = ngay;
-      res.data['thang'] = thang;
-      res.data['nam'] = nam;
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DetailPage(res: res),
-        ),
-      );
-    });
+    final response = await http.get(url, headers: requestHeaders);
+    // return response;
+    var dataDecode = await jsonDecode(response.body);
+    return Res(dataDecode['status'], dataDecode['message'], dataDecode['data']);
+    // return Res.fromJson(jsonDecode(response.body));
   }
 
   @override
@@ -118,6 +130,7 @@ class _MyHomePageState extends State<HomePage> {
         }
       });
     }
+
     return Material(
       shape: BeveledRectangleBorder(
         borderRadius: BorderRadius.only(topLeft: Radius.circular(46.0)),
@@ -131,17 +144,20 @@ class _MyHomePageState extends State<HomePage> {
         ),
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              // ignore: deprecated_member_use
-              Image(
-                image: AssetImage('assets/EYEb.png'),
-                height: 220,
-              ),
               SizedBox(height: 30),
               Text(
-                S.of(context).hay_chon_ngay_sinh_cua_ban,
+                S.of(context).tu_vi_hom_nay,
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(height: 20),
+              Text(
+                S.of(context).thiet_lap_ngay_sinh,
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.white70,
@@ -149,8 +165,8 @@ class _MyHomePageState extends State<HomePage> {
               ),
               SizedBox(height: 20),
               FlatButton(
-                  height: 70.0,
-                  minWidth: 250,
+                  height: 50.0,
+                  minWidth: 200,
                   color: Color(0x00000000),
                   splashColor: Colors.grey,
                   shape: RoundedRectangleBorder(
@@ -168,11 +184,11 @@ class _MyHomePageState extends State<HomePage> {
                       children: [
                         WidgetSpan(
                           child: Icon(Icons.date_range_outlined,
-                              size: 30, color: Colors.white),
+                              size: 24, color: Colors.white),
                         ),
                         TextSpan(
                           text: '$name',
-                          style: TextStyle(color: Colors.white, fontSize: 28),
+                          style: TextStyle(color: Colors.white, fontSize: 24),
                         ),
                       ],
                     ),
@@ -191,10 +207,42 @@ class _MyHomePageState extends State<HomePage> {
                   this._submit();
                 },
                 child: Text(
-                  S.of(context).xem,
+                  "Setting",
                   style: TextStyle(color: Colors.black, fontSize: 22),
                 ),
               ),
+              SizedBox(
+                height: 20,
+                width: 100,
+              ),
+              today_content == null
+                  ? Text('')
+                  : Card(
+                      color: Color(0x000d2421),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          ListTile(
+                            title: Text(
+                              S.of(context).tu_vi_hom_nay,
+                              style: TextStyle(
+                                fontSize: 22,
+                                color: Colors.yellow,
+                              ),
+                            ),
+                            subtitle: Html(
+                              data: today_content.data,
+                              style: {
+                                // tables will have the below background color
+                                "body": Style(
+                                  color: Colors.white,
+                                ),
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
             ],
           ),
         ),

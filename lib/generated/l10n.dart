@@ -296,6 +296,26 @@ class S {
       args: [],
     );
   }
+
+  /// `set date of birth`
+  String get thiet_lap_ngay_sinh {
+    return Intl.message(
+      'set date of birth',
+      name: 'thiet_lap_ngay_sinh',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Horoscope today`
+  String get tu_vi_hom_nay {
+    return Intl.message(
+      'Horoscope today',
+      name: 'tu_vi_hom_nay',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -304,8 +324,15 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'fr'),
+      Locale.fromSubtags(languageCode: 'hi'),
+      Locale.fromSubtags(languageCode: 'id'),
+      Locale.fromSubtags(languageCode: 'in'),
+      Locale.fromSubtags(languageCode: 'lo'),
+      Locale.fromSubtags(languageCode: 'pt'),
       Locale.fromSubtags(languageCode: 'ru'),
       Locale.fromSubtags(languageCode: 'vi'),
+      Locale.fromSubtags(languageCode: 'zh'),
     ];
   }
 
