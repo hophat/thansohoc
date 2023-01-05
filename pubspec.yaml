@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.16.0 <3.0.0"
 #  flutter_datetime_picker: ^1.5.0
 #    backdrop: ^0.5.3
 #    intl: ^0.15.7
@@ -27,15 +27,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_datetime_picker: ^1.5.0
-  backdrop: ^0.5.3
+  flutter_datetime_picker: #^1.5.0
+  backdrop: #^0.5.3
   intl: ^0.17.0
-  http: ^0.12.2
-  flutter_easyloading: ^2.2.2
-  html: ^0.15.0
+  http: #^0.12.2
+  flutter_easyloading: #^2.2.2
+  html: #^0.15.0
   flutter_html:
+  google_mobile_ads: ^1.2.0
 
-#  flutter_view_widgets: ^1.0.6
+  #  flutter_view_widgets: ^1.0.6
 #  flutter_webview_plugin: ^0.3.11
 
   # The following adds the Cupertino Icons font to your application.
@@ -44,7 +45,7 @@ dependencies:
   flutter_localizations: # Add this line
     sdk: flutter
   #firebase_messaging: ^10.0.0
-  shared_preferences: ^2.0.6
+  shared_preferences: #^2.0.6
 dev_dependencies:
   flutter_test:
     sdk: flutter

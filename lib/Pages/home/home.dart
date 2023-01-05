@@ -5,6 +5,7 @@ import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
 import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
 
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -27,7 +28,7 @@ Future<int> tinh_scd(date_) async {
   } else {
     // print(sum);
     // return sum;
-    return Future.value(sum);
+    return Future<int>.value(sum);
   }
 }
 
@@ -46,12 +47,33 @@ class _MyHomePageState extends State<HomePage> {
   late int dateValue;
   late String lang;
 
+  InterstitialAd? _interstitialAd;
+
+  _createInterstitialAd() {
+    InterstitialAd.load(
+        adUnitId: 'ca-app-pub-3940256099942544/1033173712',
+        // adUnitId: 'ca-app-pub-5726417511192387/9970372711',
+        request: AdRequest(),
+        adLoadCallback: InterstitialAdLoadCallback(
+            onAdLoaded: (ad) {
+              print('_createInterstitialAd');
+              _interstitialAd = ad;
+            },
+            onAdFailedToLoad: (err) {
+              _interstitialAd = null;
+              print('_createInterstitialAd false');
+            }
+        )
+    );
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     lang = Intl.getCurrentLocale().toString();
     this._get_birh_date();
+    _createInterstitialAd();
   }
 
   void _changeDate(_dateCur) async {
@@ -76,6 +98,26 @@ class _MyHomePageState extends State<HomePage> {
   }
 
   void _submit() async {
+
+    if(_interstitialAd != null){
+      _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+        onAdDismissedFullScreenContent: (ad) {
+          ad.dispose();
+          _createInterstitialAd();
+        },
+        onAdFailedToShowFullScreenContent: (ad, err) {
+          ad.dispose();
+          _createInterstitialAd();
+        }
+      );
+      _interstitialAd!.show();
+      _interstitialAd = null;
+    }else{
+      _createInterstitialAd();
+    }
+    _interstitialAd!.show();
+    return;
+
     dateValue = await tinh_scd(DateFormat('yyyyMMdd').format(dateCur));
     ngay = DateFormat('dd').format(dateCur);
     thang = DateFormat('MM').format(dateCur);
@@ -83,27 +125,32 @@ class _MyHomePageState extends State<HomePage> {
     EasyLoading.show(status: 'loading...');
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('birh_date_store', dateCur.toString());
-    var url =
+    String url =
         'https://edu.gulagi.com:443/admin/api/tsh_so_chu_dao/get_v2?scd_number=$dateValue&langapp=$lang';
+    print('call => $url');
     Map<String, String> requestHeaders = {
       'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',
     };
-    http.get(url, headers: requestHeaders).then((response) {
-      EasyLoading.dismiss();
-      var dataDecode = jsonDecode(response.body);
+    try{
+      http.get(Uri.parse(url), headers: requestHeaders).then((response) {
+        EasyLoading.dismiss();
+        var dataDecode = jsonDecode(response.body);
 
-      final res =
-          Res(dataDecode['status'], dataDecode['message'], dataDecode['data']);
-      res.data['ngay'] = ngay;
-      res.data['thang'] = thang;
-      res.data['nam'] = nam;
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DetailPage(res: res),
-        ),
-      );
-    });
+        final res =
+        Res(dataDecode['status'], dataDecode['message'], dataDecode['data']);
+        res.data['ngay'] = ngay;
+        res.data['thang'] = thang;
+        res.data['nam'] = nam;
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailPage(res: res),
+          ),
+        );
+      });
+    }catch(e){
+      print('error => $e');
+    }
   }
 
   @override
@@ -148,14 +195,19 @@ class _MyHomePageState extends State<HomePage> {
                 ),
               ),
               SizedBox(height: 20),
-              FlatButton(
-                  height: 70.0,
-                  minWidth: 250,
-                  color: Color(0x00000000),
-                  splashColor: Colors.grey,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(13.0),
-                      side: BorderSide(color: Colors.white, width: 3)),
+              ElevatedButton(
+                  // height: 70.0,
+                  // minWidth: 250,
+                 style: ButtonStyle(
+                   backgroundColor: MaterialStateProperty.all<Color>(
+                     Color(0x00000000),
+                   ),
+                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                       RoundedRectangleBorder(
+                           borderRadius: BorderRadius.circular(13.0),
+                           side: BorderSide(color: Colors.white, width: 3))
+                   ),
+                 ),
                   onPressed: () {
                     DatePicker.showDatePicker(context,
                         showTitleActions: true,
@@ -178,15 +230,22 @@ class _MyHomePageState extends State<HomePage> {
                     ),
                   )),
               SizedBox(height: 20),
-              RaisedButton(
+              ElevatedButton(
                 // height: 60.0,
                 // minWidth: 200,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    side: BorderSide(color: Colors.black12)),
-                color: Color(0xffcdae59),
-                // splashColor: Colors.white,
-                padding: EdgeInsets.fromLTRB(30, 14, 30, 15),
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          side: BorderSide(color: Colors.black12)),
+                  ),
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      Color(0xffcdae59),
+                  ),
+                  padding: MaterialStateProperty.all<EdgeInsets>(
+                    EdgeInsets.fromLTRB(30, 14, 30, 15),
+                  )
+                ),
                 onPressed: () {
                   this._submit();
                 },

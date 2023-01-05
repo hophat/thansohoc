@@ -51,13 +51,13 @@ Future<int> tinh_dinh_cao_1(date_) async {
 
 get4(dinh_cao, lang) async {
   // lây thông tin của 4 moc thoi gian
-  var url =
+  String url =
       'https://edu.gulagi.com:443/admin/api/tsh_dinh_cao/get_v2?dinh_cao_key=$dinh_cao&langapp=$lang';
   Map<String, String> requestHeaders = {
     'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',
   };
 
-  final response = await http.get(url, headers: requestHeaders);
+  final response = await http.get(Uri.parse(url), headers: requestHeaders);
 
   var dataDecode = await jsonDecode(response.body);
   return Res(dataDecode['status'], dataDecode['message'], dataDecode['data']);
@@ -205,13 +205,13 @@ class _MyDetailPage extends State<DetailPage> {
 
 get_so_ngay_sinh(sns_key, lang) async {
   // lây thông tin của 4 moc thoi gian
-  var url =
+  String url =
       'https://edu.gulagi.com:443/admin/api/tsh_so_ngay_sinh/list_v2?sns_key=$sns_key&langapp=$lang';
   print(url);
   Map<String, String> requestHeaders = {
     'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',
   };
-  final response = await http.get(url, headers: requestHeaders);
+  final response = await http.get(Uri.parse(url), headers: requestHeaders);
   var dataDecode = await jsonDecode(response.body);
   return Res(dataDecode['status'], dataDecode['message'], dataDecode['data']);
   // return Res.fromJson(jsonDecode(response.body));
