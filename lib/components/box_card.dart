@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
 import 'package:html/parser.dart';
+
+import '../generated/l10n.dart';
 
 class box_card extends StatelessWidget {
   final data_box;
@@ -14,7 +15,7 @@ class box_card extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
 
-    var data_4 = data_box.data['tsh_dinh_cao'][0];
+    var data_4 = data_box.data['entries'][0];
     return Card(
       color: Color(0x000d2421),
       child: Column(
@@ -28,7 +29,7 @@ class box_card extends StatelessWidget {
           ),
           ListTile(
             title: Text(
-               S.of(context).phat_trien_theo_so + ": " +data_4["dinh_cao_key"],
+              S.of(context).phat_trien_theo_so + ": " +data_4["dinh_cao_key"],
               style: TextStyle(fontSize: 22, color: Colors.white),
             ),
           ),

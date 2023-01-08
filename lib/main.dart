@@ -60,20 +60,21 @@ class _MyAppState extends State<MyApp> {
   }
 
   int _currentIndex = 0;
-  final List<Widget> _pages = [HomePage(), HangNgayPage(), settingPage()];
+  // final List<Widget> _pages = [HomePage(), HangNgayPage(), settingPage()];
+  final List<Widget> _pages = [HomePage(), settingPage()];
 
   @override
   Widget build(BuildContext context) {
     title_app = 'Home';
     title_app_2 = 'Home';
     menu_1 = 'Home';
-    menu_2 = 'Today';
+    // menu_2 = 'Today';
     menu_3 = 'Languages';
     if (Intl.getCurrentLocale() == 'vi_VN' || Intl.getCurrentLocale() == 'vi') {
       title_app = "Thần Số Học";
       title_app_2 = "Thần Số Học";
       menu_1 = "Xem ngày sinh";
-      menu_2 = "Tử vi hôm nay";
+      // menu_2 = "Tử vi hôm nay";
       menu_3 = "Ngôn ngữ";
     }
     return MaterialApp(
@@ -110,11 +111,11 @@ class _MyAppState extends State<MyApp> {
           items: [
             ListTile(
                 title: Text(menu_1, style: TextStyle(color: Colors.white))),
-            ListTile(
-                title: Text(
-              menu_2,
-              style: TextStyle(color: Colors.white),
-            )),
+            // ListTile(
+            //     title: Text(
+            //   menu_2,
+            //   style: TextStyle(color: Colors.white),
+            // )),
             ListTile(
                 title: Text(
               menu_3,

@@ -1,16 +1,17 @@
 import 'dart:convert';
 
+
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/tabs/diengiai_tab3.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/tabs/tab1.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/tabs/tab2.dart';
-
-import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
-
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
+
 import 'package:html/parser.dart' show parse;
 import 'package:intl/intl.dart';
+
+import '../../class/Res.dart';
+import '../../generated/l10n.dart';
 
 class DetailPage extends StatefulWidget {
   final Res res;
@@ -51,16 +52,28 @@ Future<int> tinh_dinh_cao_1(date_) async {
 
 get4(dinh_cao, lang) async {
   // lây thông tin của 4 moc thoi gian
-  String url =
-      'https://edu.gulagi.com:443/admin/api/tsh_dinh_cao/get_v2?dinh_cao_key=$dinh_cao&langapp=$lang';
-  Map<String, String> requestHeaders = {
-    'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',
-  };
+  // var url = 'https://edu.gulagi.com:443/admin/api/tsh_dinh_cao/get_v2?dinh_cao_key=$dinh_cao&langapp=$lang';
+  // Map<String, String> requestHeaders = {
+  //   'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',
+  // };
+  var url = 'http://app.gulagi.com/api/collections/get/tsh_dinhcao';
 
-  final response = await http.get(Uri.parse(url), headers: requestHeaders);
+  Map<String, String> requestHeaders = {
+    // 'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',
+    'Cockpit-Token':'235a9449e91330b05871d371121134',
+    'Content-Type':'application/json; charset=UTF-8'
+  };
+  var bodyHttp = jsonEncode({
+    "filter": {
+      "dinh_cao_key": dinh_cao.toString(),
+      "lang": lang
+    }
+  });
+  // final response = await http.get(url, headers: requestHeaders);
+  final response = await http.post(Uri.parse(url), headers: requestHeaders, body: bodyHttp);
 
   var dataDecode = await jsonDecode(response.body);
-  return Res(dataDecode['status'], dataDecode['message'], dataDecode['data']);
+  return Res(true, "ok", dataDecode);
   // return Res.fromJson(jsonDecode(response.body));
 }
 
@@ -139,7 +152,7 @@ class _MyDetailPage extends State<DetailPage> {
   }
 
   Widget build(BuildContext context) {
-    var data = widget.res.data['tsh_so_chu_dao'][0];
+    var data = widget.res.data['entries'][0];
     var scdNumber = data['scd_number'];
     var scdMucDich = parse(data['scd_muc_dich']);
     var scdDacDiemNoiBat = parse(data['scd_dac_diem_noi_bat']);
@@ -174,7 +187,7 @@ class _MyDetailPage extends State<DetailPage> {
         tuoi_4: tuoi_4);
 
     Widget tab3 =
-        diengiai_tab3_Page(data_3: data_tab3, MyDate: ngay + thang + nam);
+    diengiai_tab3_Page(data_3: data_tab3, MyDate: ngay + thang + nam);
 
     return DefaultTabController(
       length: 3,
@@ -205,14 +218,22 @@ class _MyDetailPage extends State<DetailPage> {
 
 get_so_ngay_sinh(sns_key, lang) async {
   // lây thông tin của 4 moc thoi gian
-  String url =
-      'https://edu.gulagi.com:443/admin/api/tsh_so_ngay_sinh/list_v2?sns_key=$sns_key&langapp=$lang';
+  // var url = 'https://edu.gulagi.com:443/admin/api/tsh_so_ngay_sinh/list_v2?sns_key=$sns_key&langapp=$lang';
+  var url = 'http://apitwo.gulagi.com/ngaysinh?date=$sns_key&appLang=$lang';
   print(url);
+  // Map<String, String> requestHeaders = {
+  //   'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',
+  // };
+
+
   Map<String, String> requestHeaders = {
-    'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',
+    // 'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',
+    // 'Cockpit-Token':'235a9449e91330b05871d371121134',
+    // 'Content-Type':'application/json; charset=UTF-8'
   };
-  final response = await http.get(Uri.parse(url), headers: requestHeaders);
+
+  final response = await http.get(Uri.parse(url));
   var dataDecode = await jsonDecode(response.body);
-  return Res(dataDecode['status'], dataDecode['message'], dataDecode['data']);
+  return Res(true, "ok", dataDecode);
   // return Res.fromJson(jsonDecode(response.body));
 }

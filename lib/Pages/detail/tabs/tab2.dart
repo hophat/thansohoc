@@ -1,5 +1,5 @@
-import 'package:flutter_app_than_so_hoc_2/components/box_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_than_so_hoc_2/components/box_card.dart';
 
 // ignore: must_be_immutable
 class diengiai_tab2_Page extends StatefulWidget {
@@ -84,7 +84,7 @@ class _My_tab2 extends State<diengiai_tab2_Page> {
           widget.data1 == null
               ? Text('loadding')
               : box_card(
-                  data_box: widget.data1, dinh: widget.tuoi_1.toString()),
+              data_box: widget.data1, dinh: widget.tuoi_1.toString()),
           SizedBox(
             height: 20,
             width: 100,
@@ -92,7 +92,7 @@ class _My_tab2 extends State<diengiai_tab2_Page> {
           widget.data2 == null
               ? Text('loadding')
               : box_card(
-                  data_box: widget.data2, dinh: widget.tuoi_2.toString()),
+              data_box: widget.data2, dinh: widget.tuoi_2.toString()),
           SizedBox(
             height: 20,
             width: 100,
@@ -100,7 +100,7 @@ class _My_tab2 extends State<diengiai_tab2_Page> {
           widget.data3 == null
               ? Text('loadding')
               : box_card(
-                  data_box: widget.data3, dinh: widget.tuoi_3.toString()),
+              data_box: widget.data3, dinh: widget.tuoi_3.toString()),
           SizedBox(
             height: 20,
             width: 100,
@@ -108,7 +108,7 @@ class _My_tab2 extends State<diengiai_tab2_Page> {
           widget.data4 == null
               ? Text('loadding')
               : box_card(
-                  data_box: widget.data4, dinh: widget.tuoi_4.toString()),
+              data_box: widget.data4, dinh: widget.tuoi_4.toString()),
         ],
       ),
     );

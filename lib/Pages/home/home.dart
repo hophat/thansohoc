@@ -115,8 +115,8 @@ class _MyHomePageState extends State<HomePage> {
     }else{
       _createInterstitialAd();
     }
-    _interstitialAd!.show();
-    return;
+    await _interstitialAd?.show();
+    // return;
 
     dateValue = await tinh_scd(DateFormat('yyyyMMdd').format(dateCur));
     ngay = DateFormat('dd').format(dateCur);
@@ -125,32 +125,39 @@ class _MyHomePageState extends State<HomePage> {
     EasyLoading.show(status: 'loading...');
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('birh_date_store', dateCur.toString());
-    String url =
-        'https://edu.gulagi.com:443/admin/api/tsh_so_chu_dao/get_v2?scd_number=$dateValue&langapp=$lang';
-    print('call => $url');
-    Map<String, String> requestHeaders = {
-      'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',
-    };
-    try{
-      http.get(Uri.parse(url), headers: requestHeaders).then((response) {
-        EasyLoading.dismiss();
-        var dataDecode = jsonDecode(response.body);
+    // var url = 'https://edu.gulagi.com:443/admin/api/tsh_so_chu_dao/get_v2?scd_number=$dateValue&langapp=$lang';
+    var url = 'http://app.gulagi.com/api/collections/get/tsh_sochudao';
 
-        final res =
-        Res(dataDecode['status'], dataDecode['message'], dataDecode['data']);
-        res.data['ngay'] = ngay;
-        res.data['thang'] = thang;
-        res.data['nam'] = nam;
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DetailPage(res: res),
-          ),
-        );
-      });
-    }catch(e){
-      print('error => $e');
-    }
+    Map<String, String> requestHeaders = {
+      // 'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',
+      'Cockpit-Token':'235a9449e91330b05871d371121134',
+      'Content-Type':'application/json; charset=UTF-8'
+    };
+    var bodyHttp = jsonEncode({
+      "filter": {
+        "scd_number": dateValue.toString(),
+        "lang": lang
+      }
+    });
+    http.post(Uri.parse(url), headers: requestHeaders, body: bodyHttp).then((response) {
+      // http.get(url, headers: requestHeaders).then((response) {
+      EasyLoading.dismiss();
+      var dataDecode = jsonDecode(response.body);
+
+      final res = Res(true, "22", dataDecode);
+      // final res = Res(true, "22", dataDecode['data']);
+      res.data['ngay'] = ngay;
+      res.data['thang'] = thang;
+      res.data['nam'] = nam;
+      print('res => $res');
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+
+          builder: (context) => DetailPage(res: res),
+        ),
+      );
+    });
   }
 
   @override
