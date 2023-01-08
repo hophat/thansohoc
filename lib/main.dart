@@ -1,7 +1,6 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:backdrop/backdrop.dart';
-import 'package:flutter_app_than_so_hoc_2/Pages/hangngay/hangngay.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
@@ -9,6 +8,7 @@ import 'package:intl/intl.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:thansohoc/Pages/hangngay/hangngay.dart';
 
 
 import 'Pages/home/home.dart';

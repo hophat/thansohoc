@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
+import 'package:thansohoc/generated/l10n.dart';
 
 // ignore: camel_case_types
 class introPage extends StatelessWidget {

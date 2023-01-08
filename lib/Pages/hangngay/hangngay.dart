@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_than_so_hoc_2/Pages/detail/detail.dart';
 
-import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
-import 'package:flutter_app_than_so_hoc_2/components/box_card.dart';
-import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
 
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -14,6 +10,8 @@ import 'dart:convert';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:thansohoc/class/Res.dart';
+import 'package:thansohoc/generated/l10n.dart';
 
 class HangNgayPage extends StatefulWidget {
   @override
@@ -175,6 +173,7 @@ class _HangNgayPageState extends State<HangNgayPage> {
                   onPressed: () {
                     DatePicker.showDatePicker(context,
                         showTitleActions: true,
+                        minTime: DateTime(1900, 0, 0),
                         onChanged: (date) {}, onConfirm: (date) {
                       this._changeDate(date);
                     }, currentTime: dateCur, locale: locate);

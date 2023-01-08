@@ -1,11 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app_than_so_hoc_2/class/ListNumber.dart';
-import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
-import 'package:flutter_app_than_so_hoc_2/components/card_tab_3.dart';
-import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
 import 'package:http/http.dart' as http;
+import 'package:thansohoc/class/ListNumber.dart';
+import 'package:thansohoc/components/card_tab_3.dart';
+import 'package:thansohoc/generated/l10n.dart';
 
 class diengiai_tab3_Page extends StatefulWidget {
   final data_3;
@@ -63,12 +62,16 @@ class _My_tab3 extends State<diengiai_tab3_Page> {
 
     listNumber =
         ListNumber(one, two, three, four, five, six, seven, eight, nine);
+    // handle call api
+    if(listNumber.one != '') {
+
+    }
   }
 
-   Iterable<card_tab_3> getListCard3(List<dynamic> list) {
-    return list.map((item) =>
-        card_tab_3(content: item['sns_content'], so_key: item['sns_key']));
-  }
+  //  Iterable<card_tab_3> getListCard3(List<dynamic> list) {
+  //   return list.map((item) =>
+  //       card_tab_3(content: item['sns_content'], so_key: item['sns_key']));
+  // }
 
   @override
   Widget build(BuildContext context) {

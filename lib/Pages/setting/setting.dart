@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_than_so_hoc_2/class/Lang.dart';
-import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
+
 import 'package:intl/intl.dart';
+import 'package:thansohoc/class/Lang.dart';
+import 'package:thansohoc/generated/l10n.dart';
 
 String langCur = 'en' ;
 

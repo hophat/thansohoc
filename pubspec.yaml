@@ -1,5 +1,5 @@
-name: flutter_app_than_so_hoc_2
-description: A new Flutter application.
+name: thansohoc
+description: Thần số học vietnam.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -27,6 +27,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  sqflite:
+  path:
   flutter_datetime_picker: ^1.5.0
   backdrop: ^0.5.3
   intl: ^0.17.0

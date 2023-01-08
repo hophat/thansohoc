@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_than_so_hoc_2/Pages/detail/detail.dart';
 
-import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
-import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
 
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
@@ -10,6 +7,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:thansohoc/Pages/detail/detail.dart';
+import 'package:thansohoc/class/Res.dart';
+import 'package:thansohoc/generated/l10n.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -83,23 +83,35 @@ class _MyHomePageState extends State<HomePage> {
     EasyLoading.show(status: 'loading...');
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('birh_date_store', dateCur.toString());
-    var url =
-        'https://edu.gulagi.com:443/admin/api/tsh_so_chu_dao/get_v2?scd_number=$dateValue&langapp=$lang';
+    // var url = 'https://edu.gulagi.com:443/admin/api/tsh_so_chu_dao/get_v2?scd_number=$dateValue&langapp=$lang';
+    var url = 'http://app.gulagi.com/api/collections/get/tsh_sochudao';
+
     Map<String, String> requestHeaders = {
-      'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',
+    // 'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',
+      'Cockpit-Token':'235a9449e91330b05871d371121134',
+      'Content-Type':'application/json; charset=UTF-8'
     };
-    http.get(url, headers: requestHeaders).then((response) {
+    var bodyHttp = jsonEncode({
+      "filter": {
+        "scd_number": dateValue.toString(),
+        "lang": lang
+      }
+    });
+    http.post(url, headers: requestHeaders, body: bodyHttp).then((response) {
+    // http.get(url, headers: requestHeaders).then((response) {
       EasyLoading.dismiss();
       var dataDecode = jsonDecode(response.body);
 
-      final res =
-          Res(dataDecode['status'], dataDecode['message'], dataDecode['data']);
+      final res = Res(true, "22", dataDecode);
+      // final res = Res(true, "22", dataDecode['data']);
       res.data['ngay'] = ngay;
       res.data['thang'] = thang;
       res.data['nam'] = nam;
+      print(res);
       Navigator.push(
         context,
         MaterialPageRoute(
+
           builder: (context) => DetailPage(res: res),
         ),
       );
@@ -159,6 +171,7 @@ class _MyHomePageState extends State<HomePage> {
                   onPressed: () {
                     DatePicker.showDatePicker(context,
                         showTitleActions: true,
+                        minTime: DateTime(1900, 0, 0),
                         onChanged: (date) {}, onConfirm: (date) {
                       this._changeDate(date);
                     }, currentTime: dateCur, locale: locate);

@@ -1,5 +1,5 @@
-import 'package:flutter_app_than_so_hoc_2/components/box_card.dart';
 import 'package:flutter/material.dart';
+import 'package:thansohoc/components/box_card.dart';
 
 // ignore: must_be_immutable
 class diengiai_tab2_Page extends StatefulWidget {

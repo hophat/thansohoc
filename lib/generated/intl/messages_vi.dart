@@ -47,6 +47,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "uu_diem" : MessageLookupByLibrary.simpleMessage("Ưu điểm"),
     "xem" : MessageLookupByLibrary.simpleMessage("Xem"),
     "xem_ngay_sinh" : MessageLookupByLibrary.simpleMessage("Xem ngày sinh"),
-    "y_nghia_cac_con_so_tren_bieu_do" : MessageLookupByLibrary.simpleMessage("MÝ NGHĨA CÁC CON SỐ TRÊN BIỂU ĐỒ")
+    "y_nghia_cac_con_so_tren_bieu_do" : MessageLookupByLibrary.simpleMessage("Ý NGHĨA CÁC CON SỐ TRÊN BIỂU ĐỒ")
   };
 }
