@@ -1,9 +1,10 @@
 import 'dart:convert';
 
-
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/tabs/diengiai_tab3.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/tabs/tab1.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/tabs/tab2.dart';
+import 'package:flutter_app_than_so_hoc_2/network/tsh_client.dart';
+import 'package:flutter_app_than_so_hoc_2/network/tsh_client2.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/admob/admob_service.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:http/http.dart' as http;
@@ -18,10 +19,9 @@ import '../../generated/l10n.dart';
 class DetailPage extends StatefulWidget {
   final Res res;
 
-  const DetailPage({ required this.res});
+  const DetailPage({required this.res});
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _MyDetailPage();
   }
 }
@@ -32,8 +32,6 @@ Future<int> tinh_scd(date_) async {
   if (sum > 11) {
     return tinh_scd(sum);
   } else {
-    // print(sum);
-    // return sum;
     return Future.value(sum);
   }
 }
@@ -44,43 +42,25 @@ Future<int> tinh_dinh_cao_1(date_) async {
   if (sum > 9) {
     return tinh_scd(sum);
   } else {
-    // print(sum);
-    // return sum;
     return Future.value(sum);
   }
 }
 
-// Future<Res>
-
 get4(dinh_cao, lang) async {
   // lây thông tin của 4 moc thoi gian
-  // var url = 'https://edu.gulagi.com:443/admin/api/tsh_dinh_cao/get_v2?dinh_cao_key=$dinh_cao&langapp=$lang';
-  // Map<String, String> requestHeaders = {
-  //   'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',
-  // };
-  var url = 'http://app.gulagi.com/api/collections/get/tsh_dinhcao';
-
-  Map<String, String> requestHeaders = {
-    // 'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',
-    'Cockpit-Token':'235a9449e91330b05871d371121134',
-    'Content-Type':'application/json; charset=UTF-8'
-  };
+  var path = 'collections/get/tsh_dinhcao';
   var bodyHttp = jsonEncode({
-    "filter": {
-      "dinh_cao_key": dinh_cao.toString(),
-      "lang": lang
-    }
+    "filter": {"dinh_cao_key": dinh_cao.toString(), "lang": lang}
   });
-  // final response = await http.get(url, headers: requestHeaders);
-  final response = await http.post(Uri.parse(url), headers: requestHeaders, body: bodyHttp);
+  final response =
+      await TSHClient.instance.dio.post<String>(path, data: bodyHttp);
 
-  var dataDecode = await jsonDecode(response.body);
+  var dataDecode = await jsonDecode(response.data ?? '');
   return Res(true, "ok", dataDecode);
-  // return Res.fromJson(jsonDecode(response.body));
 }
 
 class _MyDetailPage extends State<DetailPage> {
-  String lang =  Intl.getCurrentLocale().toString();
+  String lang = Intl.getCurrentLocale().toString();
 
   dynamic thang;
   dynamic ngay;
@@ -136,19 +116,19 @@ class _MyDetailPage extends State<DetailPage> {
         });
       });
 
-      get4(dinh_2,lang).then((res) {
+      get4(dinh_2, lang).then((res) {
         setState(() {
           data2 = res;
         });
       });
 
-      get4(dinh_3,lang).then((res) {
+      get4(dinh_3, lang).then((res) {
         setState(() {
           data3 = res;
         });
       });
 
-      get4(dinh_4,lang).then((res) {
+      get4(dinh_4, lang).then((res) {
         setState(() {
           data4 = res;
         });
@@ -203,7 +183,7 @@ class _MyDetailPage extends State<DetailPage> {
         tuoi_4: tuoi_4);
 
     Widget tab3 =
-    diengiai_tab3_Page(data_3: data_tab3, MyDate: ngay + thang + nam);
+        diengiai_tab3_Page(data_3: data_tab3, MyDate: ngay + thang + nam);
 
     return DefaultTabController(
       length: 3,
@@ -230,11 +210,11 @@ class _MyDetailPage extends State<DetailPage> {
         bottomNavigationBar: _banner == null
             ? SizedBox.shrink()
             : Container(
-          // margin: const EdgeInsets.only(bottom: 12),
-          height: _banner?.size.height.toDouble(),
-          width: _banner?.size.width.toDouble(),
-          child: AdWidget(ad: _banner!),
-        ),
+                // margin: const EdgeInsets.only(bottom: 12),
+                height: _banner?.size.height.toDouble(),
+                width: _banner?.size.width.toDouble(),
+                child: AdWidget(ad: _banner!),
+              ),
       ),
     );
   }
@@ -242,22 +222,10 @@ class _MyDetailPage extends State<DetailPage> {
 
 get_so_ngay_sinh(sns_key, lang) async {
   // lây thông tin của 4 moc thoi gian
-  // var url = 'https://edu.gulagi.com:443/admin/api/tsh_so_ngay_sinh/list_v2?sns_key=$sns_key&langapp=$lang';
-  var url = 'http://apitwo.gulagi.com/ngaysinh?date=$sns_key&appLang=$lang';
-  print(url);
-  // Map<String, String> requestHeaders = {
-  //   'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',
-  // };
-
-
-  Map<String, String> requestHeaders = {
-    // 'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',
-    // 'Cockpit-Token':'235a9449e91330b05871d371121134',
-    // 'Content-Type':'application/json; charset=UTF-8'
-  };
-
-  final response = await http.get(Uri.parse(url));
-  var dataDecode = await jsonDecode(response.body);
+  // var url = 'http://apitwo.gulagi.com/ngaysinh?date=$sns_key&appLang=$lang';
+  var path = 'ngaysinh?date=$sns_key&appLang=$lang';
+  // final response = await http.get(Uri.parse(url));
+  final response = await TSHClient2.instance.blankGet<String>(path);
+  var dataDecode = await jsonDecode(response.data ?? '');
   return Res(true, "ok", dataDecode);
-  // return Res.fromJson(jsonDecode(response.body));
 }

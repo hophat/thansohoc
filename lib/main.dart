@@ -3,6 +3,7 @@ import 'package:backdrop/backdrop.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/hangngay/hangngay.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Lang.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/admob/admob_service.dart';
+import 'package:flutter_app_than_so_hoc_2/provider/list_extension.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/local_db/shared_pref.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -13,11 +14,16 @@ import 'Pages/home/home.dart';
 import 'Pages/setting/setting.dart';
 import 'generated/l10n.dart';
 
+String langCur = '' ;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
   myShared = await SharedPreferences.getInstance();
-
+  langCur = await myShared.getString('langCur') ?? '';
+  if(langCur.isNotEmpty) {
+    await S.load(Locale(langCur));
+  }
   runApp(MyApp());
 }
 
@@ -72,6 +78,7 @@ class _MyAppState extends State<MyApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
+      locale: _findLocale(langCur),
       initialRoute: '/',
       builder: EasyLoading.init(),
       home: MainPage(),
@@ -113,6 +120,12 @@ class _MyAppState extends State<MyApp> {
       // ),
     );
   }
+
+  Locale _findLocale(String? code) {
+    return Locale(listLang.firstWhereOrDefault(
+            (element) => element.key.toUpperCase() == code?.toUpperCase(),
+        defaultValue: listLang.first).key);
+  }
 }
 
 class MainPage extends StatefulWidget {
@@ -141,6 +154,12 @@ class _MainPageState extends State<MainPage> {
     // TODO: implement initState
     super.initState();
     _createBannerAd();
+  }
+
+  @override
+  void dispose() {
+    langSteamController.close();
+    super.dispose();
   }
 
   @override

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Lang.dart';
 import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
+import 'package:flutter_app_than_so_hoc_2/provider/local_db/shared_pref.dart';
 import 'package:intl/intl.dart';
 
-String langCur = 'en' ;
+import '../../main.dart';
 
 
 // ignore: camel_case_types
@@ -19,12 +20,12 @@ class _MySettingPage extends State<settingPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     this.detectLang();
   }
 
   detectLang() {
+    if(langCur.isNotEmpty) return;
     listLang.forEach((ele) {
       if(Intl.getCurrentLocale() == ele.key) {
         langCur = ele.key;
@@ -75,6 +76,7 @@ class _MySettingPage extends State<settingPage> {
                       groupValue: langCur,
                       onChanged: (value) {
                         S.load(Locale(item.key));
+                        myShared.setString('langCur', item.key);
                         langSteamController.sink.add(item.key);
                         Navigator.pop(context);
                       },
@@ -82,6 +84,7 @@ class _MySettingPage extends State<settingPage> {
                     onTap: () {
                       langCur = item.key;
                       S.load(Locale(item.key));
+                      myShared.setString('langCur', item.key);
                       langSteamController.sink.add(item.key);
                       Navigator.pop(context);
                     },

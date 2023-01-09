@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/detail.dart';
-import 'package:flutter_app_than_so_hoc_2/class/Lang.dart';
-
 import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
 import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
+import 'package:flutter_app_than_so_hoc_2/network/tsh_client.dart';
 
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../provider/admob/admob_service.dart';
@@ -124,36 +121,25 @@ class _MyHomePageState extends State<HomePage> {
       _createInterstitialAd();
     }
     await _interstitialAd?.show();
-    // return;
 
     dateValue = await tinh_scd(DateFormat('yyyyMMdd').format(dateCur));
     ngay = DateFormat('dd').format(dateCur);
     thang = DateFormat('MM').format(dateCur);
     nam = DateFormat('yyyy').format(dateCur);
-    EasyLoading.show(status: 'loading...');
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('birh_date_store', dateCur.toString());
-    // var url = 'https://edu.gulagi.com:443/admin/api/tsh_so_chu_dao/get_v2?scd_number=$dateValue&langapp=$lang';
-    var url = 'http://app.gulagi.com/api/collections/get/tsh_sochudao';
-
-    Map<String, String> requestHeaders = {
-      // 'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',
-      'Cockpit-Token':'235a9449e91330b05871d371121134',
-      'Content-Type':'application/json; charset=UTF-8'
-    };
+    String path = 'collections/get/tsh_sochudao';
     var bodyHttp = jsonEncode({
       "filter": {
         "scd_number": dateValue.toString(),
         "lang": lang
       }
     });
-    http.post(Uri.parse(url), headers: requestHeaders, body: bodyHttp).then((response) {
-      // http.get(url, headers: requestHeaders).then((response) {
-      EasyLoading.dismiss();
-      var dataDecode = jsonDecode(response.body);
+
+    TSHClient.instance.dio.post<String>(path, data: bodyHttp).then((response){
+      var dataDecode = jsonDecode(response.data ?? '');
 
       final res = Res(true, "22", dataDecode);
-      // final res = Res(true, "22", dataDecode['data']);
       res.data['ngay'] = ngay;
       res.data['thang'] = thang;
       res.data['nam'] = nam;
