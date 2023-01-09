@@ -5,17 +5,6 @@ import 'package:intl/intl.dart';
 
 String langCur = 'en' ;
 
-final listLang = [
-  new Lang('en', "English"),
-  new Lang('vi', "Vietnamese"), // vn
-  new Lang('ru', "русский язык"),// nga
-  new Lang('lo', "ພາສາລາວ"), // lào
-  new Lang('hi', "Hindi"), // Ấn
-  new Lang('fr', "français"), // pháp
-  new Lang('zh', "中国"), // pháp
-  new Lang('id', "Indonesian"), // indonesia
-  new Lang('pt', "Portuguese"), // bo đầu nha
-];
 
 // ignore: camel_case_types
 class settingPage extends StatefulWidget {
@@ -85,18 +74,17 @@ class _MySettingPage extends State<settingPage> {
                       value: item.key,
                       groupValue: langCur,
                       onChanged: (value) {
-                        setState(() {
-                          print(value);
-                          S.load(Locale(item.key));
-                        });
+                        S.load(Locale(item.key));
+                        langSteamController.sink.add(item.key);
+                        Navigator.pop(context);
                       },
                     ),
-                    onTap: (() => {
-                          setState(() {
-                            langCur = item.key;
-                            S.load(Locale(item.key));
-                          }),
-                        }),
+                    onTap: () {
+                      langCur = item.key;
+                      S.load(Locale(item.key));
+                      langSteamController.sink.add(item.key);
+                      Navigator.pop(context);
+                    },
                   )
               ],
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/detail.dart';
+import 'package:flutter_app_than_so_hoc_2/class/Lang.dart';
 
 import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
 import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
@@ -45,7 +46,7 @@ class _MyHomePageState extends State<HomePage> {
   late String thang;
   late String nam;
   late int dateValue;
-  late String lang;
+  String get lang => Intl.getCurrentLocale().toString();
 
   InterstitialAd? _interstitialAd;
 
@@ -71,9 +72,14 @@ class _MyHomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    lang = Intl.getCurrentLocale().toString();
+    // lang = Intl.getCurrentLocale().toString();
     this._get_birh_date();
     _createInterstitialAd();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   void _changeDate(_dateCur) async {
@@ -149,7 +155,7 @@ class _MyHomePageState extends State<HomePage> {
       res.data['ngay'] = ngay;
       res.data['thang'] = thang;
       res.data['nam'] = nam;
-      print('res => $res');
+      print('res => ${res.data}');
       Navigator.push(
         context,
         MaterialPageRoute(
