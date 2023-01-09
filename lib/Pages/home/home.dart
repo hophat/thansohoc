@@ -13,6 +13,8 @@ import 'dart:convert';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../provider/admob/admob_service.dart';
+
 class HomePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -52,8 +54,8 @@ class _MyHomePageState extends State<HomePage> {
 
   _createInterstitialAd() {
     InterstitialAd.load(
-        adUnitId: 'ca-app-pub-3940256099942544/1033173712',
-        // adUnitId: 'ca-app-pub-5726417511192387/9970372711',
+        // adUnitId: 'ca-app-pub-3940256099942544/1033173712',//test
+        adUnitId: AdMobService.instance.InterstitialAdUnitId,
         request: AdRequest(),
         adLoadCallback: InterstitialAdLoadCallback(
             onAdLoaded: (ad) {

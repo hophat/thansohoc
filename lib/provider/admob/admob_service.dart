@@ -14,8 +14,10 @@ class AdMobService {
   }
 
   String get bannerAdUnitId => Platform.isAndroid
-      ? 'ca-app-pub-5726417511192387~6344034611'
-      : 'ca-app-pub-3940256099942544/2934735716';
+      ? 'ca-app-pub-5726417511192387/1590401387'
+      : 'ca-app-pub-5726417511192387/1590401387';
+
+  String get InterstitialAdUnitId => 'ca-app-pub-5726417511192387/9970372711';
 
   BannerAdListener bannerAdListener = BannerAdListener(
     onAdLoaded: (ad) => debugPrint('Ad loaded.'),

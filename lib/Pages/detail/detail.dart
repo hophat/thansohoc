@@ -111,8 +111,8 @@ class _MyDetailPage extends State<DetailPage> {
   _createBannerAd() {
     _banner = BannerAd(
       size: AdSize.banner,
-      // adUnitId: 'ca-app-pub-5726417511192387/1590401387',
-      adUnitId: 'ca-app-pub-3940256099942544/6300978111',
+      adUnitId: AdMobService.instance.bannerAdUnitId,
+      // adUnitId: 'ca-app-pub-3940256099942544/6300978111',
       listener: AdMobService.instance.bannerAdListener,
       request: AdRequest(),
     );
