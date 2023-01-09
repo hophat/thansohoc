@@ -19,6 +19,8 @@ class AdMobService {
 
   String get InterstitialAdUnitId => 'ca-app-pub-5726417511192387/9970372711';
 
+  String get rewardAdUnitId => 'ca-app-pub-3940256099942544/5224354917';
+
   BannerAdListener bannerAdListener = BannerAdListener(
     onAdLoaded: (ad) => debugPrint('Ad loaded.'),
     onAdFailedToLoad: (ad, err) {

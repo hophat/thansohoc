@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/detail.dart';
+import 'package:flutter_app_than_so_hoc_2/Pages/setting/setting.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
 import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
 import 'package:flutter_app_than_so_hoc_2/network/tsh_client.dart';
@@ -177,86 +178,101 @@ class _MyHomePageState extends State<HomePage> {
             fit: BoxFit.cover,
           ),
         ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              // ignore: deprecated_member_use
-              Image(
-                image: AssetImage('assets/EYEb.png'),
-                height: 220,
-              ),
-              SizedBox(height: 30),
-              Text(
-                S.of(context).hay_chon_ngay_sinh_cua_ban,
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.white70,
-                ),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                  // height: 70.0,
-                  // minWidth: 250,
-                 style: ButtonStyle(
-                   backgroundColor: MaterialStateProperty.all<Color>(
-                     Color(0x00000000),
-                   ),
-                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                       RoundedRectangleBorder(
-                           borderRadius: BorderRadius.circular(13.0),
-                           side: BorderSide(color: Colors.white, width: 3))
-                   ),
-                 ),
-                  onPressed: () {
-                    DatePicker.showDatePicker(context,
-                        showTitleActions: true,
-                        onChanged: (date) {}, onConfirm: (date) {
-                      this._changeDate(date);
-                    }, currentTime: dateCur, locale: locate);
-                  },
-                  child: RichText(
-                    text: TextSpan(
-                      children: [
-                        WidgetSpan(
-                          child: Icon(Icons.date_range_outlined,
-                              size: 30, color: Colors.white),
-                        ),
-                        TextSpan(
-                          text: '$name',
-                          style: TextStyle(color: Colors.white, fontSize: 28),
-                        ),
-                      ],
+        child: Stack(
+          children: [
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  // ignore: deprecated_member_use
+                  Image(
+                    image: AssetImage('assets/EYEb.png'),
+                    height: 220,
+                  ),
+                  SizedBox(height: 30),
+                  Text(
+                    S.of(context).hay_chon_ngay_sinh_cua_ban,
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white70,
                     ),
-                  )),
-              SizedBox(height: 20),
-              ElevatedButton(
-                // height: 60.0,
-                // minWidth: 200,
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(color: Colors.black12)),
                   ),
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      Color(0xffcdae59),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    // height: 70.0,
+                    // minWidth: 250,
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                          Color(0x00000000),
+                        ),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(13.0),
+                                side: BorderSide(color: Colors.white, width: 3))
+                        ),
+                      ),
+                      onPressed: () {
+                        DatePicker.showDatePicker(context,
+                            showTitleActions: true,
+                            onChanged: (date) {}, onConfirm: (date) {
+                              this._changeDate(date);
+                            }, currentTime: dateCur, locale: locate);
+                      },
+                      child: RichText(
+                        text: TextSpan(
+                          children: [
+                            WidgetSpan(
+                              child: Icon(Icons.date_range_outlined,
+                                  size: 30, color: Colors.white),
+                            ),
+                            TextSpan(
+                              text: '$name',
+                              style: TextStyle(color: Colors.white, fontSize: 28),
+                            ),
+                          ],
+                        ),
+                      )),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    // height: 60.0,
+                    // minWidth: 200,
+                    style: ButtonStyle(
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              side: BorderSide(color: Colors.black12)),
+                        ),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                          Color(0xffcdae59),
+                        ),
+                        padding: MaterialStateProperty.all<EdgeInsets>(
+                          EdgeInsets.fromLTRB(30, 14, 30, 15),
+                        )
+                    ),
+                    onPressed: () {
+                      this._submit();
+                    },
+                    child: Text(
+                      S.of(context).xem,
+                      style: TextStyle(color: Colors.black, fontSize: 22),
+                    ),
                   ),
-                  padding: MaterialStateProperty.all<EdgeInsets>(
-                    EdgeInsets.fromLTRB(30, 14, 30, 15),
-                  )
-                ),
-                onPressed: () {
-                  this._submit();
-                },
-                child: Text(
-                  S.of(context).xem,
-                  style: TextStyle(color: Colors.black, fontSize: 22),
-                ),
+                ],
               ),
-            ],
-          ),
+            ),
+
+            Positioned(
+              top: 15 *2,
+              right: 15,
+             child: IconButton(
+                 onPressed: () {
+                   showModalBottomSheet(
+                       context: context, builder: (_) => settingPage());
+                 },
+                 icon: Icon(Icons.language, color: Colors.white,)),
+            )
+          ],
         ),
       ),
     );

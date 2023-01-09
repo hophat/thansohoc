@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:backdrop/backdrop.dart';
+import 'package:flutter_app_than_so_hoc_2/Pages/event/event_page.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/hangngay/hangngay.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Lang.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/admob/admob_service.dart';
@@ -13,15 +14,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'Pages/home/home.dart';
 import 'Pages/setting/setting.dart';
 import 'generated/l10n.dart';
+import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 
-String langCur = '' ;
+String langCur = '';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
   myShared = await SharedPreferences.getInstance();
   langCur = await myShared.getString('langCur') ?? '';
-  if(langCur.isNotEmpty) {
+  if (langCur.isNotEmpty) {
     await S.load(Locale(langCur));
   }
   runApp(MyApp());
@@ -122,9 +124,11 @@ class _MyAppState extends State<MyApp> {
   }
 
   Locale _findLocale(String? code) {
-    return Locale(listLang.firstWhereOrDefault(
+    return Locale(listLang
+        .firstWhereOrDefault(
             (element) => element.key.toUpperCase() == code?.toUpperCase(),
-        defaultValue: listLang.first).key);
+            defaultValue: listLang.first)
+        .key);
   }
 }
 
@@ -149,11 +153,24 @@ class _MainPageState extends State<MainPage> {
     _banner?.load();
   }
 
+  _showEvent() {
+    showAnimatedDialog(
+      context: context,
+      animationType: DialogTransitionType.slideFromBottomFade,
+      curve: Curves.fastOutSlowIn,
+      duration: Duration(milliseconds: 500),
+      builder: (_) => EventPage(),
+    );
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _createBannerAd();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Future.delayed(const Duration(seconds: 2)).then((value) => _showEvent());
+    });
   }
 
   @override
@@ -165,24 +182,31 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xffc9a70e),
-        elevation: 0,
-        actions: [
-          IconButton(
-              onPressed: () {
-                showModalBottomSheet(
-                    context: context, builder: (_) => settingPage());
-              },
-              icon: Icon(Icons.language)),
-        ],
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Color(0xffc9a70e),
+      //   elevation: 0,
+      //   actions: [
+      //
+      //   ],
+      // ),
       body: StreamBuilder<String>(
         stream: langSteamController.stream,
         initialData: langCur,
-        builder: (_, __){
+        builder: (_, __) {
           return HomePage();
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        heroTag: 'lixi',
+        backgroundColor: Colors.white24,
+        onPressed: () {
+          _showEvent();
+        },
+        child: Image.asset(
+          'assets/tet/lixi_icon.png',
+          width: 30,
+          height: 30,
+        ),
       ),
       bottomNavigationBar: _banner == null
           ? SizedBox.shrink()
