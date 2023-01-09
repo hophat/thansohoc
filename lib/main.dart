@@ -147,6 +147,8 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xffc9a70e),
+        elevation: 0,
         actions: [
           IconButton(
               onPressed: () {

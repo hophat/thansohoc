@@ -41,11 +41,11 @@ class _My_tab1 extends State<tab1_Page> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.amber
-        // image: DecorationImage(
-        //   image: AssetImage("assets/bg01.jpg"),
-        //   fit: BoxFit.cover,
-        // ),
+        // color: Colors.amber
+        image: DecorationImage(
+          image: AssetImage("assets/bg01.jpg"),
+          fit: BoxFit.cover,
+        ),
       ),
       child: ListView(padding: EdgeInsets.all(30.0),
           // child: Html(data: document.outerHtml),
