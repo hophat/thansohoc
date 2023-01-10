@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 
+// import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/event/event_success_page.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_app_than_so_hoc_2/provider/local_db/shared_pref.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:card_swiper/card_swiper.dart';
 
 class EventPage2 extends StatefulWidget {
   const EventPage2({Key? key}) : super(key: key);
@@ -18,7 +20,7 @@ class EventPage2 extends StatefulWidget {
 }
 
 class _EventPageState2 extends State<EventPage2> {
-  List<int> _lixis = List.generate(30, (index) => Random().nextInt(4)).toList();
+  List<int> _lixis = List.generate(30, (index) => Random().nextInt(7)).toList();
   Set<int> _chooses = {};
   List<String> _choosesStr = [];
 
@@ -80,7 +82,7 @@ class _EventPageState2 extends State<EventPage2> {
     _rewardedAd = null;
   }
 
-  _setUpChooseList(){
+  _setUpChooseList() {
     _choosesStr = myShared.getStringList('_chooses') ?? [];
     _chooses = _choosesStr.map((e) => int.parse(e)).toSet();
   }
@@ -129,64 +131,133 @@ class _EventPageState2 extends State<EventPage2> {
           children: [
             Column(
               children: [
+                // Expanded(
+                //   child: PerspectiveListView(
+                //     visualizedItems: _visibleItems,
+                //     itemExtent: _itemExtent,
+                //     initialIndex: _initialIndex,
+                //     enableBackItemsShadow: true,
+                //     backItemsShadowColor:
+                //         Theme.of(context).scaffoldBackgroundColor,
+                //     padding: const EdgeInsets.all(10),
+                //     // onTapFrontItem: (index) {
+                //     //   print(index);
+                //     // },
+                //     onChangeFrontItem: (index) {
+                //       _currentLixi = index;
+                //     },
+                //     children: List.generate(
+                //       _lixis.length,
+                //       (index) {
+                //         int lixi = _lixis[index];
+                //         return Container(
+                //             decoration: BoxDecoration(
+                //               image: DecorationImage(
+                //                   image:
+                //                       AssetImage('assets/tet/lixi_$lixi.png'),
+                //                   fit: BoxFit.fitHeight),
+                //             ),
+                //             alignment: Alignment.center,
+                //             child: _chooses.contains(index)
+                //                 ? Icon(
+                //                     Icons.check_circle_outline,
+                //                     color: Colors.white70,
+                //                     size: itemWidth,
+                //                   )
+                //                 : null);
+                //       },
+                //     ),
+                //   ),
+                // ),
+                // Expanded(
+                //   child: AppinioSwiper(
+                //     duration:const Duration(milliseconds: 100),
+                //     unlimitedUnswipe: true,
+                //     onSwipe: (index, _) {
+                //       _currentLixi = index;
+                //       print(_currentLixi);
+                //     },
+                //     onEnd: () {
+                //       _currentLixi = _initialIndex;
+                //       print('end => $_currentLixi');
+                //       setState(() {
+                //
+                //       });
+                //     },
+                //     cards: List.generate(
+                //       _lixis.length,
+                //       (index) {
+                //         int lixi = _lixis[index];
+                //         return Container(
+                //             decoration: BoxDecoration(
+                //               image: DecorationImage(
+                //                   image:
+                //                       AssetImage('assets/tet/lixi_$lixi.png'),
+                //                   fit: BoxFit.fitHeight),
+                //             ),
+                //             alignment: Alignment.center,
+                //             child: _chooses.contains(index)
+                //                 ? Icon(
+                //                     Icons.check_circle_outline,
+                //                     color: Colors.white70,
+                //                     size: itemWidth,
+                //                   )
+                //                 : null);
+                //       },
+                //     ),
+                //   ),
+                // ),
+                const SizedBox(height: 15),
                 Expanded(
-                  child: PerspectiveListView(
-                    visualizedItems: _visibleItems,
-                    itemExtent: _itemExtent,
-                    initialIndex: _initialIndex,
-                    enableBackItemsShadow: true,
-                    backItemsShadowColor:
-                        Theme.of(context).scaffoldBackgroundColor,
-                    padding: const EdgeInsets.all(10),
-                    // onTapFrontItem: (index) {
-                    //   print(index);
-                    // },
-                    onChangeFrontItem: (index) {
+                  child: Swiper(
+                    itemBuilder: (BuildContext context, int index) {
+                      int lixi = _lixis[index];
+                      return Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image:
+                                AssetImage('assets/tet/lixi_$lixi.png'),
+                                fit: BoxFit.fitHeight),
+                          ),
+                          alignment: Alignment.center,
+                          child: _chooses.contains(index)
+                              ? Icon(
+                            Icons.check_circle_outline,
+                            color: Colors.white70,
+                            size: itemWidth/2.5,
+                          )
+                              : null);
+                    },
+                    onIndexChanged: (index) {
                       _currentLixi = index;
                     },
-                    children: List.generate(
-                      _lixis.length,
-                      (index) {
-                        int lixi = _lixis[index];
-                        return Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image:
-                                      AssetImage('assets/tet/lixi_$lixi.png'),
-                                  fit: BoxFit.fitHeight),
-                            ),
-                            alignment: Alignment.center,
-                            child: _chooses.contains(index)
-                                ? Icon(
-                                    Icons.check_circle_outline,
-                                    color: Colors.white70,
-                                    size: itemWidth,
-                                  )
-                                : null);
-                      },
-                    ),
+                    itemCount: _lixis.length,
+                    // layout: SwiperLayout.STACK,
+                    // itemWidth: 300.0,
+                    // itemHeight: 300,
+                    viewportFraction: 0.3,
+                    scale: 0.5,
+
                   ),
                 ),
                 InkWell(
                   borderRadius: BorderRadius.circular(15),
                   onTap: () {
-                    if(_chooses.contains(_currentLixi)) return;
+                    if (_chooses.contains(_currentLixi)) return;
                     _showRewardAd(_currentLixi);
                   },
                   child: Container(
                     width: 186,
                     padding: EdgeInsets.all(15),
                     decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(
-                          'assets/tet/tet_btn.png'
-                        )
-                      )
-                    ),
+                        image: DecorationImage(
+                            image: AssetImage('assets/tet/tet_btn.png'))),
                     alignment: Alignment.center,
-                    child: Text('Mở  lì xì', style: GoogleFonts.getFont('Bahianita', color: Colors.white, fontSize: 28)),
-                    ),
+                    child: Text('Mở lì xì',
+                        style: GoogleFonts.getFont('Bahianita',
+                            color: Colors.white, fontSize: 28)),
                   ),
+                ),
 
                 const SizedBox(height: 15),
               ],

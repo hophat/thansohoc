@@ -51,6 +51,8 @@ dependencies:
   confetti: ^0.7.0
   flutter_animated_dialog: ^2.0.1
   google_fonts: ^3.0.1
+#  appinio_swiper: ^1.1.1
+  card_swiper: ^2.0.4
 dev_dependencies:
   flutter_test:
     sdk: flutter
