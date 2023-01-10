@@ -214,6 +214,7 @@ class _MyHomePageState extends State<HomePage> {
                       ),
                       onPressed: () {
                         DatePicker.showDatePicker(context,
+                            minTime: DateTime(1930, 1, 1),
                             showTitleActions: true,
                             onChanged: (date) {}, onConfirm: (date) {
                               this._changeDate(date);

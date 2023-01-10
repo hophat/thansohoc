@@ -414,12 +414,18 @@ class _PerspectiveItems extends StatelessWidget {
             // Bottom Hide Item
             //---------------------------------
             if (currentIndex! < (children.length - 1))
-              _TransformedItem(
-                heightItem: heightItem,
-                factorChange: pagePercent,
-                translateY: height * 1.2 + 20,
-                endTranslateY: height * 1.2 - heightItem!,
-                child: children[currentIndex! + 1],
+              Opacity(
+                opacity: 0.5,
+                child: _TransformedItem(
+                  // alignment: Alignment.topRight,
+                  // rotateZ: -2*pi/12,
+                  // scale: 0.0,
+                  heightItem: heightItem,
+                  factorChange: pagePercent,
+                  translateY: height * 1.2 + 20,
+                  endTranslateY: height * 1.2 - heightItem!,
+                  child: children[currentIndex! + 1],
+                ),
               )
             else
               const SizedBox()
@@ -432,6 +438,7 @@ class _PerspectiveItems extends StatelessWidget {
 
 class _TransformedItem extends StatelessWidget {
   const _TransformedItem({
+    Key? key,
     required this.heightItem,
     required this.child,
     required this.factorChange,
@@ -439,8 +446,12 @@ class _TransformedItem extends StatelessWidget {
     this.scale = 1.0,
     this.endTranslateY = 0.0,
     this.translateY = 0.0,
-  });
+    this.alignment = Alignment.topCenter,
+    this.rotateZ = 0.0,
+  }) : super(key: key);
 
+  final double rotateZ;
+  final Alignment alignment;
   final Widget child;
   final double? heightItem;
   final double? factorChange;
@@ -452,15 +463,16 @@ class _TransformedItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Transform(
-      alignment: Alignment.topCenter,
+      alignment: alignment,
       transform: Matrix4.identity()
         ..scale(lerpDouble(scale, endScale, factorChange!))
+        ..rotateZ(rotateZ)
         ..translate(
           0.0,
           lerpDouble(translateY, endTranslateY, factorChange!)!,
         ),
       child: Align(
-        alignment: Alignment.topCenter,
+        alignment: alignment,
         child: SizedBox(
           height: heightItem,
           width: double.infinity,
