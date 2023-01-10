@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:backdrop/backdrop.dart';
+import 'package:flutter_app_than_so_hoc_2/Pages/event/event_2.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/event/event_page.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/hangngay/hangngay.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Lang.dart';
@@ -159,7 +160,7 @@ class _MainPageState extends State<MainPage> {
       animationType: DialogTransitionType.slideFromBottomFade,
       curve: Curves.fastOutSlowIn,
       duration: Duration(milliseconds: 500),
-      builder: (_) => EventPage(),
+      builder: (_) => EventPage2(),
     );
   }
 

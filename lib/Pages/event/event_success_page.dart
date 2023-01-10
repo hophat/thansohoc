@@ -31,7 +31,7 @@ class _EventSuccessPageState extends State<EventSuccessPage> {
   @override
   Widget build(BuildContext context) {
     final double boxSize = MediaQuery.of(context).size.width * 0.75;
-    final double imgSize = boxSize * 0.75;
+    final double imgSize = boxSize * 0.5;
     return Container(
       color: Colors.white,
       height: boxSize,
