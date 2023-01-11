@@ -30,6 +30,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "de_xuat": MessageLookupByLibrary.simpleMessage("प्रस्तावित विकास"),
         "giai_thich": MessageLookupByLibrary.simpleMessage("समझाएं"),
         "gioi_thieu": MessageLookupByLibrary.simpleMessage("परिचय कराना"),
+        "happy_new_year":
+            MessageLookupByLibrary.simpleMessage("नए साल की शुभकामनाएँ"),
         "hay_chon_ngay_sinh_cua_ban":
             MessageLookupByLibrary.simpleMessage("कृपया अपनी जन्मतिथि चुनें"),
         "home": MessageLookupByLibrary.simpleMessage("घर"),
@@ -46,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("उपयुक्त व्यवसाय"),
         "ngon_ngu": MessageLookupByLibrary.simpleMessage("भाषा"),
         "noi_bat": MessageLookupByLibrary.simpleMessage("फीचर्ड"),
+        "open_red_envelopes":
+            MessageLookupByLibrary.simpleMessage("लाल लिफाफा खोलें"),
         "phat_trien_theo_so": MessageLookupByLibrary.simpleMessage("विकास"),
         "so": MessageLookupByLibrary.simpleMessage("नंबर"),
         "than_so_hoc_la_gi":

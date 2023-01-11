@@ -319,6 +319,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Happy New Year`
+  String get happy_new_year {
+    return Intl.message(
+      'Happy New Year',
+      name: 'happy_new_year',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open the red envelope`
+  String get open_red_envelopes {
+    return Intl.message(
+      'Open the red envelope',
+      name: 'open_red_envelopes',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

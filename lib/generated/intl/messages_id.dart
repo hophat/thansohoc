@@ -31,6 +31,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Pengembangan yang diusulkan"),
         "giai_thich": MessageLookupByLibrary.simpleMessage("Jelaskan"),
         "gioi_thieu": MessageLookupByLibrary.simpleMessage("Introl"),
+        "happy_new_year":
+            MessageLookupByLibrary.simpleMessage("Selamat Tahun Baru"),
         "hay_chon_ngay_sinh_cua_ban": MessageLookupByLibrary.simpleMessage(
             "Silakan pilih tanggal lahir Anda"),
         "introl_1": MessageLookupByLibrary.simpleMessage(
@@ -46,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Pekerjaan yang sesuai"),
         "ngon_ngu": MessageLookupByLibrary.simpleMessage("Bahasa"),
         "noi_bat": MessageLookupByLibrary.simpleMessage("Unggulan"),
+        "open_red_envelopes":
+            MessageLookupByLibrary.simpleMessage("Buka amplop merah"),
         "phat_trien_theo_so":
             MessageLookupByLibrary.simpleMessage("Pertumbuhan"),
         "so": MessageLookupByLibrary.simpleMessage("Nomor"),

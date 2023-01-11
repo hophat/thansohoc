@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "de_xuat": MessageLookupByLibrary.simpleMessage("拟议的开发"),
         "giai_thich": MessageLookupByLibrary.simpleMessage("说明"),
         "gioi_thieu": MessageLookupByLibrary.simpleMessage("简介"),
+        "happy_new_year": MessageLookupByLibrary.simpleMessage("快乐的春天"),
         "hay_chon_ngay_sinh_cua_ban":
             MessageLookupByLibrary.simpleMessage("请选择您的出生日期"),
         "home": MessageLookupByLibrary.simpleMessage("家"),
@@ -42,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "nghe_nghiep_phu_hop": MessageLookupByLibrary.simpleMessage("合适的职业"),
         "ngon_ngu": MessageLookupByLibrary.simpleMessage("语言"),
         "noi_bat": MessageLookupByLibrary.simpleMessage("精选"),
+        "open_red_envelopes": MessageLookupByLibrary.simpleMessage("打开红包"),
         "phat_trien_theo_so": MessageLookupByLibrary.simpleMessage("成长"),
         "so": MessageLookupByLibrary.simpleMessage("数字"),
         "than_so_hoc_la_gi": MessageLookupByLibrary.simpleMessage("什么是命理学？"),

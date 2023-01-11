@@ -30,6 +30,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "de_xuat": MessageLookupByLibrary.simpleMessage("ການພັດທະນາທີ່ສະ ເໜີ"),
         "giai_thich": MessageLookupByLibrary.simpleMessage("ອະທິບາຍ"),
         "gioi_thieu": MessageLookupByLibrary.simpleMessage("Introl"),
+        "happy_new_year":
+            MessageLookupByLibrary.simpleMessage("ສະ​ບາຍ​ດີ​ປີ​ໃຫມ່"),
         "hay_chon_ngay_sinh_cua_ban": MessageLookupByLibrary.simpleMessage(
             "ກະລຸນາເລືອກວັນເດືອນປີເກີດຂອງທ່ານ"),
         "home": MessageLookupByLibrary.simpleMessage("ບ້ານ"),
@@ -46,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ອາຊີບທີ່ ເໝາະ ສົມ"),
         "ngon_ngu": MessageLookupByLibrary.simpleMessage("ພາສາ"),
         "noi_bat": MessageLookupByLibrary.simpleMessage("ເດັ່ນ"),
+        "open_red_envelopes":
+            MessageLookupByLibrary.simpleMessage("ເປີດຊອງຈົດໝາຍສີແດງ"),
         "phat_trien_theo_so": MessageLookupByLibrary.simpleMessage("ການເຕີບໂຕ"),
         "so": MessageLookupByLibrary.simpleMessage("ໝາຍ ເລກ"),
         "than_so_hoc_la_gi":

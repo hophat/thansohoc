@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "de_xuat": MessageLookupByLibrary.simpleMessage("Đề xuất"),
         "giai_thich": MessageLookupByLibrary.simpleMessage("Giải thích"),
         "gioi_thieu": MessageLookupByLibrary.simpleMessage("Giới thiệu"),
+        "happy_new_year": MessageLookupByLibrary.simpleMessage("Xuân An Vui"),
         "hay_chon_ngay_sinh_cua_ban":
             MessageLookupByLibrary.simpleMessage("Hãy chọn ngày sinh của bạn"),
         "home": MessageLookupByLibrary.simpleMessage("THẦN SỐ HỌC"),
@@ -45,6 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Nghề nghiệp phù hợp"),
         "ngon_ngu": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),
         "noi_bat": MessageLookupByLibrary.simpleMessage("Nổi bật"),
+        "open_red_envelopes": MessageLookupByLibrary.simpleMessage("Mở lì xì"),
         "phat_trien_theo_so":
             MessageLookupByLibrary.simpleMessage("Phát triển mạnh số"),
         "so": MessageLookupByLibrary.simpleMessage("Con số"),

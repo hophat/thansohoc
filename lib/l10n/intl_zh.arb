@@ -25,5 +25,7 @@
 "introl_1":"命理学是根据您的姓名和出生日期来全面预测您的。通过命理学,您可以了解重要数字对您的生活有何影响。",
 "introl_2":"该应用程序将分析您的姓名和生日,以眨眼即可显示结果！了解出生数字或生命线（表达您的性格和生活观）。让我们看看这些数字怎么说你",
   "thiet_lap_ngay_sinh" : "set date of birth",
-  "tu_vi_hom_nay": "Horoscope today"
+  "tu_vi_hom_nay": "Horoscope today",
+  "happy_new_year" : "快乐的春天",
+  "open_red_envelopes" : "打开红包"
 }

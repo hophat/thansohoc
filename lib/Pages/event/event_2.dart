@@ -11,8 +11,12 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:audioplayers/audioplayers.dart';
 
-class EventPage2 extends StatefulWidget {
+
+
+import '../../generated/l10n.dart';class EventPage2 extends StatefulWidget {
   const EventPage2({Key? key}) : super(key: key);
 
   @override
@@ -20,11 +24,14 @@ class EventPage2 extends StatefulWidget {
 }
 
 class _EventPageState2 extends State<EventPage2> {
+
+  final _audio = AudioPlayer();
+
   List<int> _lixis = List.generate(30, (index) => Random().nextInt(7)).toList();
   Set<int> _chooses = {};
   List<String> _choosesStr = [];
 
-  int get _initialIndex => _lixis.length - 1;
+  int get _initialIndex => 0;
 
   int _currentLixi = -1;
 
@@ -73,10 +80,12 @@ class _EventPageState2 extends State<EventPage2> {
       _choosesStr.clear();
       _choosesStr = _chooses.map((e) => e.toString()).toList();
       myShared.setStringList('_chooses', _choosesStr);
+      await _audio.resume();
       setState(() {});
-    }, onAdFailedToShowFullScreenContent: (ad, err) {
+    }, onAdFailedToShowFullScreenContent: (ad, err) async {
       ad.dispose();
       _createRewardedAd();
+      await _audio.resume();
     });
     await _rewardedAd?.show(onUserEarnedReward: (ad, reward) {});
     _rewardedAd = null;
@@ -93,11 +102,18 @@ class _EventPageState2 extends State<EventPage2> {
     _currentLixi = _initialIndex;
     _setUpChooseList();
     _createRewardedAd();
+    _audio.play(AssetSource('tet/new_year_audio.wav'));
+    _audio.onPlayerComplete.listen((event) async{
+      await _audio.stop();
+      _audio.play(AssetSource('tet/new_year_audio.wav'));
+    });
   }
 
   @override
   void dispose() {
     _rewardedAd?.dispose();
+    _audio.stop();
+    _audio.dispose();
     super.dispose();
   }
 
@@ -111,7 +127,7 @@ class _EventPageState2 extends State<EventPage2> {
       appBar: AppBar(
         leading: const SizedBox.shrink(),
         backgroundColor: Color(0xFFFF5449),
-        title: Text('Xuân An Vui', style: GoogleFonts.getFont('Rye')),
+        title: Text(S.of(context).happy_new_year, style: GoogleFonts.getFont('Rye')),
         centerTitle: true,
         actions: [
           IconButton(
@@ -240,10 +256,12 @@ class _EventPageState2 extends State<EventPage2> {
 
                   ),
                 ),
+                const SizedBox(height: 15),
                 InkWell(
                   borderRadius: BorderRadius.circular(15),
-                  onTap: () {
+                  onTap: () async {
                     if (_chooses.contains(_currentLixi)) return;
+                    await _audio.pause();
                     _showRewardAd(_currentLixi);
                   },
                   child: Container(
@@ -253,9 +271,12 @@ class _EventPageState2 extends State<EventPage2> {
                         image: DecorationImage(
                             image: AssetImage('assets/tet/tet_btn.png'))),
                     alignment: Alignment.center,
-                    child: Text('Mở lì xì',
-                        style: GoogleFonts.getFont('Bahianita',
-                            color: Colors.white, fontSize: 28)),
+                    child: FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Text(S.of(context).open_red_envelopes,
+                          style: GoogleFonts.getFont('Bahianita',
+                              color: Colors.white, fontSize: 28)),
+                    ),
                   ),
                 ),
 

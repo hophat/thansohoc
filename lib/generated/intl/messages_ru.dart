@@ -31,6 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Предлагаемая разработка"),
         "giai_thich": MessageLookupByLibrary.simpleMessage("Объясни"),
         "gioi_thieu": MessageLookupByLibrary.simpleMessage("Introl"),
+        "happy_new_year": MessageLookupByLibrary.simpleMessage("с новым годом"),
         "hay_chon_ngay_sinh_cua_ban": MessageLookupByLibrary.simpleMessage(
             "Пожалуйста, выберите дату вашего рождения"),
         "home": MessageLookupByLibrary.simpleMessage("Дом"),
@@ -45,6 +46,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Подходящее занятие"),
         "ngon_ngu": MessageLookupByLibrary.simpleMessage("Язык"),
         "noi_bat": MessageLookupByLibrary.simpleMessage("Рекомендуемое"),
+        "open_red_envelopes":
+            MessageLookupByLibrary.simpleMessage("Откройте красный конверт"),
         "phat_trien_theo_so": MessageLookupByLibrary.simpleMessage("прирост"),
         "so": MessageLookupByLibrary.simpleMessage("Число"),
         "than_so_hoc_la_gi":
