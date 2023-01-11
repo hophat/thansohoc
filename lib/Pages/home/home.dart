@@ -79,6 +79,7 @@ class _MyHomePageState extends State<HomePage> {
 
   @override
   void dispose() {
+    _interstitialAd?.dispose();
     super.dispose();
   }
 

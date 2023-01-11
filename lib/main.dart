@@ -143,7 +143,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   BannerAd? _banner;
 
-  _createBannerAd() {
+  _createBannerAd() async {
     _banner = BannerAd(
       size: AdSize.banner,
       adUnitId: AdMobService.instance.bannerAdUnitId,
@@ -151,7 +151,10 @@ class _MainPageState extends State<MainPage> {
       listener: AdMobService.instance.bannerAdListener,
       request: AdRequest(),
     );
-    _banner?.load();
+    await _banner?.load();
+    setState(() {
+
+    });
   }
 
   _showEvent() {
@@ -159,7 +162,7 @@ class _MainPageState extends State<MainPage> {
       context: context,
       animationType: DialogTransitionType.slideFromBottomFade,
       curve: Curves.fastOutSlowIn,
-      duration: Duration(milliseconds: 500),
+      duration: Duration(milliseconds: 1000),
       builder: (_) => EventPage2(),
     );
   }
@@ -177,6 +180,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void dispose() {
     langSteamController.close();
+    _banner?.dispose();
     super.dispose();
   }
 

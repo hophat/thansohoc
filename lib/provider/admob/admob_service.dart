@@ -14,7 +14,7 @@ class AdMobService {
   }
 
   String get bannerAdUnitId => Platform.isAndroid
-      ? 'ca-app-pub-5726417511192387/1590401387'
+      ? 'ca-app-pub-8539908368627646/4176119972'
       : 'ca-app-pub-5726417511192387/1590401387';
 
   String get InterstitialAdUnitId => 'ca-app-pub-5726417511192387/9970372711';

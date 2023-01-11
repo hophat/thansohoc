@@ -100,6 +100,12 @@ class _MyDetailPage extends State<DetailPage> {
   }
 
   @override
+  void dispose() {
+    _banner?.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     // TODO: implement initState
     _createBannerAd();
