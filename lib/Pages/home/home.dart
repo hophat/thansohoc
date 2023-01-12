@@ -219,7 +219,7 @@ class _MyHomePageState extends State<HomePage> {
               ),
             ),
             Positioned(
-              top: 15 * 2,
+              top: 15 * 2 + 10,
               right: 15,
               child: IconButton(
                   onPressed: () {

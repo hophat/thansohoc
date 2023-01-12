@@ -239,16 +239,33 @@ class _MyDetailPage extends State<DetailPage>
             labelColor: TSHColors().primaryColor,
             padding: EdgeInsets.zero,
             tabs: [
-              _decorationTab(Text(S.of(context).tong_quan,), 0),
+              _decorationTab(
+                  Text(
+                    S.of(context).tong_quan,
+                  ),
+                  0),
               _decorationTab(Text(S.of(context).moc_cuoc_doi), 1),
               _decorationTab(Text(S.of(context).bieu_do_ngay_sinh), 2),
             ],
           ),
-          title: Text(S.of(context).back,
-              style: TextStyle(color: TSHColors().primaryTextColor)),
-          leading: BackButton(
-            color: TSHColors().primaryTextColor,
+          title: Row(
+            children: [
+              InkWell(
+                onTap: () => Navigator.pop(context),
+                borderRadius: BorderRadius.circular(100),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0).copyWith(left: 0),
+                  child: Icon(Icons.arrow_back_outlined,
+                      color: TSHColors().primaryTextColor),
+                ),
+              ),
+              // const SizedBox(width: 15, height: 15),
+              Text(S.of(context).back,
+                  style: TextStyle(color: TSHColors().primaryTextColor)),
+            ],
           ),
+          leadingWidth: 0,
+          leading: const SizedBox.shrink(),
         ),
         body: TabBarView(
           controller: _tabController,
