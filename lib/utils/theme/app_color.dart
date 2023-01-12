@@ -26,6 +26,8 @@ class TSHColors {
 
   Color get lineCircleColor => Color(0xFFDE3532);
 
+  Color get eventTextColor => Color(0xFFFFF385);
+
   List<Color> get gradiantBtnColor => [
     Color(0xFFEDBE72),
     Color(0xFFFAE9B1),
