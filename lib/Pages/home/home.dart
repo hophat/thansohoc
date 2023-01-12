@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/detail.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/event/event_2.dart';
+import 'package:flutter_app_than_so_hoc_2/Pages/event/event_que.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/setting/setting.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
 import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
@@ -69,13 +70,13 @@ class _MyHomePageState extends State<HomePage> {
   }
 
   _showEvent() {
-    return;
+    // return;
     showAnimatedDialog(
       context: context,
       animationType: DialogTransitionType.slideFromBottomFade,
       curve: Curves.fastOutSlowIn,
       duration: Duration(milliseconds: 1000),
-      builder: (_) => EventPage2(),
+      builder: (_) => EventQue(),
     );
   }
 
@@ -210,8 +211,8 @@ class _MyHomePageState extends State<HomePage> {
                     ),
                     SizedBox(height: 20),
                     _buildDate(),
-                    if( false ) ...[SizedBox(height: 20),
-                    _buildLixiBtn(),],
+                    SizedBox(height: 20),
+                    _buildLixiBtn(),
                     SizedBox(height: 20),
                     _buildSubmit(),
                   ],

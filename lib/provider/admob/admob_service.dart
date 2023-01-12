@@ -14,14 +14,14 @@ class AdMobService {
     return _instance!;
   }
 
-  String get bannerAdUnitId => 'ca-app-pub-8539908368627646/4176119972';
-  // String get bannerAdUnitId => kDebugMode ? 'ca-app-pub-3940256099942544/6300978111' : 'ca-app-pub-8539908368627646/4176119972';
+  // String get bannerAdUnitId => 'ca-app-pub-8539908368627646/4176119972';
+  String get bannerAdUnitId => kDebugMode ? 'ca-app-pub-3940256099942544/6300978111' : 'ca-app-pub-8539908368627646/4176119972';
 
-  String get InterstitialAdUnitId => 'ca-app-pub-8539908368627646/9674777099';
-  // String get InterstitialAdUnitId => kDebugMode ? 'ca-app-pub-3940256099942544/1033173712' : 'ca-app-pub-8539908368627646/9674777099';
+  // String get InterstitialAdUnitId => 'ca-app-pub-8539908368627646/9674777099';
+  String get InterstitialAdUnitId => kDebugMode ? 'ca-app-pub-3940256099942544/1033173712' : 'ca-app-pub-8539908368627646/9674777099';
 
-  // String get rewardAdUnitId => kDebugMode ? 'ca-app-pub-3940256099942544/5224354917' : '';
-  String get rewardAdUnitId => '';
+  String get rewardAdUnitId => kDebugMode ? 'ca-app-pub-3940256099942544/5224354917' : '';
+  // String get rewardAdUnitId => '';
 
   BannerAdListener bannerAdListener = BannerAdListener(
     onAdLoaded: (ad) => debugPrint('Ad loaded.'),

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class EventQue extends StatefulWidget {
@@ -10,7 +12,8 @@ class EventQue extends StatefulWidget {
 class _EventQueState extends State<EventQue> with TickerProviderStateMixin {
 
   late final AnimationController _controller;
-  final Duration _duration = const Duration(milliseconds: 3000);
+  late final Animation<double> _rotateController;
+  final Duration _duration = const Duration(milliseconds: 1000);
   @override
   void initState() {
     _controller = AnimationController(
@@ -18,11 +21,38 @@ class _EventQueState extends State<EventQue> with TickerProviderStateMixin {
       duration: _duration,
     );
 
+    _rotateController = Tween(begin: -0.2, end: 0.2).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(
+          0.0,
+          1.0,
+          curve: Curves.linear,
+        ),
+      ),
+    );
+
+    _controller.forward();
+    _controller.repeat(reverse: true);
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(),
+      body: AnimatedBuilder(
+        animation: _controller,
+        builder: (_, c) {
+          return Center(
+            child: Transform.rotate(angle: pi * _rotateController.value,
+            alignment: Alignment.center,
+            child: Image.asset('assets/tet/ques.png'),
+            ),
+          );
+        },
+      ),
+    );
   }
 }
