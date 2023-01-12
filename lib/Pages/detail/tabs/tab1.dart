@@ -1,4 +1,6 @@
 import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
+import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
+import 'package:flutter_app_than_so_hoc_2/utils/theme/app_theme.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +16,7 @@ class tab1_Page extends StatefulWidget {
   final scdUuDiem;
 
   const tab1_Page(
-      {
-      this.scdNumber,
+      {this.scdNumber,
       this.scdDacDiemNoiBat,
       this.scdMucDich,
       this.scdKhuyetDiem,
@@ -37,198 +38,239 @@ class _My_tab1 extends State<tab1_Page> {
     super.initState();
   }
 
+  SizedBox get spacing => SizedBox(height: 15, width: 15);
+
+  Size get _size => MediaQuery.of(context).size;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        // color: Colors.amber
-        image: DecorationImage(
-          image: AssetImage("assets/bg01.jpg"),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: ListView(padding: EdgeInsets.all(30.0),
-          // child: Html(data: document.outerHtml),
-          children: <Widget>[
-            Center(
+      color: Colors.transparent,
+      child: SingleChildScrollView(
+        child: Column(
+            // child: Html(data: document.outerHtml),
+            children: <Widget>[
+              Container(
+                height: 200,
+                width: _size.width,
+                alignment: Alignment.center,
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Image.asset('assets/tet/main_number_bg.png',
+                        fit: BoxFit.fitHeight),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(S.of(context).con_so_chu_dao_cua_ban_la,
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: TSHColors().primaryTextColor)),
+                          ShaderMask(
+                            blendMode: BlendMode.srcIn,
+                            shaderCallback: (bounds) => RadialGradient(
+                              colors: TSHColors().gradiantTextColor,
+                              center: Alignment.center
+                            ).createShader(
+                              Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+                            ),
+                            child: Text(
+                              widget.scdNumber,
+                              style: TextStyle(
+                                  fontSize: 60, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          spacing,
+                          spacing,
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(30).copyWith(top: 0),
                 child: Column(
-              children: [
-                Text(S.of(context).con_so_chu_dao_cua_ban_la,
-                    style: TextStyle(fontSize: 20, color: Colors.white70)),
-                Text(widget.scdNumber,
-                    style: TextStyle(
-                        fontSize: 60,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white)),
-              ],
-            )),
-            SizedBox(width: 15, height: 40),
-            Card(
-              color: Color(0x000d2421),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  ListTile(
-                    title: Text(
-                      S.of(context).noi_bat,
-                      style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.yellow,
+                  children: [
+                    Container(
+                      decoration: TSHTheme().cardDecoration,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          ListTile(
+                            contentPadding: EdgeInsets.all(20),
+                            title: Text(
+                              S.of(context).noi_bat,
+                              style: TextStyle(
+                                fontSize: 22,
+                                color: TSHColors().titleCardColor,
+                              ),
+                            ),
+                            subtitle: Html(
+                              data: widget.scdDacDiemNoiBat.outerHtml,
+                              style: {
+                                // tables will have the below background color
+                                "body": Style(
+                                  color: TSHColors().bodyCardColor,
+                                ),
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    subtitle: Html(
-                      data: widget.scdDacDiemNoiBat.outerHtml,
-                      style: {
-                        // tables will have the below background color
-                        "body": Style(
-                          color: Colors.white,
-                        ),
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Card(
-              color: Color(0x000d2421),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  ListTile(
-                    // leading: Icon(Icons.check),
-                    title: Text(
-                      S.of(context).muc_dich_cuoc_song,
-                      style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.yellow,
+                    spacing,
+                    Container(
+                      decoration: TSHTheme().cardDecoration,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          ListTile(
+                            // leading: Icon(Icons.check),
+                            title: Text(
+                              S.of(context).muc_dich_cuoc_song,
+                              style: TextStyle(
+                                fontSize: 22,
+                                color: TSHColors().titleCardColor,
+                              ),
+                            ),
+                            subtitle: Html(
+                              data: widget.scdMucDich.outerHtml,
+                              style: {
+                                // tables will have the below background color
+                                "body": Style(
+                                  color: TSHColors().bodyCardColor,
+                                ),
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    subtitle: Html(
-                      data: widget.scdMucDich.outerHtml,
-                      style: {
-                        // tables will have the below background color
-                        "body": Style(
-                          color: Colors.white,
-                        ),
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(width: 15, height: 30),
-            Card(
-              color: Color(0x000d2421),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  ListTile(
-                    // leading: Icon(Icons.check),
-                    title: Text(
-                      S.of(context).uu_diem,
-                      style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.yellow,
+                    spacing,
+                    Container(
+                      decoration: TSHTheme().cardDecoration,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          ListTile(
+                            // leading: Icon(Icons.check),
+                            title: Text(
+                              S.of(context).uu_diem,
+                              style: TextStyle(
+                                fontSize: 22,
+                                color: TSHColors().titleCardColor,
+                              ),
+                            ),
+                            subtitle: Html(
+                              data: widget.scdUuDiem.outerHtml,
+                              style: {
+                                // tables will have the below background color
+                                "body": Style(
+                                  color: TSHColors().bodyCardColor,
+                                ),
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    subtitle: Html(
-                      data: widget.scdUuDiem.outerHtml,
-                      style: {
-                        // tables will have the below background color
-                        "body": Style(
-                          color: Colors.white,
-                        ),
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Card(
-              color: Color(0x000d2421),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  ListTile(
-                    // leading: Icon(Icons.check),
-                    title: Text(
-                      S.of(context).khuyet_diem,
-                      style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.yellow,
+                    spacing,
+                    Container(
+                      decoration: TSHTheme().cardDecoration,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          ListTile(
+                            // leading: Icon(Icons.check),
+                            title: Text(
+                              S.of(context).khuyet_diem,
+                              style: TextStyle(
+                                fontSize: 22,
+                                color: TSHColors().titleCardColor,
+                              ),
+                            ),
+                            subtitle: Html(
+                              data: widget.scdKhuyetDiem.outerHtml,
+                              style: {
+                                // tables will have the below background color
+                                "body": Style(
+                                  color: TSHColors().bodyCardColor,
+                                ),
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    subtitle: Html(
-                      data: widget.scdKhuyetDiem.outerHtml,
-                      style: {
-                        // tables will have the below background color
-                        "body": Style(
-                          color: Colors.white,
-                        ),
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(width: 15, height: 30),
-            // de xuat phat trien
-            Card(
-              color: Color(0x000d2421),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  ListTile(
-                    // leading: Icon(Icons.check),
-                    title: Text(
-                      S.of(context).de_xuat,
-                      style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.yellow,
+                    spacing,
+                    // de xuat phat trien
+                    Container(
+                      decoration: TSHTheme().cardDecoration,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          ListTile(
+                            // leading: Icon(Icons.check),
+                            title: Text(
+                              S.of(context).de_xuat,
+                              style: TextStyle(
+                                fontSize: 22,
+                                color: TSHColors().titleCardColor,
+                              ),
+                            ),
+                            subtitle: Html(
+                              data: widget.scdDeXuatPhatTrien.outerHtml,
+                              style: {
+                                // tables will have the below background color
+                                "body": Style(
+                                  color: TSHColors().bodyCardColor,
+                                ),
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    subtitle: Html(
-                      data: widget.scdDeXuatPhatTrien.outerHtml,
-                      style: {
-                        // tables will have the below background color
-                        "body": Style(
-                          color: Colors.white,
-                        ),
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            // Nghe nghiẹp
-            Card(
-              color: Color(0x000d2421),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  ListTile(
-                    // leading: Icon(Icons.check),
-                    title: Text(
-                      S.of(context).nghe_nghiep_phu_hop,
-                      style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.yellow,
+                    spacing,
+                    // Nghe nghiẹp
+                    Container(
+                      decoration: TSHTheme().cardDecoration,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          ListTile(
+                            // leading: Icon(Icons.check),
+                            title: Text(
+                              S.of(context).nghe_nghiep_phu_hop,
+                              style: TextStyle(
+                                fontSize: 22,
+                                color: TSHColors().titleCardColor,
+                              ),
+                            ),
+                            subtitle: Html(
+                              data: widget.scdNgheNghiep.outerHtml,
+                              style: {
+                                // tables will have the below background color
+                                "body": Style(
+                                  color: TSHColors().titleCardColor,
+                                ),
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    subtitle: Html(
-                      data: widget.scdNgheNghiep.outerHtml,
-                      style: {
-                        // tables will have the below background color
-                        "body": Style(
-                          color: Colors.white,
-                        ),
-                      },
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ]),
+              spacing,
+              spacing,
+              spacing
+            ]),
+      ),
     );
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
+import 'package:flutter_app_than_so_hoc_2/utils/theme/app_theme.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
 import 'package:html/parser.dart';
@@ -13,36 +15,35 @@ class card_tab_3 extends StatelessWidget {
   const card_tab_3({this.so_key, this.content});
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    Widget spacing = SizedBox(height: 15, width: 15);
 
     // print(data_4);
-    return Card(
-      color: Color(0x000d2421),
+    return Container(
+      decoration: TSHTheme().cardDecoration,
+      padding: EdgeInsets.all(24),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          ListTile(
-            title: Text(
-              so_key,
-              style: TextStyle(fontSize: 26, color: Colors.white),
-            ),
+          Text(
+            so_key,
+            style: TextStyle(fontSize: 26, color: TSHColors().titleCardColor),
           ),
-          ListTile(
-            title: Text(
-              S.of(context).giai_thich,
-              style: TextStyle(fontSize: 22, color: Colors.yellow),
-            ),
-            subtitle: Html(
-              style: {
-                // tables will have the below background color
-                "body": Style(
-                  color: Colors.white,
-                ),
-              },
-              data: parse(content).outerHtml,
-            ),
+          spacing,
+          Text(
+            S.of(context).giai_thich,
+            style: TextStyle(fontSize: 22, color: TSHColors().titleCardColor3),
           ),
-          SizedBox(width: 100, height: 20)
+          Html(
+            style: {
+              // tables will have the below background color
+              "body": Style(
+                color: TSHColors().bodyCardColor,
+              ),
+            },
+            data: parse(content).outerHtml,
+          ),
+          spacing,
         ],
       ),
     );

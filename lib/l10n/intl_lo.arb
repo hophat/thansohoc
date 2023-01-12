@@ -27,5 +27,6 @@
   "thiet_lap_ngay_sinh" : "set date of birth",
   "tu_vi_hom_nay": "Horoscope today",
   "happy_new_year" : "ສະ\u200Bບາຍ\u200Bດີ\u200Bປີ\u200Bໃຫມ່",
-  "open_red_envelopes" : "ເປີດຊອງຈົດໝາຍສີແດງ"
+  "open_red_envelopes" : "ເປີດຊອງຈົດໝາຍສີແດງ",
+  "back" : "ກັບຄືນ"
 }

@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "back": MessageLookupByLibrary.simpleMessage("पीछे"),
         "bieu_do_ngay_sinh":
             MessageLookupByLibrary.simpleMessage("जन्म तिथि चार्ट"),
         "chon_ngon_ngu": MessageLookupByLibrary.simpleMessage("भाषा चुनें"),

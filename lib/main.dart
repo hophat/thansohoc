@@ -132,7 +132,7 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     _createBannerAd();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      // Future.delayed(const Duration(seconds: 2)).then((value) => _showEvent());
+      Future.delayed(const Duration(seconds: 2)).then((value) => _showEvent());
     });
   }
 

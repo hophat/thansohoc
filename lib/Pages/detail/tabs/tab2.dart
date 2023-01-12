@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_than_so_hoc_2/components/box_card.dart';
+import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
 
 // ignore: must_be_immutable
 class diengiai_tab2_Page extends StatefulWidget {
@@ -33,6 +34,9 @@ class diengiai_tab2_Page extends StatefulWidget {
 
 // ignore: camel_case_types
 class _My_tab2 extends State<diengiai_tab2_Page> {
+
+  SizedBox get spacing => SizedBox(height: 15, width: 15);
+
   @override
   void initState() {
     // TODO: implement initState
@@ -42,74 +46,76 @@ class _My_tab2 extends State<diengiai_tab2_Page> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/bg01.jpg"),
-          fit: BoxFit.cover,
-        ),
-      ),
+      color: Colors.transparent,
       child: ListView(
         padding: EdgeInsets.all(20.0),
         // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 20,
-            width: 100,
+          spacing,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              children: [
+                _buildCircle(widget.tuoi_1.toString()),
+                Expanded(child: Container(color: TSHColors().lineCircleColor, height: 4)),
+                _buildCircle(widget.tuoi_2.toString()),
+                Expanded(child: Container(color: TSHColors().lineCircleColor, height: 4)),
+                _buildCircle(widget.tuoi_3.toString()),
+                Expanded(child: Container(color: TSHColors().lineCircleColor, height: 4)),
+                _buildCircle(widget.tuoi_4.toString()),
+              ],
+            ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                widget.tuoi_1.toString(),
-                style: TextStyle(fontSize: 20, color: Colors.white70),
-              ),
-              Text(
-                widget.tuoi_2.toString(),
-                style: TextStyle(fontSize: 20, color: Colors.white70),
-              ),
-              Text(
-                widget.tuoi_3.toString(),
-                style: TextStyle(fontSize: 20, color: Colors.white70),
-              ),
-              Text(
-                widget.tuoi_4.toString(),
-                style: TextStyle(fontSize: 20, color: Colors.white70),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 20,
-            width: 100,
-          ),
+          spacing,
           widget.data1 == null
               ? Text('loadding')
               : box_card(
               data_box: widget.data1, dinh: widget.tuoi_1.toString()),
-          SizedBox(
-            height: 20,
-            width: 100,
-          ),
+          spacing,
           widget.data2 == null
               ? Text('loadding')
               : box_card(
               data_box: widget.data2, dinh: widget.tuoi_2.toString()),
-          SizedBox(
-            height: 20,
-            width: 100,
-          ),
+          spacing,
           widget.data3 == null
               ? Text('loadding')
               : box_card(
               data_box: widget.data3, dinh: widget.tuoi_3.toString()),
-          SizedBox(
-            height: 20,
-            width: 100,
-          ),
+          spacing,
           widget.data4 == null
               ? Text('loadding')
               : box_card(
               data_box: widget.data4, dinh: widget.tuoi_4.toString()),
+          spacing, spacing, spacing
         ],
+      ),
+    );
+  }
+
+  _buildCircle(String title) {
+    return Container(
+      padding: EdgeInsets.all(15),
+      decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+                offset: Offset(1,3),
+                blurRadius: 12,
+                color: Color.fromARGB(0, 0, 0, 25)
+            )
+          ],
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: TSHColors().borderCircleColor,
+          ),
+          gradient: LinearGradient(
+            colors: TSHColors().gradiantCircleColor,
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          )
+      ),
+      child: Text(
+        title,
+        style: TextStyle(fontSize: 24, color: TSHColors().primaryTextColor, fontWeight: FontWeight.w500),
       ),
     );
   }

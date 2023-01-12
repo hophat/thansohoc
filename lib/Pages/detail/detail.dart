@@ -6,6 +6,7 @@ import 'package:flutter_app_than_so_hoc_2/Pages/detail/tabs/tab2.dart';
 import 'package:flutter_app_than_so_hoc_2/network/tsh_client.dart';
 import 'package:flutter_app_than_so_hoc_2/network/tsh_client2.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/admob/admob_service.dart';
+import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -59,7 +60,8 @@ get4(dinh_cao, lang) async {
   return Res(true, "ok", dataDecode);
 }
 
-class _MyDetailPage extends State<DetailPage> {
+class _MyDetailPage extends State<DetailPage>
+    with SingleTickerProviderStateMixin {
   String lang = Intl.getCurrentLocale().toString();
 
   dynamic thang;
@@ -76,6 +78,11 @@ class _MyDetailPage extends State<DetailPage> {
   dynamic dinh_2, tuoi_2;
   dynamic dinh_3, tuoi_3;
   dynamic dinh_4, tuoi_4;
+
+  Size get _size => MediaQuery.of(context).size;
+  final ValueNotifier<int> _tabNotifier = ValueNotifier<int>(0);
+  late final TabController _tabController;
+
   loaded(ngay_, thang_, nam_) async {
     var ngay_temp = await tinh_dinh_cao_1(ngay_);
     var thang_temp = await tinh_dinh_cao_1(thang_);
@@ -102,12 +109,25 @@ class _MyDetailPage extends State<DetailPage> {
   @override
   void dispose() {
     _banner?.dispose();
+    _tabNotifier.dispose();
+    _tabNotifier.removeListener(_tabListener);
+    _tabController.dispose();
     super.dispose();
+  }
+
+  _tabListener() {
+    _tabNotifier.value = _tabController.index;
   }
 
   @override
   void initState() {
     // TODO: implement initState
+    _tabController = TabController(
+        length: 3,
+        vsync: this,
+        initialIndex: 0,
+        animationDuration: const Duration(milliseconds: 300));
+    _tabController.addListener(_tabListener);
     _createBannerAd();
     super.initState();
 
@@ -191,22 +211,47 @@ class _MyDetailPage extends State<DetailPage> {
     Widget tab3 =
         diengiai_tab3_Page(data_3: data_tab3, MyDate: ngay + thang + nam);
 
-    return DefaultTabController(
-      length: 3,
+    return Container(
+      width: _size.width,
+      height: _size.height,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/tet/bg.png'), fit: BoxFit.cover)),
       child: Scaffold(
-        backgroundColor: Colors.grey[100],
+        extendBody: true,
+        backgroundColor: Colors.transparent,
         appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
           bottom: TabBar(
+            splashBorderRadius: BorderRadius.circular(30),
+            labelPadding: EdgeInsets.symmetric(vertical: 2),
+            controller: _tabController,
+            onTap: (index) {
+              if (index == _tabNotifier.value) return;
+              _tabNotifier.value = index;
+            },
+            indicator: BoxDecoration(),
+            isScrollable: true,
+            unselectedLabelStyle:
+                TextStyle(color: TSHColors().primaryTextColor),
+            unselectedLabelColor: TSHColors().primaryTextColor,
+            labelColor: TSHColors().primaryColor,
+            padding: EdgeInsets.zero,
             tabs: [
-              Tab(text: S.of(context).tong_quan),
-              Tab(text: S.of(context).moc_cuoc_doi),
-              Tab(text: S.of(context).bieu_do_ngay_sinh),
+              _decorationTab(Text(S.of(context).tong_quan,), 0),
+              _decorationTab(Text(S.of(context).moc_cuoc_doi), 1),
+              _decorationTab(Text(S.of(context).bieu_do_ngay_sinh), 2),
             ],
           ),
-          title: Text(S.of(context).so + ' $scdNumber'),
-          backgroundColor: Color(0xff000d24),
+          title: Text(S.of(context).back,
+              style: TextStyle(color: TSHColors().primaryTextColor)),
+          leading: BackButton(
+            color: TSHColors().primaryTextColor,
+          ),
         ),
         body: TabBarView(
+          controller: _tabController,
           children: [
             tab1,
             tab2,
@@ -223,6 +268,30 @@ class _MyDetailPage extends State<DetailPage> {
               ),
       ),
     );
+  }
+
+  Widget _decorationTab(Widget w, int index) {
+    return AnimatedBuilder(
+        animation: _tabNotifier,
+        builder: (_, c) {
+          bool enable = _tabNotifier.value == index;
+          return Container(
+            margin: EdgeInsets.symmetric(horizontal: 5).copyWith(
+              left: index == 0 ? 20 : null,
+              right: index == _tabController.length - 1 ? 20 : null,
+            ),
+            decoration: BoxDecoration(
+              color: enable ? TSHColors().primaryTextColor : Colors.transparent,
+              border: Border.all(
+                color: TSHColors().primaryTextColor,
+                width: 1.0,
+              ),
+              borderRadius: BorderRadius.circular(100),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            child: w,
+          );
+        });
   }
 }
 
