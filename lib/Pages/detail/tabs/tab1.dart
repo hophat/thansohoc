@@ -129,6 +129,7 @@ class _My_tab1 extends State<tab1_Page> {
                         children: <Widget>[
                           ListTile(
                             // leading: Icon(Icons.check),
+                            contentPadding: EdgeInsets.all(20),
                             title: Text(
                               S.of(context).muc_dich_cuoc_song,
                               style: TextStyle(
@@ -157,6 +158,7 @@ class _My_tab1 extends State<tab1_Page> {
                         children: <Widget>[
                           ListTile(
                             // leading: Icon(Icons.check),
+                            contentPadding: EdgeInsets.all(20),
                             title: Text(
                               S.of(context).uu_diem,
                               style: TextStyle(
@@ -185,6 +187,7 @@ class _My_tab1 extends State<tab1_Page> {
                         children: <Widget>[
                           ListTile(
                             // leading: Icon(Icons.check),
+                            contentPadding: EdgeInsets.all(20),
                             title: Text(
                               S.of(context).khuyet_diem,
                               style: TextStyle(
@@ -213,6 +216,7 @@ class _My_tab1 extends State<tab1_Page> {
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           ListTile(
+                            contentPadding: EdgeInsets.all(20),
                             // leading: Icon(Icons.check),
                             title: Text(
                               S.of(context).de_xuat,
@@ -242,6 +246,7 @@ class _My_tab1 extends State<tab1_Page> {
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           ListTile(
+                            contentPadding: EdgeInsets.all(20),
                             // leading: Icon(Icons.check),
                             title: Text(
                               S.of(context).nghe_nghiep_phu_hop,
