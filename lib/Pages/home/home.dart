@@ -69,6 +69,7 @@ class _MyHomePageState extends State<HomePage> {
   }
 
   _showEvent() {
+    return;
     showAnimatedDialog(
       context: context,
       animationType: DialogTransitionType.slideFromBottomFade,
@@ -209,8 +210,8 @@ class _MyHomePageState extends State<HomePage> {
                     ),
                     SizedBox(height: 20),
                     _buildDate(),
-                    SizedBox(height: 20),
-                    _buildLixiBtn(),
+                    if( false ) ...[SizedBox(height: 20),
+                    _buildLixiBtn(),],
                     SizedBox(height: 20),
                     _buildSubmit(),
                   ],

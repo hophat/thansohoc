@@ -117,6 +117,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   _showEvent() {
+    return;
     showAnimatedDialog(
       context: context,
       animationType: DialogTransitionType.slideFromBottomFade,
