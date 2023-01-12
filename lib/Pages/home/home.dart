@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/detail.dart';
+import 'package:flutter_app_than_so_hoc_2/Pages/event/event_2.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/setting/setting.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
 import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
 import 'package:flutter_app_than_so_hoc_2/network/tsh_client.dart';
+import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
 
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -50,22 +53,41 @@ class _MyHomePageState extends State<HomePage> {
 
   InterstitialAd? _interstitialAd;
 
+  Size get _size => MediaQuery.of(context).size;
+
+  LocaleType get locate {
+    LocaleType _l = LocaleType.en;
+    if (Intl.getCurrentLocale().toString() != "en") {
+      LocaleType.values.forEach((LocaleType_) {
+        if (LocaleType_.toString().split('.').elementAt(1) ==
+            Intl.getCurrentLocale().toString()) {
+          _l = LocaleType_;
+        }
+      });
+    }
+    return _l;
+  }
+
+  _showEvent() {
+    showAnimatedDialog(
+      context: context,
+      animationType: DialogTransitionType.slideFromBottomFade,
+      curve: Curves.fastOutSlowIn,
+      duration: Duration(milliseconds: 1000),
+      builder: (_) => EventPage2(),
+    );
+  }
+
   _createInterstitialAd() {
     InterstitialAd.load(
         // adUnitId: 'ca-app-pub-3940256099942544/1033173712',//test
         adUnitId: AdMobService.instance.InterstitialAdUnitId,
         request: AdRequest(),
-        adLoadCallback: InterstitialAdLoadCallback(
-            onAdLoaded: (ad) {
-              print('_createInterstitialAd');
-              _interstitialAd = ad;
-            },
-            onAdFailedToLoad: (err) {
-              _interstitialAd = null;
-              print('_createInterstitialAd false');
-            }
-        )
-    );
+        adLoadCallback: InterstitialAdLoadCallback(onAdLoaded: (ad) {
+          _interstitialAd = ad;
+        }, onAdFailedToLoad: (err) {
+          _interstitialAd = null;
+        }));
   }
 
   @override
@@ -105,21 +127,18 @@ class _MyHomePageState extends State<HomePage> {
   }
 
   void _submit() async {
-
-    if(_interstitialAd != null){
-      _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
-        onAdDismissedFullScreenContent: (ad) {
-          ad.dispose();
-          _createInterstitialAd();
-        },
-        onAdFailedToShowFullScreenContent: (ad, err) {
-          ad.dispose();
-          _createInterstitialAd();
-        }
-      );
+    if (_interstitialAd != null) {
+      _interstitialAd!.fullScreenContentCallback =
+          FullScreenContentCallback(onAdDismissedFullScreenContent: (ad) {
+        ad.dispose();
+        _createInterstitialAd();
+      }, onAdFailedToShowFullScreenContent: (ad, err) {
+        ad.dispose();
+        _createInterstitialAd();
+      });
       _interstitialAd!.show();
       _interstitialAd = null;
-    }else{
+    } else {
       _createInterstitialAd();
     }
     await _interstitialAd?.show();
@@ -132,13 +151,10 @@ class _MyHomePageState extends State<HomePage> {
     await prefs.setString('birh_date_store', dateCur.toString());
     String path = 'collections/get/tsh_sochudao';
     var bodyHttp = jsonEncode({
-      "filter": {
-        "scd_number": dateValue.toString(),
-        "lang": lang
-      }
+      "filter": {"scd_number": dateValue.toString(), "lang": lang}
     });
 
-    TSHClient.instance.dio.post<String>(path, data: bodyHttp).then((response){
+    TSHClient.instance.dio.post<String>(path, data: bodyHttp).then((response) {
       var dataDecode = jsonDecode(response.data ?? '');
 
       final res = Res(true, "22", dataDecode);
@@ -149,7 +165,6 @@ class _MyHomePageState extends State<HomePage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-
           builder: (context) => DetailPage(res: res),
         ),
       );
@@ -158,16 +173,6 @@ class _MyHomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var locate = LocaleType.en;
-
-    if (Intl.getCurrentLocale().toString() != "en") {
-      LocaleType.values.forEach((LocaleType_) {
-        if (LocaleType_?.toString()?.split('.')?.elementAt(1) ==
-            Intl.getCurrentLocale().toString()) {
-          locate = LocaleType_;
-        }
-      });
-    }
     return Material(
       shape: BeveledRectangleBorder(
         borderRadius: BorderRadius.only(topLeft: Radius.circular(46.0)),
@@ -175,108 +180,119 @@ class _MyHomePageState extends State<HomePage> {
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/bg01.jpg"),
+            image: AssetImage("assets/tet/bg.png"),
             fit: BoxFit.cover,
           ),
         ),
         child: Stack(
           children: [
             Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  // ignore: deprecated_member_use
-                  Image(
-                    image: AssetImage('assets/EYEb.png'),
-                    height: 220,
-                  ),
-                  SizedBox(height: 30),
-                  Text(
-                    S.of(context).hay_chon_ngay_sinh_cua_ban,
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white70,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    // ignore: deprecated_member_use
+                    Image(
+                      image: AssetImage('assets/tet/logo_home.png'),
+                      height: 220,
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    // height: 70.0,
-                    // minWidth: 250,
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                          Color(0x00000000),
-                        ),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(13.0),
-                                side: BorderSide(color: Colors.white, width: 3))
-                        ),
+                    SizedBox(height: 30),
+                    Text(
+                      S.of(context).hay_chon_ngay_sinh_cua_ban,
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: TSHColors().primaryTextColor,
+                        fontWeight: FontWeight.bold
                       ),
-                      onPressed: () {
-                        DatePicker.showDatePicker(context,
-                            minTime: DateTime(1930, 1, 1),
-                            showTitleActions: true,
-                            onChanged: (date) {}, onConfirm: (date) {
-                              this._changeDate(date);
-                            }, currentTime: dateCur, locale: locate);
-                      },
-                      child: RichText(
-                        text: TextSpan(
-                          children: [
-                            WidgetSpan(
-                              child: Icon(Icons.date_range_outlined,
-                                  size: 30, color: Colors.white),
-                            ),
-                            TextSpan(
-                              text: '$name',
-                              style: TextStyle(color: Colors.white, fontSize: 28),
-                            ),
-                          ],
-                        ),
-                      )),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    // height: 60.0,
-                    // minWidth: 200,
-                    style: ButtonStyle(
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                              side: BorderSide(color: Colors.black12)),
-                        ),
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                          Color(0xffcdae59),
-                        ),
-                        padding: MaterialStateProperty.all<EdgeInsets>(
-                          EdgeInsets.fromLTRB(30, 14, 30, 15),
-                        )
                     ),
-                    onPressed: () {
-                      this._submit();
-                    },
-                    child: Text(
-                      S.of(context).xem,
-                      style: TextStyle(color: Colors.black, fontSize: 22),
-                    ),
-                  ),
-                ],
+                    SizedBox(height: 20),
+                    _buildDate(),
+                    SizedBox(height: 20),
+                    _buildLixiBtn(),
+                    SizedBox(height: 20),
+                    _buildSubmit(),
+                  ],
+                ),
               ),
             ),
-
             Positioned(
-              top: 15 *2,
+              top: 15 * 2,
               right: 15,
-             child: IconButton(
-                 onPressed: () {
-                   showModalBottomSheet(
-                       context: context, builder: (_) => settingPage());
-                 },
-                 icon: Icon(Icons.language, color: Colors.white,)),
+              child: IconButton(
+                  onPressed: () {
+                    showModalBottomSheet(
+                        backgroundColor: Colors.transparent,
+                        context: context, builder: (_) => settingPage());
+                  },
+                  icon: Image.asset('assets/tet/ic_language.png')),
             )
           ],
         ),
       ),
     );
   }
+
+  _buildLixiBtn() => IconButton(
+    onPressed: () => _showEvent(),
+    iconSize: 72,
+    icon: Image.asset('assets/tet/ic_lixi.png'),
+  );
+
+  _buildDate() => InkWell(
+        onTap: () => DatePicker.showDatePicker(context,
+            minTime: DateTime(1900, 1, 1),
+            showTitleActions: true,
+            onChanged: (date) {}, onConfirm: (date) {
+          this._changeDate(date);
+        }, currentTime: dateCur, locale: locate),
+        child: Container(
+          alignment: Alignment.center,
+          constraints:
+              BoxConstraints(minWidth: 150, maxWidth: _size.width / 1.5),
+          decoration: BoxDecoration(
+              color: Colors.black26,
+              borderRadius: BorderRadius.circular(16.0),
+              border: Border.all(
+                color: TSHColors().primaryColor,
+                width: 2.0,
+              )),
+          padding: EdgeInsets.symmetric(
+            vertical: 16,
+          ),
+          child: Text(
+            '$name',
+            style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
+          ),
+        ),
+      );
+
+  _buildSubmit() => InkWell(
+        onTap: () => _submit(),
+        borderRadius: BorderRadius.circular(12.0),
+        child: Container(
+          alignment: Alignment.center,
+          constraints:
+              BoxConstraints(minWidth: 150, maxWidth: _size.width / 2.5),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(colors: TSHColors().gradiantBtnColor),
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          padding: EdgeInsets.symmetric(
+            horizontal: 40,
+            vertical: 12,
+          ),
+          child: FittedBox(
+            fit: BoxFit.fitWidth,
+            child: Text(
+              S.of(context).xem,
+              style: TextStyle(
+                  color: TSHColors().primaryColor,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
+      );
 }

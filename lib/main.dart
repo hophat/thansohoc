@@ -51,11 +51,6 @@ class _MyAppState extends State<MyApp> {
 
   String menu_3 = '';
 
-  InterstitialAd? _interstitialAd;
-
-  int _currentIndex = 0;
-  // final List<Widget> _pages = [HomePage(), HangNgayPage(), settingPage()];
-  final List<Widget> _pages = [HomePage(), settingPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -85,42 +80,6 @@ class _MyAppState extends State<MyApp> {
       initialRoute: '/',
       builder: EasyLoading.init(),
       home: MainPage(),
-      // home: BackdropScaffold(
-      //   backLayerBackgroundColor: Color(0xffc9a70e),
-      //   frontLayerBorderRadius: const BorderRadius.only(
-      //       topLeft: Radius.circular(50), topRight: Radius.circular(50)),
-      //   appBar: BackdropAppBar(
-      //     title: Text(title_app_2),
-      //     backgroundColor: Color(0xffc9a70e),
-      //     // backgroundColor: Color(0xff000d24),
-      //     actions: <Widget>[
-      //       BackdropToggleButton(
-      //         icon: AnimatedIcons.list_view,
-      //         color: Colors.white,
-      //       )
-      //     ],
-      //     excludeHeaderSemantics: true,
-      //   ),
-      //   stickyFrontLayer: true,
-      //   frontLayer: _pages[_currentIndex],
-      //   backLayer: BackdropNavigationBackLayer(
-      //     items: [
-      //       ListTile(
-      //           title: Text(menu_1, style: TextStyle(color: Colors.white))),
-      //       // ListTile(
-      //       //     title: Text(
-      //       //   menu_2,
-      //       //   style: TextStyle(color: Colors.white),
-      //       // )),
-      //       ListTile(
-      //           title: Text(
-      //         menu_3,
-      //         style: TextStyle(color: Colors.white),
-      //       )),
-      //     ],
-      //     onTap: (int position) => {setState(() => _currentIndex = position)},
-      //   ),
-      // ),
     );
   }
 
@@ -173,7 +132,7 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     _createBannerAd();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Future.delayed(const Duration(seconds: 2)).then((value) => _showEvent());
+      // Future.delayed(const Duration(seconds: 2)).then((value) => _showEvent());
     });
   }
 
@@ -187,13 +146,6 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Color(0xffc9a70e),
-      //   elevation: 0,
-      //   actions: [
-      //
-      //   ],
-      // ),
       body: StreamBuilder<String>(
         stream: langSteamController.stream,
         initialData: langCur,
@@ -201,18 +153,18 @@ class _MainPageState extends State<MainPage> {
           return HomePage();
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        heroTag: 'lixi',
-        backgroundColor: Colors.white24,
-        onPressed: () {
-          _showEvent();
-        },
-        child: Image.asset(
-          'assets/tet/lixi_icon.png',
-          width: 30,
-          height: 30,
-        ),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   heroTag: 'lixi',
+      //   backgroundColor: Colors.white24,
+      //   onPressed: () {
+      //     _showEvent();
+      //   },
+      //   child: Image.asset(
+      //     'assets/tet/ic_lixi.png',
+      //     width: 30,
+      //     height: 30,
+      //   ),
+      // ),
       bottomNavigationBar: _banner == null
           ? SizedBox.shrink()
           : Container(
