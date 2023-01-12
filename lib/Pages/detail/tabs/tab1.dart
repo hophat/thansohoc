@@ -50,15 +50,16 @@ class _My_tab1 extends State<tab1_Page> {
         child: Column(
             // child: Html(data: document.outerHtml),
             children: <Widget>[
+              const SizedBox(height: 5),
               Container(
-                height: 200,
-                width: _size.width,
+                height: 180,
+                // width: _size.width - 50,
                 alignment: Alignment.center,
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
                     Image.asset('assets/tet/main_number_bg.png',
-                        fit: BoxFit.fitHeight),
+                        fit: BoxFit.scaleDown),
                     Align(
                       alignment: Alignment.center,
                       child: Column(
@@ -66,7 +67,7 @@ class _My_tab1 extends State<tab1_Page> {
                         children: [
                           Text(S.of(context).con_so_chu_dao_cua_ban_la,
                               style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 14,
                                   color: TSHColors().primaryTextColor)),
                           ShaderMask(
                             blendMode: BlendMode.srcIn,
@@ -79,11 +80,11 @@ class _My_tab1 extends State<tab1_Page> {
                             child: Text(
                               widget.scdNumber,
                               style: TextStyle(
-                                  fontSize: 60, fontWeight: FontWeight.bold),
+                                  fontSize: 72, fontWeight: FontWeight.bold),
                             ),
                           ),
-                          spacing,
-                          spacing,
+                          // spacing,
+                          // spacing,
                         ],
                       ),
                     )
