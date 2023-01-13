@@ -26,14 +26,14 @@ class _EventShakeQueState extends State<EventShakeQue>
   late final Animation<double> _rotateController1;
   late final Animation<double> _rotateController2;
   late final Animation<double> _rotateController3;
-  final Duration _duration = const Duration(milliseconds: 200);
-  final Duration _duration1 = const Duration(milliseconds: 200 + 25);
-  final Duration _duration2 = const Duration(milliseconds: 200 + 25 + 15);
-  final Duration _duration3 = const Duration(milliseconds: 200 + 25 + 15 + 10);
+  final Duration _duration = const Duration(milliseconds: 400);
+  final Duration _duration1 = const Duration(milliseconds: 400 + 45);
+  final Duration _duration2 = const Duration(milliseconds: 400 + 45 + 25);
+  final Duration _duration3 = const Duration(milliseconds: 400 + 45 + 25 + 10);
 
   Timer? _debounce;
 
-  final int _limitReward = 10;
+  final int _limitReward = 3;
 
   Size get _size => MediaQuery.of(context).size;
 
@@ -86,7 +86,7 @@ class _EventShakeQueState extends State<EventShakeQue>
       CurvedAnimation(
         parent: _controller1,
         curve: const Interval(
-          0.0,
+          0.1,
           1.0,
           curve: Curves.easeInOutBack,
         ),
@@ -97,7 +97,7 @@ class _EventShakeQueState extends State<EventShakeQue>
       CurvedAnimation(
         parent: _controller2,
         curve: const Interval(
-          0.0,
+          0.2,
           1.0,
           curve: Curves.easeInOutBack,
         ),
@@ -108,7 +108,7 @@ class _EventShakeQueState extends State<EventShakeQue>
       CurvedAnimation(
         parent: _controller2,
         curve: const Interval(
-          0.0,
+          0.25,
           1.0,
           curve: Curves.easeInOutBack,
         ),
@@ -137,7 +137,7 @@ class _EventShakeQueState extends State<EventShakeQue>
 
   _getCount() {
     if (_debounce?.isActive ?? false) _debounce?.cancel();
-    _debounce = Timer(const Duration(milliseconds: 300), () {
+    _debounce = Timer(const Duration(milliseconds: 1000), () {
       print(count);
       // Navigator.pop(context);
       setState(() {
@@ -157,7 +157,8 @@ class _EventShakeQueState extends State<EventShakeQue>
 
   Future<Map<String, dynamic>> parseJsonFromAssets(String assetsPath) async {
     print('--- Parse json from: $assetsPath');
-    return rootBundle.loadString(assetsPath)
+    return rootBundle
+        .loadString(assetsPath)
         .then((jsonStr) => jsonDecode(jsonStr));
   }
 
@@ -177,27 +178,28 @@ class _EventShakeQueState extends State<EventShakeQue>
       return _buildShakeQue();
     }
 
-
     if (choose == -1) {
       return EventQueSuccess(
         one: () async {
-            choose = 1;
-            Map<String, dynamic> map = await parseJsonFromAssets('assets/chuc_tet/cauchuc${Random().nextInt(26) + 1}.json');
+          choose = 1;
+          Map<String, dynamic> map = await parseJsonFromAssets(
+              'assets/chuc_tet/cauchuc${Random().nextInt(26) + 1}.json');
 
-            print(map);
-            content = map['title'];
-            content += '\n\n';
-            content += map['mean'];
-            setState(() {});
+          print(map);
+          content = map['title'];
+          content += '\n\n';
+          content += map['mean'] ?? '';
+          setState(() {});
         },
         two: () async {
-            choose = 2;
-            Map<String, dynamic> map = await parseJsonFromAssets('assets/chuc_tet/cauchuc${Random().nextInt(26) + 1}.json');
-            print(map);
-            content = map['title'];
-            content += '\n\n';
-            content += map['mean'];
-            setState(() {});
+          choose = 2;
+          Map<String, dynamic> map = await parseJsonFromAssets(
+              'assets/chuc_tet/cauchuc${Random().nextInt(26) + 1}.json');
+          print(map);
+          content = map['title'];
+          content += '\n\n';
+          content += map['mean'] ?? '';
+          setState(() {});
         },
       );
     }
@@ -210,11 +212,12 @@ class _EventShakeQueState extends State<EventShakeQue>
       content: content,
       hasNext: _hasNext,
       onHasNext: (v) async {
-        Map<String, dynamic> map = await parseJsonFromAssets('assets/chuc_tet/cauchuc${Random().nextInt(26) + 1}.json');
+        Map<String, dynamic> map = await parseJsonFromAssets(
+            'assets/chuc_tet/cauchuc${Random().nextInt(26) + 1}.json');
         print(map);
         content = map['title'];
         content += '\n\n';
-        content += map['mean'];
+        content += map['mean'] ?? '';
         setState(
           () {
             choose = choose == 1 ? 2 : 1;
