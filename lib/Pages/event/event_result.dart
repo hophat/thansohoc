@@ -104,10 +104,10 @@ class _EventResultState extends State<EventResult> {
               child: Image.asset('assets/tet/cloud1.png')),
 
           Align(
-            alignment: Alignment.topCenter,
+            alignment: Alignment(0.0, -0.5 + (!hasNext ? 0.1 : 0.0)),
             child: Padding(
               padding: EdgeInsets.symmetric(
-                vertical: 50,
+                // vertical: 50,
                 horizontal: _size.width/4,
               ),
               child: Scrollbar(
