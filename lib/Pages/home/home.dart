@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/detail.dart';
@@ -81,6 +83,9 @@ class _MyHomePageState extends State<HomePage> {
   }
 
   _createInterstitialAd() {
+    if(Platform.isIOS) {
+      return;
+    }
     InterstitialAd.load(
         // adUnitId: 'ca-app-pub-3940256099942544/1033173712',//test
         adUnitId: AdMobService.instance.InterstitialAdUnitId,

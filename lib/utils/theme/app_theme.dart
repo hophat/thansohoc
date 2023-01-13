@@ -26,4 +26,12 @@ class TSHTheme{
         end: Alignment.bottomCenter,
       )
   );
+
+  BoxDecoration get cardEventDecoration => BoxDecoration(
+      color: TSHColors().eventCardColor,
+      border: Border.all(
+        color: TSHColors().eventBorderCardColor,
+        width: 4.0,
+      ),
+      borderRadius: BorderRadius.circular(5.0));
 }

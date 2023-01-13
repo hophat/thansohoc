@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/tabs/diengiai_tab3.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/tabs/tab1.dart';
@@ -96,6 +97,7 @@ class _MyDetailPage extends State<DetailPage>
   BannerAd? _banner;
 
   _createBannerAd() {
+    if(Platform.isIOS) return;
     _banner = BannerAd(
       size: AdSize.banner,
       adUnitId: AdMobService.instance.bannerAdUnitId,

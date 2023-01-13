@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:backdrop/backdrop.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/event/event_2.dart';
@@ -103,6 +105,7 @@ class _MainPageState extends State<MainPage> {
   BannerAd? _banner;
 
   _createBannerAd() async {
+    if(Platform.isIOS) return;
     _banner = BannerAd(
       size: AdSize.banner,
       adUnitId: AdMobService.instance.bannerAdUnitId,
@@ -133,7 +136,7 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     _createBannerAd();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Future.delayed(const Duration(seconds: 2)).then((value) => _showEvent());
+      // Future.delayed(const Duration(seconds: 2)).then((value) => _showEvent());
     });
   }
 

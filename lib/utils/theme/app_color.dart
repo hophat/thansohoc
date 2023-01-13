@@ -28,6 +28,10 @@ class TSHColors {
 
   Color get eventTextColor => Color(0xFFFFF385);
 
+  Color get eventCardColor => Color(0xFFD2290A);
+
+  Color get eventBorderCardColor => Color(0xFFFFFF85);
+
   List<Color> get gradiantBtnColor => [
     Color(0xFFEDBE72),
     Color(0xFFFAE9B1),

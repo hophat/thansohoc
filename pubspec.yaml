@@ -55,6 +55,7 @@ dependencies:
   card_swiper: ^2.0.4
   url_launcher: ^6.1.7
   audioplayers: ^2.0.0
+  shake: ^2.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -72,6 +73,7 @@ flutter:
   #generate: true # Add this line
   assets:
     - assets/
+    - assets/chuc_tet/
     - assets/tet/
     - assets/tet/2x/
     - assets/tet/3x/
