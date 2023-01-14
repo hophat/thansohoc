@@ -8,6 +8,7 @@ import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_theme.dart';
 import 'package:shake/shake.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:vibration/vibration.dart';
 
 class EventShakeQue extends StatefulWidget {
   const EventShakeQue({Key? key}) : super(key: key);
@@ -140,7 +141,9 @@ class _EventShakeQueState extends State<EventShakeQue>
     _debounce = Timer(const Duration(milliseconds: 500), () {
       print(count);
       // Navigator.pop(context);
+      if(_rewardQue) return;
       setState(() {
+        Vibration.vibrate();
         _rewardQue = true;
       });
     });

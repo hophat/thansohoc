@@ -56,6 +56,7 @@ dependencies:
   url_launcher: ^6.1.7
   audioplayers: ^2.0.0
   shake: ^2.2.0
+  vibration: ^1.7.6
 dev_dependencies:
   flutter_test:
     sdk: flutter
