@@ -26,14 +26,14 @@ class _EventShakeQueState extends State<EventShakeQue>
   late final Animation<double> _rotateController1;
   late final Animation<double> _rotateController2;
   late final Animation<double> _rotateController3;
-  final Duration _duration = const Duration(milliseconds: 400);
-  final Duration _duration1 = const Duration(milliseconds: 400 + 45);
-  final Duration _duration2 = const Duration(milliseconds: 400 + 45 + 25);
-  final Duration _duration3 = const Duration(milliseconds: 400 + 45 + 25 + 10);
+  final Duration _duration = const Duration(milliseconds: 300);
+  final Duration _duration1 = const Duration(milliseconds: 300 + 45);
+  final Duration _duration2 = const Duration(milliseconds: 300 + 45 + 25);
+  final Duration _duration3 = const Duration(milliseconds: 300 + 45 + 25 + 10);
 
   Timer? _debounce;
 
-  final int _limitReward = 3;
+  final int _limitReward = 8;
 
   Size get _size => MediaQuery.of(context).size;
 
@@ -137,7 +137,7 @@ class _EventShakeQueState extends State<EventShakeQue>
 
   _getCount() {
     if (_debounce?.isActive ?? false) _debounce?.cancel();
-    _debounce = Timer(const Duration(milliseconds: 1000), () {
+    _debounce = Timer(const Duration(milliseconds: 500), () {
       print(count);
       // Navigator.pop(context);
       setState(() {

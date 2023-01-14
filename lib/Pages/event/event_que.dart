@@ -126,6 +126,7 @@ class _EventQueState extends State<EventQue>
         if (_shaking) return;
         _showShakeQue();
       },
+
     );
 
     super.initState();

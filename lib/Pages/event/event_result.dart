@@ -62,7 +62,7 @@ class _EventResultState extends State<EventResult> {
                             fontWeight: FontWeight.bold),
                         children: [
                           WidgetSpan(
-                            child: Icon(Icons.abc),
+                            child: Image.asset('assets/tet/ic_fb.png'),
                             alignment: PlaceholderAlignment.middle,
                           ),
                           TextSpan(
