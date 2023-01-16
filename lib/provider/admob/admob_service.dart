@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -15,12 +13,27 @@ class AdMobService {
   }
 
   // String get bannerAdUnitId => 'ca-app-pub-8539908368627646/4176119972';
-  String get bannerAdUnitId => kDebugMode ? 'ca-app-pub-3940256099942544/6300978111' : 'ca-app-pub-8539908368627646/4176119972';
+  String get bannerAdUnitId {
+    if(Platform.isAndroid) {
+      return kDebugMode ? 'ca-app-pub-3940256099942544/6300978111' : 'ca-app-pub-8539908368627646/4176119972';
+    }
+    return 'ca-app-pub-3940256099942544/2934735716';
+  }
+
+  String get rewardAdUnitId {
+    if(Platform.isAndroid) {
+      kDebugMode ? 'ca-app-pub-3940256099942544/5224354917' : 'ca-app-pub-8539908368627646/6003125396';
+    }
+    return 'ca-app-pub-3940256099942544/1712485313';
+  }
 
   // String get InterstitialAdUnitId => 'ca-app-pub-8539908368627646/9674777099';
-  String get InterstitialAdUnitId => kDebugMode ? 'ca-app-pub-3940256099942544/1033173712' : 'ca-app-pub-8539908368627646/9674777099';
-
-  String get rewardAdUnitId => kDebugMode ? 'ca-app-pub-3940256099942544/5224354917' : 'ca-app-pub-8539908368627646/6003125396';
+  String get InterstitialAdUnitId {
+    if(Platform.isAndroid) {
+      kDebugMode ? 'ca-app-pub-3940256099942544/1033173712' : 'ca-app-pub-8539908368627646/9674777099';
+    }
+    return 'ca-app-pub-3940256099942544/6978759866';
+  }
   // String get rewardAdUnitId => '';
 
   BannerAdListener bannerAdListener = BannerAdListener(

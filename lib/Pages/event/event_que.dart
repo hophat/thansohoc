@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'dart:math';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/event/event_shake_que.dart';
@@ -46,6 +48,8 @@ Future createRewardedAd() async {
       }));
 }
 
+AudioPlayer? eventAudio;
+
 class EventQue extends StatefulWidget {
   const EventQue({Key? key}) : super(key: key);
 
@@ -63,6 +67,7 @@ extension FormatEventDate on DateTime {
 
 class _EventQueState extends State<EventQue>
     with SingleTickerProviderStateMixin {
+
   bool _isStart = false;
   bool _shaking = false;
   late DateTime currentDate;
@@ -169,12 +174,27 @@ class _EventQueState extends State<EventQue>
     Future.delayed(const Duration(milliseconds: 1500))
         .then((value) => _controller.forward());
 
+    _setUpAudio();
+
     super.initState();
+  }
+
+  _setUpAudio() {
+    eventAudio = AudioPlayer();
+    eventAudio?.play(AssetSource('tet/new_year_audio.wav'));
+    eventAudio?.onPlayerComplete.listen((event) async{
+      await eventAudio?.stop();
+      eventAudio?.play(AssetSource('tet/new_year_audio.wav'));
+    });
   }
 
   @override
   void dispose() {
     detector.stopListening();
+    eventAudio?.stop();
+    eventAudio?.dispose();
+    eventAudio = null;
+    _rewardedAd?.dispose();
     super.dispose();
   }
 
@@ -375,44 +395,55 @@ class _EventQueState extends State<EventQue>
         _showShakeQue();
       },
       child: SafeArea(
-        child: TweenAnimationBuilder<double>(
-          duration: const Duration(milliseconds: 300),
-          tween: Tween<double>(begin: 0, end: 1),
-          child: Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      Image.asset('assets/tet/meo.png'),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          padding: EdgeInsets.all(20),
-                          decoration: TSHTheme().cardEventDecoration,
-                          child: Text(
-                            'Lắc phone mạnh để xin quẻ',
-                            style: TextStyle(
-                                color: TSHColors().primaryTextColor,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            TweenAnimationBuilder<double>(
+              duration: const Duration(milliseconds: 300),
+              tween: Tween<double>(begin: 0, end: 1),
+              child: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Image.asset('assets/tet/meo.png'),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                              padding: EdgeInsets.all(20),
+                              decoration: TSHTheme().cardEventDecoration,
+                              child: Text(
+                                'Lắc phone mạnh để xin quẻ',
+                                style: TextStyle(
+                                    color: TSHColors().primaryTextColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                    Expanded(flex: 3, child: Image.asset('assets/tet/ques.png')),
+                    const SizedBox(height: 15)
+                  ],
                 ),
-                Expanded(flex: 3, child: Image.asset('assets/tet/ques.png')),
-                const SizedBox(height: 15)
-              ],
+              ),
+              builder: (_, v, c) {
+                return Transform.scale(scale: v, child: c);
+              },
             ),
-          ),
-          builder: (_, v, c) {
-            return Transform.scale(scale: v, child: c);
-          },
+            if(!Platform.isAndroid) Align(
+              alignment: Alignment.topRight,
+              child: IconButton(onPressed: () {
+                Navigator.pop(context);
+              }, icon: Image.asset('assets/tet/ic_cancel.png')),
+            )
+          ],
         ),
       ),
     );

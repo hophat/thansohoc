@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app_than_so_hoc_2/Pages/event/event_que.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/event/event_share_image.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_theme.dart';
@@ -118,9 +119,10 @@ class _EventResultState extends State<EventResult> {
                               : 'Numerology Birth date predict';
                       final urlPath =
                           'https://play.google.com/store/apps/details?id=com.boitoan.thansohoc';
-
+                      await eventAudio?.pause();
                       await Share.shareXFiles([XFile(path)],
                           text: '$appName\n\n$urlPath');
+                      await eventAudio?.resume();
                     },
                     child: Container(
                         padding: EdgeInsets.symmetric(
@@ -183,7 +185,8 @@ class _EventResultState extends State<EventResult> {
                 ),
               ),
               spacing,
-              spacing,
+              Image.asset('assets/tet/card_cat.png', height: 112, width: 150,),
+              // spacing,
               _buildDivider(w / 2),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 35),
@@ -198,8 +201,8 @@ class _EventResultState extends State<EventResult> {
                 ),
               ),
               _buildDivider(w),
-              spacing,
-              spacing,
+              // spacing,
+              // spacing,
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 35),
                 child: Text(

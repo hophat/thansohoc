@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/event/event_que_success.dart';
@@ -191,19 +192,22 @@ class _EventShakeQueState extends State<EventShakeQue>
     if (choose == -1) {
       return EventQueSuccess(
         one: () async {
+          await eventAudio?.pause();
           await showRewardAd();
+          await eventAudio?.resume();
           choose = 1;
           Map<String, dynamic> map = await parseJsonFromAssets(
               'assets/chuc_tet/cauchuc${Random().nextInt(26) + 1}.json');
 
           print(map);
           title = map['title'];
-          content += '\n\n';
-          content += map['mean'] ?? '';
+          content = map['mean'] ?? '';
           setState(() {});
         },
         two: () async {
+          await eventAudio?.pause();
           await showRewardAd();
+          await eventAudio?.resume();
           choose = 2;
           Map<String, dynamic> map = await parseJsonFromAssets(
               'assets/chuc_tet/cauchuc${Random().nextInt(26) + 1}.json');
@@ -224,7 +228,9 @@ class _EventShakeQueState extends State<EventShakeQue>
       content: content,
       hasNext: _hasNext,
       onHasNext: (v) async {
+        await eventAudio?.pause();
         await showRewardAd();
+        await eventAudio?.resume();
         Navigator.pop(context);
       },
       onCancel: () {
@@ -240,76 +246,88 @@ class _EventShakeQueState extends State<EventShakeQue>
       },
       child: SafeArea(
         child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+          child: Stack(
+            fit: StackFit.expand,
             children: [
-              Expanded(
-                flex: 1,
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    Image.asset('assets/tet/meo.png'),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        padding: EdgeInsets.all(20),
-                        decoration: TSHTheme().cardEventDecoration,
-                        child: Text(
-                          'Lắc phone mạnh để xin quẻ',
-                          style: TextStyle(
-                              color: TSHColors().primaryTextColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: AnimatedBuilder(
-                  animation: _controller,
-                  builder: (_, c) {
-                    return Stack(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Stack(
                       fit: StackFit.expand,
                       children: [
-                        Transform.rotate(
-                          angle:
-                              _beforeShake ? 0 : pi * _rotateController1.value,
-                          alignment: Alignment(0.0, 0.3),
-                          child: Opacity(
-                              opacity: 0.3,
-                              child: Image.asset('assets/tet/ques.png')),
-                        ),
-                        Transform.rotate(
-                          angle:
-                              _beforeShake ? 0 : pi * _rotateController2.value,
-                          alignment: Alignment(0.0, 0.3),
-                          child: Opacity(
-                              opacity: 0.3,
-                              child: Image.asset('assets/tet/ques.png')),
-                        ),
-                        Transform.rotate(
-                          angle:
-                              _beforeShake ? 0 : pi * _rotateController3.value,
-                          alignment: Alignment(0.0, 0.3),
-                          child: Opacity(
-                              opacity: 0.3,
-                              child: Image.asset('assets/tet/ques.png')),
-                        ),
-                        Transform.rotate(
-                          angle:
-                              _beforeShake ? 0 : pi * _rotateController.value,
-                          alignment: Alignment(0.0, 0.3),
-                          child: Image.asset('assets/tet/ques.png'),
+                        Image.asset('assets/tet/meo.png'),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            padding: EdgeInsets.all(20),
+                            decoration: TSHTheme().cardEventDecoration,
+                            child: Text(
+                              'Lắc phone mạnh để xin quẻ',
+                              style: TextStyle(
+                                  color: TSHColors().primaryTextColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
+                            ),
+                          ),
                         ),
                       ],
-                    );
-                  },
-                ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: AnimatedBuilder(
+                      animation: _controller,
+                      builder: (_, c) {
+                        return Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            Transform.rotate(
+                              angle:
+                              _beforeShake ? 0 : pi * _rotateController1.value,
+                              alignment: Alignment(0.0, 0.3),
+                              child: Opacity(
+                                  opacity: 0.3,
+                                  child: Image.asset('assets/tet/ques.png')),
+                            ),
+                            Transform.rotate(
+                              angle:
+                              _beforeShake ? 0 : pi * _rotateController2.value,
+                              alignment: Alignment(0.0, 0.3),
+                              child: Opacity(
+                                  opacity: 0.3,
+                                  child: Image.asset('assets/tet/ques.png')),
+                            ),
+                            Transform.rotate(
+                              angle:
+                              _beforeShake ? 0 : pi * _rotateController3.value,
+                              alignment: Alignment(0.0, 0.3),
+                              child: Opacity(
+                                  opacity: 0.3,
+                                  child: Image.asset('assets/tet/ques.png')),
+                            ),
+                            Transform.rotate(
+                              angle:
+                              _beforeShake ? 0 : pi * _rotateController.value,
+                              alignment: Alignment(0.0, 0.3),
+                              child: Image.asset('assets/tet/ques.png'),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 15)
+                ],
               ),
-              const SizedBox(height: 15)
+              if(!Platform.isAndroid) Align(
+                alignment: Alignment.topRight,
+                child: IconButton(onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                }, icon: Image.asset('assets/tet/ic_cancel.png')),
+              )
             ],
           ),
         ),

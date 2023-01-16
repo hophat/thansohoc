@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>950960231767-c65ru7mohoibj43imh0c63pghmd1lfm2.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.950960231767-c65ru7mohoibj43imh0c63pghmd1lfm2</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAcSnVeDQ0fxsiTDPjzsLay1MCdAoT0nmA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>950960231767</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.thansohoc</string>
+	<key>PROJECT_ID</key>
+	<string>thansohoc-1</string>
+	<key>STORAGE_BUCKET</key>
+	<string>thansohoc-1.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:950960231767:ios:9d450aed3cccfaa349da12</string>
+</dict>
+</plist>

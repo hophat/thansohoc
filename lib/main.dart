@@ -1,5 +1,6 @@
 import 'dart:io';
 
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:backdrop/backdrop.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/event/event_2.dart';
@@ -16,6 +17,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Pages/home/home.dart';
 import 'Pages/setting/setting.dart';
+// import 'firebase_options.dart';
 import 'generated/l10n.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 
@@ -23,6 +25,9 @@ String langCur = '';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.android
+  // );
   MobileAds.instance.initialize();
   myShared = await SharedPreferences.getInstance();
   langCur = await myShared.getString('langCur') ?? '';

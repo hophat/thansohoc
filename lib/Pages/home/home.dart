@@ -9,6 +9,7 @@ import 'package:flutter_app_than_so_hoc_2/Pages/setting/setting.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
 import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
 import 'package:flutter_app_than_so_hoc_2/network/tsh_client.dart';
+import 'package:flutter_app_than_so_hoc_2/provider/firebase/analytics/analytics_service.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
 
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -73,6 +74,7 @@ class _MyHomePageState extends State<HomePage> {
 
   _showEvent() {
     // return;
+    // AnalyticsService.I.analytics.logAppOpen();
     showAnimatedDialog(
       context: context,
       animationType: DialogTransitionType.slideFromBottomFade,
@@ -149,6 +151,8 @@ class _MyHomePageState extends State<HomePage> {
       _createInterstitialAd();
     }
     await _interstitialAd?.show();
+
+    // AnalyticsService.I.analytics.logAppOpen();
 
     dateValue = await tinh_scd(DateFormat('yyyyMMdd').format(dateCur));
     ngay = DateFormat('dd').format(dateCur);

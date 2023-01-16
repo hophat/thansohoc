@@ -51,7 +51,8 @@ class EventShareImage extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    spacing, spacing,
+                    spacing,
+                    Image.asset('assets/tet/card_cat.png', height: 112, width: 150,),
                     _buildDivider(w/2),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 35),
@@ -66,7 +67,7 @@ class EventShareImage extends StatelessWidget {
                       ),
                     ),
                     _buildDivider(w),
-                    spacing, spacing,
+                    // spacing, spacing,
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 35),
                       child: Text(
