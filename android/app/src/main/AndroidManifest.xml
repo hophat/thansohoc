@@ -1,7 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.boitoan.thansohoc">
     <uses-permission android:name="android.permission.VIBRATE"/>
-   <application
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
         android:label="thansohoc"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
@@ -34,5 +36,10 @@
        <meta-data
                android:name="com.google.android.gms.ads.APPLICATION_ID"
                android:value="ca-app-pub-8539908368627646~9801897467"/>
-    </application>
+       <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="845461133205175"/>
+       <meta-data android:name="com.facebook.sdk.ClientToken" android:value="372b9fd9b2ea592f135bc49675383075"/>
+       <provider android:authorities="com.facebook.app.FacebookContentProvider845461133205175"
+                 android:name="com.facebook.FacebookContentProvider"
+                 android:exported="true" />
+   </application>
 </manifest>

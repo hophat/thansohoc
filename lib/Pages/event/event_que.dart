@@ -6,8 +6,45 @@ import 'package:flutter_app_than_so_hoc_2/Pages/event/event_shake_que.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_theme.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:shake/shake.dart';
+
+import '../../provider/admob/admob_service.dart';
+
+showRewardAd() async {
+  if (_rewardedAd == null) {
+    createRewardedAd();
+    return;
+  }
+  _rewardedAd?.fullScreenContentCallback =
+      FullScreenContentCallback(onAdDismissedFullScreenContent: (ad) {
+        ad.dispose();
+        createRewardedAd();
+      }, onAdFailedToShowFullScreenContent: (ad, err) {
+        ad.dispose();
+        createRewardedAd();
+      });
+  await _rewardedAd?.show(onUserEarnedReward: (ad, reward) {});
+  _rewardedAd = null;
+}
+
+
+RewardedAd? _rewardedAd;
+
+Future createRewardedAd() async {
+  await RewardedAd.load(
+      adUnitId: AdMobService.instance.rewardAdUnitId,
+      request: AdRequest(),
+      rewardedAdLoadCallback: RewardedAdLoadCallback(onAdLoaded: (ad) {
+        print('_rewardedAd $ad');
+        _rewardedAd = ad;
+        print('_rewardedAd $_rewardedAd');
+      }, onAdFailedToLoad: (err) {
+        print('_rewardedAd null $err');
+        _rewardedAd = null;
+      }));
+}
 
 class EventQue extends StatefulWidget {
   const EventQue({Key? key}) : super(key: key);
@@ -121,13 +158,16 @@ class _EventQueState extends State<EventQue>
     // });
 
     detector = ShakeDetector.autoStart(
+      shakeThresholdGravity: 1.3,
       onPhoneShake: () {
         if (!_isStart) return;
         if (_shaking) return;
         _showShakeQue();
       },
-
     );
+
+    Future.delayed(const Duration(milliseconds: 1500))
+        .then((value) => _controller.forward());
 
     super.initState();
   }

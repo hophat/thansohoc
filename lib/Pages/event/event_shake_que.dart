@@ -10,6 +10,8 @@ import 'package:shake/shake.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:vibration/vibration.dart';
 
+import 'event_que.dart';
+
 class EventShakeQue extends StatefulWidget {
   const EventShakeQue({Key? key}) : super(key: key);
 
@@ -41,6 +43,7 @@ class _EventShakeQueState extends State<EventShakeQue>
   final double tweenValue = 0.09;
 
   String content = '';
+  String title = '';
 
   int count = 0;
   bool _beforeShake = true;
@@ -130,10 +133,14 @@ class _EventShakeQueState extends State<EventShakeQue>
     super.initState();
 
     detector = ShakeDetector.autoStart(
+      shakeThresholdGravity: 1.3,
+
       onPhoneShake: () {
         _setUpShakeQue();
       },
     );
+
+    createRewardedAd();
   }
 
   _getCount() {
@@ -184,49 +191,44 @@ class _EventShakeQueState extends State<EventShakeQue>
     if (choose == -1) {
       return EventQueSuccess(
         one: () async {
+          await showRewardAd();
           choose = 1;
           Map<String, dynamic> map = await parseJsonFromAssets(
               'assets/chuc_tet/cauchuc${Random().nextInt(26) + 1}.json');
 
           print(map);
-          content = map['title'];
+          title = map['title'];
           content += '\n\n';
           content += map['mean'] ?? '';
           setState(() {});
         },
         two: () async {
+          await showRewardAd();
           choose = 2;
           Map<String, dynamic> map = await parseJsonFromAssets(
               'assets/chuc_tet/cauchuc${Random().nextInt(26) + 1}.json');
           print(map);
-          content = map['title'];
-          content += '\n\n';
-          content += map['mean'] ?? '';
+          title = map['title'];
+          content = map['mean'] ?? '';
           setState(() {});
         },
       );
     }
 
-    String title = 'Quẻ số $choose';
+    String numberOfQue = 'Quẻ số $choose';
 
     return EventResult(
       key: ValueKey(_hasNext),
+      numberOfQue: numberOfQue,
       title: title,
       content: content,
       hasNext: _hasNext,
       onHasNext: (v) async {
-        Map<String, dynamic> map = await parseJsonFromAssets(
-            'assets/chuc_tet/cauchuc${Random().nextInt(26) + 1}.json');
-        print(map);
-        content = map['title'];
-        content += '\n\n';
-        content += map['mean'] ?? '';
-        setState(
-          () {
-            choose = choose == 1 ? 2 : 1;
-            _hasNext = v;
-          },
-        );
+        await showRewardAd();
+        Navigator.pop(context);
+      },
+      onCancel: () {
+        Navigator.pop(context);
       },
     );
   }

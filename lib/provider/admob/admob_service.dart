@@ -20,7 +20,7 @@ class AdMobService {
   // String get InterstitialAdUnitId => 'ca-app-pub-8539908368627646/9674777099';
   String get InterstitialAdUnitId => kDebugMode ? 'ca-app-pub-3940256099942544/1033173712' : 'ca-app-pub-8539908368627646/9674777099';
 
-  String get rewardAdUnitId => kDebugMode ? 'ca-app-pub-3940256099942544/5224354917' : '';
+  String get rewardAdUnitId => kDebugMode ? 'ca-app-pub-3940256099942544/5224354917' : 'ca-app-pub-8539908368627646/6003125396';
   // String get rewardAdUnitId => '';
 
   BannerAdListener bannerAdListener = BannerAdListener(
