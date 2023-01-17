@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'in';
 
+  static String m0(x) => "Bilangan heksagram ${x}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "back": MessageLookupByLibrary.simpleMessage("Kembali"),
@@ -28,20 +30,26 @@ class MessageLookup extends MessageLookupByLibrary {
         "chon_ngon_ngu": MessageLookupByLibrary.simpleMessage("Pilih bahasa"),
         "con_so_chu_dao_cua_ban_la":
             MessageLookupByLibrary.simpleMessage("Nomor penting Anda"),
+        "date_of_birth": MessageLookupByLibrary.simpleMessage("Tanggal lahir"),
         "de_xuat":
             MessageLookupByLibrary.simpleMessage("Pengembangan yang diusulkan"),
+        "female": MessageLookupByLibrary.simpleMessage("Perempuan"),
+        "gender": MessageLookupByLibrary.simpleMessage("Seks"),
         "giai_thich": MessageLookupByLibrary.simpleMessage("Jelaskan"),
         "gioi_thieu": MessageLookupByLibrary.simpleMessage("Introl"),
         "happy_new_year":
             MessageLookupByLibrary.simpleMessage("Happy New Year"),
         "hay_chon_ngay_sinh_cua_ban": MessageLookupByLibrary.simpleMessage(
             "Silakan pilih tanggal lahir Anda"),
+        "hello": MessageLookupByLibrary.simpleMessage("Halo"),
+        "hexagram_number_x": m0,
         "home": MessageLookupByLibrary.simpleMessage("Rumah"),
         "introl_1": MessageLookupByLibrary.simpleMessage(
             "Numerologi didasarkan pada nama dan tanggal lahir Anda untuk memprediksi Anda secara komprehensif. Dengan Numerologi, lihat seberapa penting angka mempengaruhi hidup Anda."),
         "introl_2": MessageLookupByLibrary.simpleMessage(
             "Aplikasi akan menganalisis nama dan tanggal lahir Anda untuk menunjukkan hasil dalam sekejap mata! Pelajari tentang nomor kelahiran atau garis kehidupan (ekspresikan kepribadian dan pandangan hidup Anda). Mari kita lihat apa yang dikatakan angka-angka ini kamu"),
         "khuyet_diem": MessageLookupByLibrary.simpleMessage("Kelemahan"),
+        "male": MessageLookupByLibrary.simpleMessage("Pria"),
         "moc_cuoc_doi":
             MessageLookupByLibrary.simpleMessage("Tonggak kehidupan"),
         "muc_dich_cuoc_song":
@@ -54,12 +62,24 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Open red envelopes"),
         "phat_trien_theo_so":
             MessageLookupByLibrary.simpleMessage("Pertumbuhan"),
+        "photo_has_been_saved":
+            MessageLookupByLibrary.simpleMessage("Foto telah disimpan"),
+        "secret": MessageLookupByLibrary.simpleMessage("Rahasia"),
+        "shake_phone_to_sow_hex": MessageLookupByLibrary.simpleMessage(
+            "Kocok telepon untuk menaburkan heksagram"),
+        "share": MessageLookupByLibrary.simpleMessage("Untuk berbagi"),
         "so": MessageLookupByLibrary.simpleMessage("Nomor"),
+        "sow_next_hexagram": MessageLookupByLibrary.simpleMessage(
+            "Taburkan heksagram berikutnya"),
+        "sowing_hexagrams":
+            MessageLookupByLibrary.simpleMessage("Menabur heksagram"),
         "than_so_hoc_la_gi":
             MessageLookupByLibrary.simpleMessage("APA ITU Numerologi?"),
         "thiet_lap_ngay_sinh":
             MessageLookupByLibrary.simpleMessage("set date of birth"),
         "tong_quan": MessageLookupByLibrary.simpleMessage("Ringkasan"),
+        "touch_hexagram_to_open": MessageLookupByLibrary.simpleMessage(
+            "Sentuh heksagram untuk membuka"),
         "tu_vi_hom_nay":
             MessageLookupByLibrary.simpleMessage("Horoscope today"),
         "tuoi": MessageLookupByLibrary.simpleMessage("Tahun tua"),

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/event/event_que_success.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/event/event_result.dart';
@@ -11,6 +12,7 @@ import 'package:shake/shake.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:vibration/vibration.dart';
 
+import '../../generated/l10n.dart';
 import 'event_que.dart';
 
 class EventShakeQue extends StatefulWidget {
@@ -219,7 +221,7 @@ class _EventShakeQueState extends State<EventShakeQue>
       );
     }
 
-    String numberOfQue = 'Quẻ số $choose';
+    String numberOfQue = S.of(context).hexagram_number_x('$choose');
 
     return EventResult(
       key: ValueKey(_hasNext),
@@ -262,9 +264,12 @@ class _EventShakeQueState extends State<EventShakeQue>
                           alignment: Alignment.bottomCenter,
                           child: Container(
                             padding: EdgeInsets.all(20),
+                            margin: EdgeInsets.symmetric(horizontal: 20),
                             decoration: TSHTheme().cardEventDecoration,
-                            child: Text(
-                              'Lắc phone mạnh để xin quẻ',
+                            child: AutoSizeText(
+                              S.of(context).shake_phone_to_sow_hex,
+                              maxLines: 1,
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: TSHColors().primaryTextColor,
                                   fontWeight: FontWeight.bold,

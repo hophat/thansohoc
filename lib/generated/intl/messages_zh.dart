@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'zh';
 
+  static String m0(x) => "卦数 ${x}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "back": MessageLookupByLibrary.simpleMessage("背部"),
@@ -27,18 +29,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "chon_ngon_ngu": MessageLookupByLibrary.simpleMessage("选择语言"),
         "con_so_chu_dao_cua_ban_la":
             MessageLookupByLibrary.simpleMessage("您的命运数字"),
+        "date_of_birth": MessageLookupByLibrary.simpleMessage("出生日期"),
         "de_xuat": MessageLookupByLibrary.simpleMessage("拟议的开发"),
+        "female": MessageLookupByLibrary.simpleMessage("女性"),
+        "gender": MessageLookupByLibrary.simpleMessage("性别"),
         "giai_thich": MessageLookupByLibrary.simpleMessage("说明"),
         "gioi_thieu": MessageLookupByLibrary.simpleMessage("简介"),
         "happy_new_year": MessageLookupByLibrary.simpleMessage("快乐的春天"),
         "hay_chon_ngay_sinh_cua_ban":
             MessageLookupByLibrary.simpleMessage("请选择您的出生日期"),
+        "hello": MessageLookupByLibrary.simpleMessage("你好"),
+        "hexagram_number_x": m0,
         "home": MessageLookupByLibrary.simpleMessage("家"),
         "introl_1": MessageLookupByLibrary.simpleMessage(
             "命理学是根据您的姓名和出生日期来全面预测您的。通过命理学,您可以了解重要数字对您的生活有何影响。"),
         "introl_2": MessageLookupByLibrary.simpleMessage(
             "该应用程序将分析您的姓名和生日,以眨眼即可显示结果！了解出生数字或生命线（表达您的性格和生活观）。让我们看看这些数字怎么说你"),
         "khuyet_diem": MessageLookupByLibrary.simpleMessage("弱点"),
+        "male": MessageLookupByLibrary.simpleMessage("男性"),
         "moc_cuoc_doi": MessageLookupByLibrary.simpleMessage("生命的里程碑"),
         "muc_dich_cuoc_song": MessageLookupByLibrary.simpleMessage("生活目标"),
         "nghe_nghiep_phu_hop": MessageLookupByLibrary.simpleMessage("合适的职业"),
@@ -46,11 +54,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "noi_bat": MessageLookupByLibrary.simpleMessage("精选"),
         "open_red_envelopes": MessageLookupByLibrary.simpleMessage("打开红包"),
         "phat_trien_theo_so": MessageLookupByLibrary.simpleMessage("成长"),
+        "photo_has_been_saved": MessageLookupByLibrary.simpleMessage("照片已保存"),
+        "secret": MessageLookupByLibrary.simpleMessage("秘密"),
+        "shake_phone_to_sow_hex":
+            MessageLookupByLibrary.simpleMessage("摇一摇手机播卦"),
+        "share": MessageLookupByLibrary.simpleMessage("分享"),
         "so": MessageLookupByLibrary.simpleMessage("数字"),
+        "sow_next_hexagram": MessageLookupByLibrary.simpleMessage("播下一卦"),
+        "sowing_hexagrams": MessageLookupByLibrary.simpleMessage("播卦"),
         "than_so_hoc_la_gi": MessageLookupByLibrary.simpleMessage("什么是命理学？"),
         "thiet_lap_ngay_sinh":
             MessageLookupByLibrary.simpleMessage("set date of birth"),
         "tong_quan": MessageLookupByLibrary.simpleMessage("概述"),
+        "touch_hexagram_to_open": MessageLookupByLibrary.simpleMessage("触卦开"),
         "tu_vi_hom_nay":
             MessageLookupByLibrary.simpleMessage("Horoscope today"),
         "tuoi": MessageLookupByLibrary.simpleMessage("岁岁"),

@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'lo';
 
+  static String m0(x) => "Bilangan heksagram ${x}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "back": MessageLookupByLibrary.simpleMessage("ກັບຄືນ"),
@@ -28,19 +30,25 @@ class MessageLookup extends MessageLookupByLibrary {
         "chon_ngon_ngu": MessageLookupByLibrary.simpleMessage("ເລືອກພາສາ"),
         "con_so_chu_dao_cua_ban_la":
             MessageLookupByLibrary.simpleMessage("ເລກໂຊກຊະຕາຂອງທ່ານ"),
+        "date_of_birth": MessageLookupByLibrary.simpleMessage("Tanggal lahir"),
         "de_xuat": MessageLookupByLibrary.simpleMessage("ການພັດທະນາທີ່ສະ ເໜີ"),
+        "female": MessageLookupByLibrary.simpleMessage("Perempuan"),
+        "gender": MessageLookupByLibrary.simpleMessage("Seks"),
         "giai_thich": MessageLookupByLibrary.simpleMessage("ອະທິບາຍ"),
         "gioi_thieu": MessageLookupByLibrary.simpleMessage("Introl"),
         "happy_new_year":
             MessageLookupByLibrary.simpleMessage("ສະ​ບາຍ​ດີ​ປີ​ໃຫມ່"),
         "hay_chon_ngay_sinh_cua_ban": MessageLookupByLibrary.simpleMessage(
             "ກະລຸນາເລືອກວັນເດືອນປີເກີດຂອງທ່ານ"),
+        "hello": MessageLookupByLibrary.simpleMessage("Halo"),
+        "hexagram_number_x": m0,
         "home": MessageLookupByLibrary.simpleMessage("ບ້ານ"),
         "introl_1": MessageLookupByLibrary.simpleMessage(
             "Numerology ແມ່ນອີງໃສ່ຊື່ແລະວັນເດືອນປີເກີດຂອງທ່ານເພື່ອຄາດເດົາທ່ານໃຫ້ສົມບູນແບບກັບ Numerology, ເບິ່ງວ່າຕົວເລກທີ່ ສຳ ຄັນມີຜົນກະທົບຕໍ່ຊີວິດຂອງທ່ານແນວໃດ."),
         "introl_2": MessageLookupByLibrary.simpleMessage(
             "ແອັບ will ຈະວິເຄາະຊື່ແລະວັນເດືອນປີເກີດຂອງທ່ານເພື່ອສະແດງໃຫ້ເຫັນຜົນໃນກະພິບ! ຮຽນຮູ້ກ່ຽວກັບຕົວເລກຂອງການເກີດຫຼືສາຍຊີວິດ (ສະແດງເຖິງບຸກຄະລິກແລະມຸມມອງຂອງທ່ານໃນຊີວິດ) ລອງເບິ່ງວ່າຕົວເລກເຫລົ່ານີ້ເວົ້າກ່ຽວກັບຫຍັງ ເຈົ້າ "),
         "khuyet_diem": MessageLookupByLibrary.simpleMessage("ຄວາມອ່ອນແອ"),
+        "male": MessageLookupByLibrary.simpleMessage("Pria"),
         "moc_cuoc_doi":
             MessageLookupByLibrary.simpleMessage("ຈຸດ ສຳ ຄັນຂອງຊີວິດ"),
         "muc_dich_cuoc_song":
@@ -52,12 +60,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "open_red_envelopes":
             MessageLookupByLibrary.simpleMessage("ເປີດຊອງຈົດໝາຍສີແດງ"),
         "phat_trien_theo_so": MessageLookupByLibrary.simpleMessage("ການເຕີບໂຕ"),
+        "photo_has_been_saved":
+            MessageLookupByLibrary.simpleMessage("Foto telah disimpan"),
+        "secret": MessageLookupByLibrary.simpleMessage("Rahasia"),
+        "shake_phone_to_sow_hex": MessageLookupByLibrary.simpleMessage(
+            "Kocok telepon untuk menaburkan heksagram"),
+        "share": MessageLookupByLibrary.simpleMessage("Untuk berbagi"),
         "so": MessageLookupByLibrary.simpleMessage("ໝາຍ ເລກ"),
+        "sow_next_hexagram": MessageLookupByLibrary.simpleMessage(
+            "Taburkan heksagram berikutnya"),
+        "sowing_hexagrams":
+            MessageLookupByLibrary.simpleMessage("Menabur heksagram"),
         "than_so_hoc_la_gi":
             MessageLookupByLibrary.simpleMessage("Numerology ແມ່ນຫຍັງ?"),
         "thiet_lap_ngay_sinh":
             MessageLookupByLibrary.simpleMessage("set date of birth"),
         "tong_quan": MessageLookupByLibrary.simpleMessage("ພາບລວມ"),
+        "touch_hexagram_to_open": MessageLookupByLibrary.simpleMessage(
+            "Sentuh heksagram untuk membuka"),
         "tu_vi_hom_nay":
             MessageLookupByLibrary.simpleMessage("Horoscope today"),
         "tuoi": MessageLookupByLibrary.simpleMessage("ປີເກົ່າ"),

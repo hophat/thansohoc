@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/event/event_shake_que.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:shake/shake.dart';
+import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
 
 import '../../provider/admob/admob_service.dart';
 
@@ -74,9 +76,9 @@ class _EventQueState extends State<EventQue>
   int _gender = 0;
 
   String get _genderStr {
-    if (_gender == 0) return 'Nam';
-    if (_gender == 1) return 'Nữ';
-    return 'Bí mật';
+    if (_gender == 0) return S.of(context).male;
+    if (_gender == 1) return S.of(context).female;
+    return S.of(context).secret;
   }
 
   final Duration _duration = Duration(milliseconds: 1000);
@@ -260,7 +262,8 @@ class _EventQueState extends State<EventQue>
                 child: Align(
                   alignment: Alignment(0, -0.80),
                   child: Text(
-                    'Xin chào',
+                    S.of(context).hello,
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 48,
                         color: TSHColors().eventTextColor,
@@ -302,7 +305,7 @@ class _EventQueState extends State<EventQue>
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          'Ngày sinh'.toUpperCase(),
+                          S.of(context).date_of_birth.toUpperCase(),
                           style: TextStyle(
                               color: TSHColors().primaryTextColor,
                               fontWeight: FontWeight.bold),
@@ -329,7 +332,7 @@ class _EventQueState extends State<EventQue>
                         spacing,
                         spacing,
                         Text(
-                          'Giới tính'.toUpperCase(),
+                          S.of(context).gender.toUpperCase(),
                           style: TextStyle(
                               color: TSHColors().primaryTextColor,
                               fontWeight: FontWeight.bold),
@@ -365,7 +368,7 @@ class _EventQueState extends State<EventQue>
                           horizontal: 15 * 2, vertical: 15),
                       decoration: TSHTheme().cardEventDecoration,
                       child: Text(
-                        'Gieo quẻ',
+                        S.of(context).sowing_hexagrams,
                         style: TextStyle(
                             color: TSHColors().primaryTextColor,
                             fontWeight: FontWeight.bold),
@@ -415,9 +418,12 @@ class _EventQueState extends State<EventQue>
                             alignment: Alignment.bottomCenter,
                             child: Container(
                               padding: EdgeInsets.all(20),
+                              margin: EdgeInsets.symmetric(horizontal: 20),
                               decoration: TSHTheme().cardEventDecoration,
-                              child: Text(
-                                'Lắc phone mạnh để xin quẻ',
+                              child: AutoSizeText(
+                                S.of(context).shake_phone_to_sow_hex,
+                                maxLines: 1,
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: TSHColors().primaryTextColor,
                                     fontWeight: FontWeight.bold,

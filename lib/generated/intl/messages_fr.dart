@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'fr';
 
+  static String m0(x) => "Numéro d\'hexagramme ${x}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "back": MessageLookupByLibrary.simpleMessage("Dos"),
@@ -29,19 +31,26 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sélectionnez la langue"),
         "con_so_chu_dao_cua_ban_la":
             MessageLookupByLibrary.simpleMessage("Votre numéro fatidique"),
+        "date_of_birth":
+            MessageLookupByLibrary.simpleMessage("Date de naissance"),
         "de_xuat":
             MessageLookupByLibrary.simpleMessage("Développement proposé"),
+        "female": MessageLookupByLibrary.simpleMessage("Femelle"),
+        "gender": MessageLookupByLibrary.simpleMessage("Le sexe"),
         "giai_thich": MessageLookupByLibrary.simpleMessage("Expliquez"),
         "gioi_thieu": MessageLookupByLibrary.simpleMessage("Introl"),
         "happy_new_year": MessageLookupByLibrary.simpleMessage("Bonne Année"),
         "hay_chon_ngay_sinh_cua_ban": MessageLookupByLibrary.simpleMessage(
             "Veuillez sélectionner votre date de naissance"),
+        "hello": MessageLookupByLibrary.simpleMessage("Bonjour"),
+        "hexagram_number_x": m0,
         "home": MessageLookupByLibrary.simpleMessage("Maison"),
         "introl_1": MessageLookupByLibrary.simpleMessage(
             "La numérologie est basée sur votre nom et votre date de naissance pour vous prédire de manière complète. Avec la numérologie, voyez comment les nombres importants affectent votre vie."),
         "introl_2": MessageLookupByLibrary.simpleMessage(
             "L\'application analysera votre nom et votre date de naissance pour afficher les résultats en un clin d\'œil! En ​​savoir plus sur les numéros de naissance ou les lignes de vie (exprimez votre personnalité et vos perspectives dans la vie). Voyons ce que ces chiffres disent sur toi"),
         "khuyet_diem": MessageLookupByLibrary.simpleMessage("Faiblesse"),
+        "male": MessageLookupByLibrary.simpleMessage("Homme"),
         "moc_cuoc_doi":
             MessageLookupByLibrary.simpleMessage("Jalons de la vie"),
         "muc_dich_cuoc_song":
@@ -54,12 +63,24 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ouvrir l\'enveloppe rouge"),
         "phat_trien_theo_so":
             MessageLookupByLibrary.simpleMessage("Croissance"),
+        "photo_has_been_saved":
+            MessageLookupByLibrary.simpleMessage("La photo a été enregistrée"),
+        "secret": MessageLookupByLibrary.simpleMessage("Secret"),
+        "shake_phone_to_sow_hex": MessageLookupByLibrary.simpleMessage(
+            "Secouez le téléphone pour semer l\'hexagramme"),
+        "share": MessageLookupByLibrary.simpleMessage("Partager"),
         "so": MessageLookupByLibrary.simpleMessage("Number"),
+        "sow_next_hexagram": MessageLookupByLibrary.simpleMessage(
+            "Semez le prochain hexagramme"),
+        "sowing_hexagrams":
+            MessageLookupByLibrary.simpleMessage("Semer des hexagrammes"),
         "than_so_hoc_la_gi": MessageLookupByLibrary.simpleMessage(
             "QU\'EST-CE QUE LA Numérologie?"),
         "thiet_lap_ngay_sinh":
             MessageLookupByLibrary.simpleMessage("set date of birth"),
         "tong_quan": MessageLookupByLibrary.simpleMessage("Présentation"),
+        "touch_hexagram_to_open": MessageLookupByLibrary.simpleMessage(
+            "Touchez l\'hexagramme pour ouvrir"),
         "tu_vi_hom_nay":
             MessageLookupByLibrary.simpleMessage("Horoscope today"),
         "tuoi": MessageLookupByLibrary.simpleMessage("Ans"),

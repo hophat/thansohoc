@@ -28,5 +28,23 @@
   "tu_vi_hom_nay": "Horoscope today",
   "happy_new_year" : "快乐的春天",
   "open_red_envelopes" : "打开红包",
-  "back" : "背部"
+  "back" : "背部",
+  "hello" : "你好",
+  "gender" : "性别",
+  "male" : "男性",
+  "female" : "女性",
+  "secret" : "秘密",
+  "sowing_hexagrams" : "播卦",
+  "shake_phone_to_sow_hex" : "摇一摇手机播卦",
+  "touch_hexagram_to_open" : "触卦开",
+  "hexagram_number_x" : "卦数 {x}",
+  "@hexagram_number_x" : {
+    "placeholders" : {
+      "x" : {}
+    }
+  },
+  "sow_next_hexagram" : "播下一卦",
+  "share" : "分享",
+  "date_of_birth" : "出生日期",
+  "photo_has_been_saved" : "照片已保存"
 }

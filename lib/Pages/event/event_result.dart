@@ -2,15 +2,19 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/event/event_que.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/event/event_share_image.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_theme.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
+
+import '../../generated/l10n.dart';
 
 class EventResult extends StatefulWidget {
   final String title, content;
@@ -47,7 +51,7 @@ class _EventResultState extends State<EventResult> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if(widget.onCancel!=null) {
+        if (widget.onCancel != null) {
           widget.onCancel!();
         }
         Navigator.pop(context);
@@ -65,7 +69,7 @@ class _EventResultState extends State<EventResult> {
                 children: [
                   IconButton(
                     onPressed: () {
-                      if(widget.onCancel!=null) {
+                      if (widget.onCancel != null) {
                         widget.onCancel!();
                       }
                       Navigator.pop(context);
@@ -83,7 +87,7 @@ class _EventResultState extends State<EventResult> {
                             horizontal: 15 * 2, vertical: 15),
                         decoration: TSHTheme().cardEventDecoration,
                         child: Text(
-                          'Gieo quẻ tiếp ...',
+                          S.of(context).sow_next_hexagram,
                           style: TextStyle(
                               color: TSHColors().primaryTextColor,
                               fontSize: 20,
@@ -93,57 +97,114 @@ class _EventResultState extends State<EventResult> {
                     )
                   ],
                   spacing,
-                  GestureDetector(
-                    onTap: () async {
-                      // showDialog(context: context, builder: (_) {
-                      //   return EventShareImage(content: content, title: title, numberOfQue: widget.numberOfQue);
-                      // });
-                      // return;
-                      if (_image == null) {
-                        EasyLoading.show();
-                        _image = await screenshotController.captureFromWidget(
-                            EventShareImage(
-                                content: content,
-                                title: title,
-                                numberOfQue: widget.numberOfQue),
-                            context: context);
-                        EasyLoading.dismiss();
-                      }
-                      final temp = await getTemporaryDirectory();
-                      final path = '${temp.path}/image.png';
-                      File(path).writeAsBytesSync(_image!);
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      GestureDetector(
+                        onTap: () async {
+                          // showDialog(context: context, builder: (_) {
+                          //   return EventShareImage(content: content, title: title, numberOfQue: widget.numberOfQue);
+                          // });
+                          // return;
+                          if (_image == null) {
+                            EasyLoading.show();
+                            _image =
+                                await screenshotController.captureFromWidget(
+                                    EventShareImage(
+                                        content: content,
+                                        title: title,
+                                        numberOfQue: widget.numberOfQue),
+                                    context: context);
+                            EasyLoading.dismiss();
+                          }
+                          final temp = await getTemporaryDirectory();
+                          final path = '${temp.path}/image.png';
+                          File(path).writeAsBytesSync(_image!);
 
-                      final appName =
-                          Intl.getCurrentLocale().toLowerCase() == 'vi'
-                              ? 'Thần số học'
-                              : 'Numerology Birth date predict';
-                      final urlPath =
-                          'https://play.google.com/store/apps/details?id=com.boitoan.thansohoc';
-                      await eventAudio?.pause();
-                      await Share.shareXFiles([XFile(path)],
-                          text: '$appName\n\n$urlPath');
-                      await eventAudio?.resume();
-                    },
-                    child: Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 15 * 2, vertical: 15),
-                        decoration: TSHTheme().cardEventDecoration,
-                        child: RichText(
-                          text: TextSpan(
-                              style: TextStyle(
-                                  color: TSHColors().primaryTextColor,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                              children: [
-                                WidgetSpan(
-                                  child: Image.asset('assets/tet/ic_fb.png'),
-                                  alignment: PlaceholderAlignment.middle,
-                                ),
-                                TextSpan(
-                                  text: ' chia sẻ',
-                                )
-                              ]),
-                        )),
+                          final appName =
+                              Intl.getCurrentLocale().toLowerCase() == 'vi'
+                                  ? 'Thần số học'
+                                  : 'Numerology Birth date predict';
+                          final urlPath =
+                              'https://play.google.com/store/apps/details?id=com.boitoan.thansohoc';
+                          await eventAudio?.pause();
+                          await Share.shareXFiles([XFile(path)],
+                              text: '$appName\n\n$urlPath');
+                          await eventAudio?.resume();
+                        },
+                        child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 15 * 2, vertical: 15),
+                            decoration: TSHTheme().cardEventDecoration,
+                            child: RichText(
+                              text: TextSpan(
+                                  style: TextStyle(
+                                      color: TSHColors().primaryTextColor,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                  children: [
+                                    WidgetSpan(
+                                      child:
+                                          Image.asset('assets/tet/ic_fb.png'),
+                                      alignment: PlaceholderAlignment.middle,
+                                    ),
+                                    TextSpan(
+                                      text: ' ${S.of(context).share}',
+                                    )
+                                  ]),
+                            )),
+                      ),
+                      spacing,
+                      GestureDetector(
+                        onTap: () async {
+                          if (_image == null) {
+                            EasyLoading.show();
+                            _image =
+                                await screenshotController.captureFromWidget(
+                                    EventShareImage(
+                                        content: content,
+                                        title: title,
+                                        numberOfQue: widget.numberOfQue),
+                                    context: context);
+                            EasyLoading.dismiss();
+                          }
+                          if (_image == null) return;
+                          Directory appDocumentsDirectory =
+                              await getApplicationDocumentsDirectory(); // 1
+                          String appDocumentsPath =
+                              appDocumentsDirectory.path; // 2
+                          final filePath =
+                              '${appDocumentsPath}/${DateTime.now().microsecondsSinceEpoch}.png';
+                          File _f = await File(filePath).writeAsBytes(_image!);
+                          bool _s =
+                              await GallerySaver.saveImage(_f.path) ?? false;
+
+                          if(!_s) return;
+                          showAnimatedDialog(
+                              context: context,
+                              barrierDismissible: true,
+                              builder: (_) {
+                                return AlertDialog(
+                                    backgroundColor: Colors.transparent,
+                                    alignment: Alignment.center,
+                                    content: Text(
+                                      S.of(context).photo_has_been_saved,
+                                      style: TextStyle(color: Colors.white),
+                                    ));
+                              });
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15 * 2, vertical: 15),
+                          decoration: TSHTheme().cardEventDecoration,
+                          child: Image.asset(
+                            'assets/tet/ic_download.png',
+                            color: TSHColors().primaryTextColor,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   spacing,
                 ],
@@ -158,6 +219,8 @@ class _EventResultState extends State<EventResult> {
       ),
     );
   }
+
+  _permissionRequest() {}
 
   _buildResult() {
     final w = MediaQuery.of(context).size.width;
@@ -185,7 +248,11 @@ class _EventResultState extends State<EventResult> {
                 ),
               ),
               spacing,
-              Image.asset('assets/tet/card_cat.png', height: 112, width: 150,),
+              Image.asset(
+                'assets/tet/card_cat.png',
+                height: 112,
+                width: 150,
+              ),
               // spacing,
               _buildDivider(w / 2),
               Padding(

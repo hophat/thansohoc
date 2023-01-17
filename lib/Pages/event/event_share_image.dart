@@ -26,7 +26,11 @@ class EventShareImage extends StatelessWidget {
       controller: screenshotController,
       child: Scaffold(
         body: Container(
-          color: Color(0xFF9B150E),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('assets/tet/que_bg.png'),
+                fit: BoxFit.scaleDown),
+          ),
           margin: EdgeInsets.all(5),
           child: Container(
               padding: EdgeInsets.all(35),

@@ -28,5 +28,23 @@
   "tu_vi_hom_nay": "Horoscope today",
   "happy_new_year" : "с новым годом",
   "open_red_envelopes" : "Откройте красный конверт",
-  "back" : "назад"
+  "back" : "назад",
+  "hello" : "Привет",
+  "gender" : "Секс",
+  "male" : "Мужской",
+  "female" : "Женский",
+  "secret" : "Секрет",
+  "sowing_hexagrams" : "Посев гексаграмм",
+  "shake_phone_to_sow_hex" : "Встряхните телефон, чтобы посеять гексаграмму",
+  "touch_hexagram_to_open" : "Прикоснись к гексаграмме, чтобы открыть",
+  "hexagram_number_x" : "Гексаграмма номер {x}",
+  "@hexagram_number_x" : {
+    "placeholders" : {
+      "x" : {}
+    }
+  },
+  "sow_next_hexagram" : "Посеять следующую гексаграмму",
+  "share" : "Делиться",
+  "date_of_birth" : "Дата рождения",
+  "photo_has_been_saved" : "Фотография сохранена"
 }

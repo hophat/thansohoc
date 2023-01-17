@@ -349,6 +349,136 @@ class S {
       args: [],
     );
   }
+
+  /// `Hello`
+  String get hello {
+    return Intl.message(
+      'Hello',
+      name: 'hello',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gender`
+  String get gender {
+    return Intl.message(
+      'Gender',
+      name: 'gender',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Male`
+  String get male {
+    return Intl.message(
+      'Male',
+      name: 'male',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Female`
+  String get female {
+    return Intl.message(
+      'Female',
+      name: 'female',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Secret`
+  String get secret {
+    return Intl.message(
+      'Secret',
+      name: 'secret',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sowing hexagrams`
+  String get sowing_hexagrams {
+    return Intl.message(
+      'Sowing hexagrams',
+      name: 'sowing_hexagrams',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shake the phone to sow the hexagram`
+  String get shake_phone_to_sow_hex {
+    return Intl.message(
+      'Shake the phone to sow the hexagram',
+      name: 'shake_phone_to_sow_hex',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Touch the hexagram to open`
+  String get touch_hexagram_to_open {
+    return Intl.message(
+      'Touch the hexagram to open',
+      name: 'touch_hexagram_to_open',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hexagram number {x}`
+  String hexagram_number_x(Object x) {
+    return Intl.message(
+      'Hexagram number $x',
+      name: 'hexagram_number_x',
+      desc: '',
+      args: [x],
+    );
+  }
+
+  /// `Sow the next hexagram`
+  String get sow_next_hexagram {
+    return Intl.message(
+      'Sow the next hexagram',
+      name: 'sow_next_hexagram',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Share`
+  String get share {
+    return Intl.message(
+      'Share',
+      name: 'share',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date of birth`
+  String get date_of_birth {
+    return Intl.message(
+      'Date of birth',
+      name: 'date_of_birth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Photo has been saved`
+  String get photo_has_been_saved {
+    return Intl.message(
+      'Photo has been saved',
+      name: 'photo_has_been_saved',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

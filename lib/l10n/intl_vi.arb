@@ -28,5 +28,23 @@
   "tu_vi_hom_nay":"Tử vi hôm nay",
   "happy_new_year" : "Xuân An Vui",
   "open_red_envelopes" : "Mở lì xì",
-  "back" : "Trở về"
+  "back" : "Trở về",
+  "hello" : "Xin chào",
+  "gender" : "Giới tính",
+  "male" : "Nam",
+  "female" : "Nữ",
+  "secret" : "Bí mật",
+  "sowing_hexagrams" : "Lắc quẻ",
+  "shake_phone_to_sow_hex" : "Lắc phone mạnh để xin quẻ",
+  "touch_hexagram_to_open" : "Chạm vào quẻ để mở",
+  "hexagram_number_x" : "Quẻ số {x}",
+  "@hexagram_number_x" : {
+    "placeholders" : {
+      "x" : {}
+    }
+  },
+  "sow_next_hexagram" : "Mở quẻ tiếp",
+  "share" : "Chia sẻ",
+  "date_of_birth" : "Ngày sinh",
+  "photo_has_been_saved" : "Ảnh đã được lưu"
 }

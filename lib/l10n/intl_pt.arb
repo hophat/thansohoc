@@ -28,6 +28,23 @@
   "tu_vi_hom_nay": "Horoscope today",
   "happy_new_year" : "Feliz Ano Novo",
   "open_red_envelopes" : "Abra o envelope vermelho",
-  "back" : "Costas"
-
+  "back" : "Costas",
+  "hello" : "Olá",
+  "gender" : "Sexo",
+  "male" : "Macho",
+  "female" : "Fêmea",
+  "secret" : "Segredo",
+  "sowing_hexagrams" : "Semeando hexagramas",
+  "shake_phone_to_sow_hex" : "Agite o telefone para semear o hexagrama",
+  "touch_hexagram_to_open" : "Toque no hexagrama para abrir",
+  "hexagram_number_x" : "Número do hexagrama {x}",
+  "@hexagram_number_x" : {
+    "placeholders" : {
+      "x" : {}
+    }
+  },
+  "sow_next_hexagram" : "Semeie o próximo hexagrama",
+  "share" : "Compartilhar",
+  "date_of_birth" : "Data de nascimento",
+  "photo_has_been_saved" : "A foto foi salva"
 }

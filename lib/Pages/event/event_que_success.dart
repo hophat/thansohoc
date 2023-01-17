@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
 
+import '../../generated/l10n.dart';
+
 class EventQueSuccess extends StatefulWidget {
   final Function one, two;
   const EventQueSuccess({Key? key, required this.one, required this.two})
@@ -199,7 +201,8 @@ class _EventQueSuccessState extends State<EventQueSuccess>
               ),
               const SizedBox(height: 15),
               Text(
-                'Chạm để xem quẻ',
+                S.of(context).touch_hexagram_to_open,
+                textAlign: TextAlign.center,
                 style: TextStyle(
                     color: TSHColors().primaryTextColor,
                     fontSize: 20,
