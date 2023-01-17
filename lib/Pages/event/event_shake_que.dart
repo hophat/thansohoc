@@ -247,6 +247,7 @@ class _EventShakeQueState extends State<EventShakeQue>
     detector = ShakeDetector.autoStart(
       shakeThresholdGravity: 1.3,
       onPhoneShake: () {
+        count++;
         _setUpShakeQue();
       },
     );
