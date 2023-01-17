@@ -56,6 +56,115 @@ class _EventShakeQueState extends State<EventShakeQue>
 
   late final ShakeDetector detector;
 
+  List<Map<String, String>> get _wishList {
+    return [
+      {
+        'title': S.of(context).chuc_tet_title_1,
+        'mean': S.of(context).chuc_tet_mean_1,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_2,
+        'mean': S.of(context).chuc_tet_mean_2,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_3,
+        'mean': S.of(context).chuc_tet_mean_3,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_4,
+        'mean': S.of(context).chuc_tet_mean_4,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_5,
+        'mean': S.of(context).chuc_tet_mean_5,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_6,
+        'mean': S.of(context).chuc_tet_mean_6,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_7,
+        'mean': S.of(context).chuc_tet_mean_7,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_8,
+        'mean': S.of(context).chuc_tet_mean_8,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_9,
+        'mean': S.of(context).chuc_tet_mean_9,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_10,
+        'mean': S.of(context).chuc_tet_mean_10,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_11,
+        'mean': S.of(context).chuc_tet_mean_11,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_12,
+        'mean': S.of(context).chuc_tet_mean_12,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_13,
+        'mean': S.of(context).chuc_tet_mean_13,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_14,
+        'mean': S.of(context).chuc_tet_mean_14,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_15,
+        'mean': S.of(context).chuc_tet_mean_15,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_16,
+        'mean': S.of(context).chuc_tet_mean_16,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_17,
+        'mean': S.of(context).chuc_tet_mean_17,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_18,
+        'mean': S.of(context).chuc_tet_mean_18,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_19,
+        'mean': S.of(context).chuc_tet_mean_19,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_20,
+        'mean': S.of(context).chuc_tet_mean_20,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_21,
+        'mean': S.of(context).chuc_tet_mean_21,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_22,
+        'mean': S.of(context).chuc_tet_mean_22,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_23,
+        'mean': S.of(context).chuc_tet_mean_23,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_24,
+        'mean': S.of(context).chuc_tet_mean_24,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_25,
+        'mean': S.of(context).chuc_tet_mean_25,
+      },
+      {
+        'title': S.of(context).chuc_tet_title_26,
+        'mean': S.of(context).chuc_tet_mean_26,
+      },
+    ];
+  }
+
   @override
   void initState() {
     _controller = AnimationController(
@@ -137,7 +246,6 @@ class _EventShakeQueState extends State<EventShakeQue>
 
     detector = ShakeDetector.autoStart(
       shakeThresholdGravity: 1.3,
-
       onPhoneShake: () {
         _setUpShakeQue();
       },
@@ -151,7 +259,7 @@ class _EventShakeQueState extends State<EventShakeQue>
     _debounce = Timer(const Duration(milliseconds: 500), () {
       print(count);
       // Navigator.pop(context);
-      if(_rewardQue) return;
+      if (_rewardQue) return;
       setState(() {
         Vibration.vibrate();
         _rewardQue = true;
@@ -197,11 +305,8 @@ class _EventShakeQueState extends State<EventShakeQue>
           await eventAudio?.pause();
           await showRewardAd();
           await eventAudio?.resume();
-          choose = 1;
-          Map<String, dynamic> map = await parseJsonFromAssets(
-              'assets/chuc_tet/cauchuc${Random().nextInt(26) + 1}.json');
-
-          print(map);
+          choose = Random().nextInt(_wishList.length)+1;
+          Map<String, dynamic> map = _wishList[choose-1];
           title = map['title'];
           content = map['mean'] ?? '';
           setState(() {});
@@ -210,10 +315,8 @@ class _EventShakeQueState extends State<EventShakeQue>
           await eventAudio?.pause();
           await showRewardAd();
           await eventAudio?.resume();
-          choose = 2;
-          Map<String, dynamic> map = await parseJsonFromAssets(
-              'assets/chuc_tet/cauchuc${Random().nextInt(26) + 1}.json');
-          print(map);
+          choose = Random().nextInt(_wishList.length)+1;
+          Map<String, dynamic> map = _wishList[choose-1];
           title = map['title'];
           content = map['mean'] ?? '';
           setState(() {});
@@ -289,32 +392,36 @@ class _EventShakeQueState extends State<EventShakeQue>
                           fit: StackFit.expand,
                           children: [
                             Transform.rotate(
-                              angle:
-                              _beforeShake ? 0 : pi * _rotateController1.value,
+                              angle: _beforeShake
+                                  ? 0
+                                  : pi * _rotateController1.value,
                               alignment: Alignment(0.0, 0.3),
                               child: Opacity(
                                   opacity: 0.3,
                                   child: Image.asset('assets/tet/ques.png')),
                             ),
                             Transform.rotate(
-                              angle:
-                              _beforeShake ? 0 : pi * _rotateController2.value,
+                              angle: _beforeShake
+                                  ? 0
+                                  : pi * _rotateController2.value,
                               alignment: Alignment(0.0, 0.3),
                               child: Opacity(
                                   opacity: 0.3,
                                   child: Image.asset('assets/tet/ques.png')),
                             ),
                             Transform.rotate(
-                              angle:
-                              _beforeShake ? 0 : pi * _rotateController3.value,
+                              angle: _beforeShake
+                                  ? 0
+                                  : pi * _rotateController3.value,
                               alignment: Alignment(0.0, 0.3),
                               child: Opacity(
                                   opacity: 0.3,
                                   child: Image.asset('assets/tet/ques.png')),
                             ),
                             Transform.rotate(
-                              angle:
-                              _beforeShake ? 0 : pi * _rotateController.value,
+                              angle: _beforeShake
+                                  ? 0
+                                  : pi * _rotateController.value,
                               alignment: Alignment(0.0, 0.3),
                               child: Image.asset('assets/tet/ques.png'),
                             ),
@@ -326,13 +433,16 @@ class _EventShakeQueState extends State<EventShakeQue>
                   const SizedBox(height: 15)
                 ],
               ),
-              if(!Platform.isAndroid) Align(
-                alignment: Alignment.topRight,
-                child: IconButton(onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                }, icon: Image.asset('assets/tet/ic_cancel.png')),
-              )
+              if (!Platform.isAndroid)
+                Align(
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      },
+                      icon: Image.asset('assets/tet/ic_cancel.png')),
+                )
             ],
           ),
         ),

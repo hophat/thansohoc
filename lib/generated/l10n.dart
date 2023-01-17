@@ -479,6 +479,526 @@ class S {
       args: [],
     );
   }
+
+  /// `Year of the year like spring - Long live peacefully`
+  String get chuc_tet_title_1 {
+    return Intl.message(
+      'Year of the year like spring - Long live peacefully',
+      name: 'chuc_tet_title_1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Flower of wealth - Truc Bao of peace`
+  String get chuc_tet_title_2 {
+    return Intl.message(
+      'Flower of wealth - Truc Bao of peace',
+      name: 'chuc_tet_title_2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Happy and Prosperous Spring - Longevity Year`
+  String get chuc_tet_title_3 {
+    return Intl.message(
+      'Happy and Prosperous Spring - Longevity Year',
+      name: 'chuc_tet_title_3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thousand times as desired - Everything is like a dream. Millions of surprises - Billions of happiness`
+  String get chuc_tet_title_4 {
+    return Intl.message(
+      'Thousand times as desired - Everything is like a dream. Millions of surprises - Billions of happiness',
+      name: 'chuc_tet_title_4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Spring to the root of happiness gives birth to the buds - Tet on the German tree blooms more flowers`
+  String get chuc_tet_title_5 {
+    return Intl.message(
+      'Spring to the root of happiness gives birth to the buds - Tet on the German tree blooms more flowers',
+      name: 'chuc_tet_title_5',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Year's Recharge - Savings for the School of Spring`
+  String get chuc_tet_title_6 {
+    return Intl.message(
+      'New Year\'s Recharge - Savings for the School of Spring',
+      name: 'chuc_tet_title_6',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Toast to the past year of good fortune - Raise a cup to wish a prosperous new year`
+  String get chuc_tet_title_7 {
+    return Intl.message(
+      'Toast to the past year of good fortune - Raise a cup to wish a prosperous new year',
+      name: 'chuc_tet_title_7',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lucky fortune, golden apricot, happy spring - Happy life, health, happy Tet`
+  String get chuc_tet_title_8 {
+    return Intl.message(
+      'Lucky fortune, golden apricot, happy spring - Happy life, health, happy Tet',
+      name: 'chuc_tet_title_8',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Happy New Year's family reunion - In spring, children and grandchildren enjoy peace`
+  String get chuc_tet_title_9 {
+    return Intl.message(
+      'Happy New Year\'s family reunion - In spring, children and grandchildren enjoy peace',
+      name: 'chuc_tet_title_9',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Auspicious auspicious - Wishing New Year's greetings`
+  String get chuc_tet_title_10 {
+    return Intl.message(
+      'Auspicious auspicious - Wishing New Year\'s greetings',
+      name: 'chuc_tet_title_10',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The future of the world's happiness - Loc man's town house Thanh`
+  String get chuc_tet_title_11 {
+    return Intl.message(
+      'The future of the world\'s happiness - Loc man\'s town house Thanh',
+      name: 'chuc_tet_title_11',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Truc Bao peace, money and progress - Mai declares wealth, fortune and rights`
+  String get chuc_tet_title_12 {
+    return Intl.message(
+      'Truc Bao peace, money and progress - Mai declares wealth, fortune and rights',
+      name: 'chuc_tet_title_12',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Measure for happiness - Package for full fortune. Keeping safe forever - Tighten wealth`
+  String get chuc_tet_title_13 {
+    return Intl.message(
+      'Measure for happiness - Package for full fortune. Keeping safe forever - Tighten wealth',
+      name: 'chuc_tet_title_13',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Year's greetings - Boundless health`
+  String get chuc_tet_title_14 {
+    return Intl.message(
+      'New Year\'s greetings - Boundless health',
+      name: 'chuc_tet_title_14',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continuous success - Eternal happiness`
+  String get chuc_tet_title_15 {
+    return Intl.message(
+      'Continuous success - Eternal happiness',
+      name: 'chuc_tet_title_15',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The bag is always full of money - Happy as a fairy`
+  String get chuc_tet_title_16 {
+    return Intl.message(
+      'The bag is always full of money - Happy as a fairy',
+      name: 'chuc_tet_title_16',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thien increases longevity and increases longevity. Full spring, full of happiness`
+  String get chuc_tet_title_17 {
+    return Intl.message(
+      'Thien increases longevity and increases longevity. Full spring, full of happiness',
+      name: 'chuc_tet_title_17',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Spring comes to the root of happiness and gives birth. Tet about the German tree blooming more flowers`
+  String get chuc_tet_title_18 {
+    return Intl.message(
+      'Spring comes to the root of happiness and gives birth. Tet about the German tree blooming more flowers',
+      name: 'chuc_tet_title_18',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Birth of talent, glorious career. Heavenly Four Blessings, Current Family`
+  String get chuc_tet_title_19 {
+    return Intl.message(
+      'Birth of talent, glorious career. Heavenly Four Blessings, Current Family',
+      name: 'chuc_tet_title_19',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wishing Tet to a hundred things like that. Happy spring to all success`
+  String get chuc_tet_title_20 {
+    return Intl.message(
+      'Wishing Tet to a hundred things like that. Happy spring to all success',
+      name: 'chuc_tet_title_20',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Happy and peaceful new year. Spring, birthday, flowers, rich and precious future`
+  String get chuc_tet_title_21 {
+    return Intl.message(
+      'Happy and peaceful new year. Spring, birthday, flowers, rich and precious future',
+      name: 'chuc_tet_title_21',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Say goodbye to the mouse and wish you a happy spring. Welcoming the Buffalo to celebrate the successful New Year`
+  String get chuc_tet_title_22 {
+    return Intl.message(
+      'Say goodbye to the mouse and wish you a happy spring. Welcoming the Buffalo to celebrate the successful New Year',
+      name: 'chuc_tet_title_22',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The bag is always full of money. Happy as a fairy`
+  String get chuc_tet_title_23 {
+    return Intl.message(
+      'The bag is always full of money. Happy as a fairy',
+      name: 'chuc_tet_title_23',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Celebrate spring and release more merit. Welcoming Tet with compassion to reduce anxiety`
+  String get chuc_tet_title_24 {
+    return Intl.message(
+      'Celebrate spring and release more merit. Welcoming Tet with compassion to reduce anxiety',
+      name: 'chuc_tet_title_24',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Happy New Year. Boundless health`
+  String get chuc_tet_title_25 {
+    return Intl.message(
+      'Happy New Year. Boundless health',
+      name: 'chuc_tet_title_25',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phuc brings the ceremony in the prosperous house. Prosperity and prosperity spring flowers`
+  String get chuc_tet_title_26 {
+    return Intl.message(
+      'Phuc brings the ceremony in the prosperous house. Prosperity and prosperity spring flowers',
+      name: 'chuc_tet_title_26',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wishing your family a happy spring and a peaceful new age`
+  String get chuc_tet_mean_1 {
+    return Intl.message(
+      'Wishing your family a happy spring and a peaceful new age',
+      name: 'chuc_tet_mean_1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wishing you a happy and prosperous new year and a peaceful and happy family`
+  String get chuc_tet_mean_2 {
+    return Intl.message(
+      'Wishing you a happy and prosperous new year and a peaceful and happy family',
+      name: 'chuc_tet_mean_2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wishing you a very happy and prosperous new year and good health`
+  String get chuc_tet_mean_3 {
+    return Intl.message(
+      'Wishing you a very happy and prosperous new year and good health',
+      name: 'chuc_tet_mean_3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wish your family a successful career, always receive many good surprises and happiness`
+  String get chuc_tet_mean_4 {
+    return Intl.message(
+      'Wish your family a successful career, always receive many good surprises and happiness',
+      name: 'chuc_tet_mean_4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wishing the family to receive a lot of fortune and happiness in the new spring`
+  String get chuc_tet_mean_5 {
+    return Intl.message(
+      'Wishing the family to receive a lot of fortune and happiness in the new spring',
+      name: 'chuc_tet_mean_5',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The new spring always brings all the good things and the family is always happy and happy`
+  String get chuc_tet_mean_6 {
+    return Intl.message(
+      'The new spring always brings all the good things and the family is always happy and happy',
+      name: 'chuc_tet_mean_6',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Say goodbye and celebrate a year filled with good fortune< and hope for a prosperous new year< more`
+  String get chuc_tet_mean_7 {
+    return Intl.message(
+      'Say goodbye and celebrate a year filled with good fortune< and hope for a prosperous new year< more',
+      name: 'chuc_tet_mean_7',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wishing you a spring with joy on your lips, a happy family reunion and good health`
+  String get chuc_tet_mean_8 {
+    return Intl.message(
+      'Wishing you a spring with joy on your lips, a happy family reunion and good health',
+      name: 'chuc_tet_mean_8',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `In the new spring, I hope the family is always reunited, all family members are safe and happy`
+  String get chuc_tet_mean_9 {
+    return Intl.message(
+      'In the new spring, I hope the family is always reunited, all family members are safe and happy',
+      name: 'chuc_tet_mean_9',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Happy new year life is all good`
+  String get chuc_tet_mean_10 {
+    return Intl.message(
+      'Happy new year life is all good',
+      name: 'chuc_tet_mean_10',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `In the new year, happiness will overflow everywhere and fortune will smell at the door`
+  String get chuc_tet_mean_11 {
+    return Intl.message(
+      'In the new year, happiness will overflow everywhere and fortune will smell at the door',
+      name: 'chuc_tet_mean_11',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The family is always peaceful, the new year will bring a lot of fortune, wealth and prosperity`
+  String get chuc_tet_mean_12 {
+    return Intl.message(
+      'The family is always peaceful, the new year will bring a lot of fortune, wealth and prosperity',
+      name: 'chuc_tet_mean_12',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `In the new spring, the family is always full of happiness, fortune will come to the door to have a happy new year`
+  String get chuc_tet_mean_13 {
+    return Intl.message(
+      'In the new spring, the family is always full of happiness, fortune will come to the door to have a happy new year',
+      name: 'chuc_tet_mean_13',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Happy New Year with good health`
+  String get chuc_tet_mean_14 {
+    return Intl.message(
+      'Happy New Year with good health',
+      name: 'chuc_tet_mean_14',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `A new year is always successful, get happiness and have a happy and rich life`
+  String get chuc_tet_mean_15 {
+    return Intl.message(
+      'A new year is always successful, get happiness and have a happy and rich life',
+      name: 'chuc_tet_mean_15',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wish your loved ones in the spring will increase their longevity and happiness to fill the house`
+  String get chuc_tet_mean_16 {
+    return Intl.message(
+      'Wish your loved ones in the spring will increase their longevity and happiness to fill the house',
+      name: 'chuc_tet_mean_16',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wish the people next to you a new year that will receive a lot of luck, prosperity and good fortune, family happiness and reunion.`
+  String get chuc_tet_mean_17 {
+    return Intl.message(
+      'Wish the people next to you a new year that will receive a lot of luck, prosperity and good fortune, family happiness and reunion.',
+      name: 'chuc_tet_mean_17',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wishing the person beside the career to be developed to make life brighter, more blessings so that the family is always filled with laughter.`
+  String get chuc_tet_mean_18 {
+    return Intl.message(
+      'Wishing the person beside the career to be developed to make life brighter, more blessings so that the family is always filled with laughter.',
+      name: 'chuc_tet_mean_18',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `In the new year, wish the people next to you to do whatever they want and be successful`
+  String get chuc_tet_mean_19 {
+    return Intl.message(
+      'In the new year, wish the people next to you to do whatever they want and be successful',
+      name: 'chuc_tet_mean_19',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wishing the people next to you a new year full of wealth and happiness and lots of joy and happiness with your loved ones.`
+  String get chuc_tet_mean_20 {
+    return Intl.message(
+      'Wishing the people next to you a new year full of wealth and happiness and lots of joy and happiness with your loved ones.',
+      name: 'chuc_tet_mean_20',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This couplet aims to say goodbye to an old year with lots of joy and happiness and at the same time welcome a new year with more success and happiness.`
+  String get chuc_tet_mean_21 {
+    return Intl.message(
+      'This couplet aims to say goodbye to an old year with lots of joy and happiness and at the same time welcome a new year with more success and happiness.',
+      name: 'chuc_tet_mean_21',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wish the people next to you in the new year will reap a lot of fortune to live a happy and rich life`
+  String get chuc_tet_mean_22 {
+    return Intl.message(
+      'Wish the people next to you in the new year will reap a lot of fortune to live a happy and rich life',
+      name: 'chuc_tet_mean_22',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Couples wishing the person next to the new year will no longer be sad or worried, but will instead be peaceful and have blessings.`
+  String get chuc_tet_mean_23 {
+    return Intl.message(
+      'Couples wishing the person next to the new year will no longer be sad or worried, but will instead be peaceful and have blessings.',
+      name: 'chuc_tet_mean_23',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Happy New Year, may the people around you always be healthy and happy with your loved ones`
+  String get chuc_tet_mean_24 {
+    return Intl.message(
+      'Happy New Year, may the people around you always be healthy and happy with your loved ones',
+      name: 'chuc_tet_mean_24',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `In the new year, the family will have blessings to return home, will be successful and receive a lot of glory, a rich and rich life`
+  String get chuc_tet_mean_25 {
+    return Intl.message(
+      'In the new year, the family will have blessings to return home, will be successful and receive a lot of glory, a rich and rich life',
+      name: 'chuc_tet_mean_25',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get chuc_tet_mean_26 {
+    return Intl.message(
+      '',
+      name: 'chuc_tet_mean_26',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
