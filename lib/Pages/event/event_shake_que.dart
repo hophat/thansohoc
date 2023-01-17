@@ -247,6 +247,8 @@ class _EventShakeQueState extends State<EventShakeQue>
     detector = ShakeDetector.autoStart(
       shakeThresholdGravity: 1.3,
       onPhoneShake: () {
+        if (_rewardQue) return;
+        Vibration.vibrate(duration: 200);
         count++;
         _setUpShakeQue();
       },
@@ -262,7 +264,7 @@ class _EventShakeQueState extends State<EventShakeQue>
       // Navigator.pop(context);
       if (_rewardQue) return;
       setState(() {
-        Vibration.vibrate();
+        Vibration.vibrate(duration: 1000);
         _rewardQue = true;
       });
     });
@@ -302,21 +304,29 @@ class _EventShakeQueState extends State<EventShakeQue>
 
     if (choose == -1) {
       return EventQueSuccess(
-        one: () async {
+        one: (v) async {
           await eventAudio?.pause();
-          await showRewardAd();
+          try{
+            await showRewardAd();
+          }catch(e) {
+
+          }
           await eventAudio?.resume();
-          choose = Random().nextInt(_wishList.length)+1;
+          choose = v;
           Map<String, dynamic> map = _wishList[choose-1];
           title = map['title'];
           content = map['mean'] ?? '';
           setState(() {});
         },
-        two: () async {
+        two: (v) async {
           await eventAudio?.pause();
-          await showRewardAd();
+          try{
+            await showRewardAd();
+          }catch(e) {
+
+          }
           await eventAudio?.resume();
-          choose = Random().nextInt(_wishList.length)+1;
+          choose = v;
           Map<String, dynamic> map = _wishList[choose-1];
           title = map['title'];
           content = map['mean'] ?? '';
@@ -335,7 +345,11 @@ class _EventShakeQueState extends State<EventShakeQue>
       hasNext: _hasNext,
       onHasNext: (v) async {
         await eventAudio?.pause();
-        await showRewardAd();
+        try{
+          await showRewardAd();
+        }catch(e) {
+
+        }
         await eventAudio?.resume();
         Navigator.pop(context);
       },

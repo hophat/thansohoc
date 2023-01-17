@@ -6,6 +6,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/event/event_shake_que.dart';
+import 'package:flutter_app_than_so_hoc_2/provider/local_db/shared_pref.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_theme.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -13,6 +14,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:shake/shake.dart';
 import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../provider/admob/admob_service.dart';
 
@@ -69,7 +71,6 @@ extension FormatEventDate on DateTime {
 
 class _EventQueState extends State<EventQue>
     with SingleTickerProviderStateMixin {
-
   bool _isStart = false;
   bool _shaking = false;
   late DateTime currentDate;
@@ -107,7 +108,6 @@ class _EventQueState extends State<EventQue>
 
   @override
   void initState() {
-    currentDate = DateTime.now();
     _controller = AnimationController(
       vsync: this,
       duration: _duration,
@@ -178,7 +178,18 @@ class _EventQueState extends State<EventQue>
 
     _setUpAudio();
 
+    _fetchCurrDate();
+
     super.initState();
+  }
+
+  _fetchCurrDate() async {
+    currentDate = DateTime.now();
+    final dateStr = myShared.getString('birh_date_store') ?? '';
+
+    if(dateStr.isEmpty) return;
+
+    currentDate = DateTime.tryParse(dateStr) ?? DateTime.now();
   }
 
   _setUpAudio() {
@@ -230,9 +241,11 @@ class _EventQueState extends State<EventQue>
   _onDateClicked() {
     DatePicker.showDatePicker(context,
         minTime: DateTime(1900, 1, 1),
+        maxTime: DateTime.now(),
         showTitleActions: true,
         onChanged: (_) {}, onConfirm: (date) {
       currentDate = date;
+      myShared.setString('birh_date_store', currentDate.toString());
       setState(() {});
     }, currentTime: currentDate, locale: locate);
   }

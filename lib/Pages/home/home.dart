@@ -10,6 +10,7 @@ import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
 import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
 import 'package:flutter_app_than_so_hoc_2/network/tsh_client.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/firebase/analytics/analytics_service.dart';
+import 'package:flutter_app_than_so_hoc_2/provider/local_db/shared_pref.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
 
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -48,7 +49,7 @@ extension ParseToString on LocaleType {
 
 class _MyHomePageState extends State<HomePage> {
   dynamic name;
-  static DateTime dateCur = DateTime.parse('1996-01-01');
+  static DateTime dateCur = DateTime.now();
   late String ngay;
   late String thang;
   late String nam;
@@ -72,16 +73,17 @@ class _MyHomePageState extends State<HomePage> {
     return _l;
   }
 
-  _showEvent() {
+  _showEvent() async {
     // return;
     // AnalyticsService.I.analytics.logAppOpen();
-    showAnimatedDialog(
+    await showAnimatedDialog(
       context: context,
       animationType: DialogTransitionType.slideFromBottomFade,
       curve: Curves.fastOutSlowIn,
       duration: Duration(milliseconds: 1000),
       builder: (_) => EventQue(),
     );
+    _get_birh_date();
   }
 
   _createInterstitialAd() {
@@ -116,8 +118,13 @@ class _MyHomePageState extends State<HomePage> {
 
   void _changeDate(_dateCur) async {
     setState(() {
-      name = DateFormat('dd-MM-yyyy').format(_dateCur);
       dateCur = _dateCur;
+      myShared.setString('birh_date_store', dateCur.toString());
+      if (Intl.getCurrentLocale().toString() == "vi") {
+        name = DateFormat('dd-MM-yyyy').format(dateCur);
+      } else {
+        name = DateFormat('yyyy-MM-dd').format(dateCur);
+      }
     });
   }
 

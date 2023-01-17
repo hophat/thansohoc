@@ -6,7 +6,7 @@
 
 
     <application
-        android:label="thansohoc"
+        android:label="Numerology"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

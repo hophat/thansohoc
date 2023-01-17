@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../generated/l10n.dart';
 
@@ -24,6 +25,9 @@ class _EventQueSuccessState extends State<EventQueSuccess>
   final Duration _duration = const Duration(milliseconds: 1300);
 
   Size get _size => MediaQuery.of(context).size;
+
+  final one = Random().nextInt(26) + 1;
+  final two = Random().nextInt(26) + 1;
 
   @override
   void initState() {
@@ -133,69 +137,95 @@ class _EventQueSuccessState extends State<EventQueSuccess>
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    GestureDetector(
-                      onTap: () async {
-                        await _controller1.forward();
-                        widget.one();
-                      },
-                      child: AnimatedBuilder(
-                        animation: _controller2,
-                        child: AnimatedBuilder(
-                          animation: _controller1,
-                          child: Image.asset('assets/tet/que_1.png'),
-                          builder: (_, c) {
-                            return Transform.translate(
-                              offset: Offset(
-                                  (_size.width/4.5) * _translateController1.value, 0),
-                              child: Transform(
-                                alignment: Alignment.center,
-                                transform: Matrix4.identity()
-                                  ..setEntry(3, 2, 0.001)
-                                  ..rotateY(pi * _rotateController1.value),
-                                child: c,
-                              ),
-                            );
-                          },
-                        ),
-                        builder: (_, c) {
-                          return Opacity(
-                            opacity: _opacityController2.value,
-                            child: c,
-                          );
-                        },
-                      ),
-                    ),
-                    GestureDetector(
+                    Expanded(
+                      child: GestureDetector(
                         onTap: () async {
-                          await _controller2.forward();
-                          widget.two();
+                          await _controller1.forward();
+                          widget.one(one);
                         },
                         child: AnimatedBuilder(
-                            animation: _controller1,
+                          animation: _controller2,
                           child: AnimatedBuilder(
-                              animation: _controller2,
-                              child: Image.asset('assets/tet/que_2.png'),
-                              builder: (_, c) {
-                                return Transform.translate(
-                                  offset: Offset(
-                                      -(_size.width/4.5) * _translateController2.value, 0),
-                                  child: Transform(
-                                    alignment: Alignment.center,
-                                    transform: Matrix4.identity()
-                                      ..setEntry(3, 2, 0.001)
-                                      ..rotateY(pi * _rotateController2.value),
-                                    child: c,
-                                  ),
-                                );
-                              }
+                            animation: _controller1,
+                            child: Stack(
+                              fit: StackFit.expand,
+                              children: [
+                                Image.asset('assets/tet/que_1.png'),
+                                Align(
+                                  alignment: Alignment(0.0, -0.3),
+                                  child: Text(one.toString(), style: GoogleFonts.getFont('Philosopher').copyWith(
+                                    color: Color(0xFFDE3532), fontSize: 20, fontWeight: FontWeight.bold
+                                  ),),
+                                ),
+                              ],
+                            ),
+                            builder: (_, c) {
+                              return Transform.translate(
+                                offset: Offset(
+                                    (_size.width/4.5) * _translateController1.value, 0),
+                                child: Transform(
+                                  alignment: Alignment.center,
+                                  transform: Matrix4.identity()
+                                    ..setEntry(3, 2, 0.001)
+                                    ..rotateY(pi * _rotateController1.value),
+                                  child: c,
+                                ),
+                              );
+                            },
                           ),
                           builder: (_, c) {
                             return Opacity(
-                              opacity: _opacityController1.value,
+                              opacity: _opacityController2.value,
                               child: c,
                             );
-                          }
-                        ))
+                          },
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: GestureDetector(
+                          onTap: () async {
+                            await _controller2.forward();
+                            widget.two(two);
+                          },
+                          child: AnimatedBuilder(
+                              animation: _controller1,
+                            child: AnimatedBuilder(
+                                animation: _controller2,
+                                child: Stack(
+                                  fit: StackFit.expand,
+                                  children: [
+                                    Image.asset('assets/tet/que_2.png'),
+                                    Align(
+                                      alignment: Alignment(0.0, -0.3),
+                                      child: Text(two.toString(), style: GoogleFonts.getFont('Philosopher').copyWith(
+                                          color: Color(0xFFDE3532), fontSize: 20, fontWeight: FontWeight.bold
+                                      ),),
+                                    ),
+                                  ],
+                                ),
+                                builder: (_, c) {
+                                  return Transform.translate(
+                                    offset: Offset(
+                                        -(_size.width/4.5) * _translateController2.value, 0),
+                                    child: Transform(
+                                      alignment: Alignment.center,
+                                      transform: Matrix4.identity()
+                                        ..setEntry(3, 2, 0.001)
+                                        ..rotateY(pi * _rotateController2.value),
+                                      child: c,
+                                    ),
+                                  );
+                                }
+                            ),
+                            builder: (_, c) {
+                              return Opacity(
+                                opacity: _opacityController1.value,
+                                child: c,
+                              );
+                            }
+                          )),
+                    )
                   ],
                 ),
               ),
