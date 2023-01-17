@@ -153,8 +153,8 @@ class _EventQueSuccessState extends State<EventQueSuccess>
                                 Image.asset('assets/tet/que_1.png'),
                                 Align(
                                   alignment: Alignment(0.0, -0.3),
-                                  child: Text(one.toString(), style: GoogleFonts.getFont('Philosopher').copyWith(
-                                    color: Color(0xFFDE3532), fontSize: 20, fontWeight: FontWeight.bold
+                                  child: Text(one.toString(), style: GoogleFonts.getFont('Permanent Marker').copyWith(
+                                    color: Color(0xFFDE3532), fontSize: 25, fontWeight: FontWeight.bold
                                   ),),
                                 ),
                               ],
@@ -198,8 +198,8 @@ class _EventQueSuccessState extends State<EventQueSuccess>
                                     Image.asset('assets/tet/que_2.png'),
                                     Align(
                                       alignment: Alignment(0.0, -0.3),
-                                      child: Text(two.toString(), style: GoogleFonts.getFont('Philosopher').copyWith(
-                                          color: Color(0xFFDE3532), fontSize: 20, fontWeight: FontWeight.bold
+                                      child: Text(two.toString(), style: GoogleFonts.getFont('Permanent Marker').copyWith(
+                                          color: Color(0xFFDE3532), fontSize: 25, fontWeight: FontWeight.bold
                                       ),),
                                     ),
                                   ],
