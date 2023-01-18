@@ -22,7 +22,7 @@ class AdMobService {
 
   String get rewardAdUnitId {
     if(Platform.isAndroid) {
-      kDebugMode ? 'ca-app-pub-3940256099942544/5224354917' : 'ca-app-pub-8539908368627646/6003125396';
+      return kDebugMode ? 'ca-app-pub-3940256099942544/5224354917' : 'ca-app-pub-8539908368627646/6003125396';
     }
     return 'ca-app-pub-3940256099942544/1712485313';
   }
@@ -30,7 +30,7 @@ class AdMobService {
   // String get InterstitialAdUnitId => 'ca-app-pub-8539908368627646/9674777099';
   String get InterstitialAdUnitId {
     if(Platform.isAndroid) {
-      kDebugMode ? 'ca-app-pub-3940256099942544/1033173712' : 'ca-app-pub-8539908368627646/9674777099';
+      return kDebugMode ? 'ca-app-pub-3940256099942544/1033173712' : 'ca-app-pub-8539908368627646/9674777099';
     }
     return 'ca-app-pub-3940256099942544/6978759866';
   }

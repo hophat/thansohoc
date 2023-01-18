@@ -33,9 +33,20 @@ void main() async {
   }
   myShared = await SharedPreferences.getInstance();
   langCur = await myShared.getString('langCur') ?? '';
+  print('langCur before => $langCur');
   if (langCur.isNotEmpty) {
     await S.load(Locale(langCur));
+  }else{
+    final localeNames = Platform.localeName.split('_');
+    if(localeNames.isNotEmpty){
+      langCur = localeNames.first;
+    }else{
+      langCur = 'en';
+    }
+    await S.load(Locale(langCur));
   }
+
+  print('langCur after => $langCur');
   runApp(MyApp());
 }
 
