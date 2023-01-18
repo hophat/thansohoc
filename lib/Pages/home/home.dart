@@ -87,9 +87,7 @@ class _MyHomePageState extends State<HomePage> {
   }
 
   _createInterstitialAd() {
-    if(Platform.isIOS) {
-      return;
-    }
+    if(Platform.isIOS) return;
     InterstitialAd.load(
         // adUnitId: 'ca-app-pub-3940256099942544/1033173712',//test
         adUnitId: AdMobService.instance.InterstitialAdUnitId,

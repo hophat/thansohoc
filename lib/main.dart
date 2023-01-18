@@ -28,7 +28,9 @@ void main() async {
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.android
   // );
-  MobileAds.instance.initialize();
+  if(Platform.isAndroid) {
+    MobileAds.instance.initialize();
+  }
   myShared = await SharedPreferences.getInstance();
   langCur = await myShared.getString('langCur') ?? '';
   if (langCur.isNotEmpty) {

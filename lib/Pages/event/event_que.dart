@@ -19,6 +19,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../provider/admob/admob_service.dart';
 
 showRewardAd() async {
+  if(Platform.isIOS) return;
   if (_rewardedAd == null) {
     createRewardedAd();
     return;
@@ -39,6 +40,7 @@ showRewardAd() async {
 RewardedAd? _rewardedAd;
 
 Future createRewardedAd() async {
+  if(Platform.isIOS) return;
   await RewardedAd.load(
       adUnitId: AdMobService.instance.rewardAdUnitId,
       request: AdRequest(),
