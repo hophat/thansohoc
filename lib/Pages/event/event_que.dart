@@ -167,8 +167,10 @@ class _EventQueState extends State<EventQue>
     // });
 
     detector = ShakeDetector.autoStart(
-      shakeThresholdGravity: 1.3,
+      shakeThresholdGravity: 1.4,
       onPhoneShake: () {
+        print(mounted);
+        if(!mounted) return;
         if (!_isStart) return;
         if (_shaking) return;
         _showShakeQue();

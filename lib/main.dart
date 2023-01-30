@@ -120,22 +120,22 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  BannerAd? _banner;
-
-  _createBannerAd() async {
-    if(Platform.isIOS) return;
-    _banner = BannerAd(
-      size: AdSize.banner,
-      adUnitId: AdMobService.instance.bannerAdUnitId,
-      // adUnitId: 'ca-app-pub-3940256099942544/6300978111', test
-      listener: AdMobService.instance.bannerAdListener,
-      request: AdRequest(),
-    );
-    await _banner?.load();
-    setState(() {
-
-    });
-  }
+  // BannerAd? _banner;
+  //
+  // _createBannerAd() async {
+  //   if(Platform.isIOS) return;
+  //   _banner = BannerAd(
+  //     size: AdSize.banner,
+  //     adUnitId: AdMobService.instance.bannerAdUnitId,
+  //     // adUnitId: 'ca-app-pub-3940256099942544/6300978111', test
+  //     listener: AdMobService.instance.bannerAdListener,
+  //     request: AdRequest(),
+  //   );
+  //   await _banner?.load();
+  //   setState(() {
+  //
+  //   });
+  // }
 
   _showEvent() {
     // return;
@@ -152,7 +152,7 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _createBannerAd();
+    // _createBannerAd();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       // Future.delayed(const Duration(seconds: 2)).then((value) => _showEvent());
     });
@@ -161,7 +161,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void dispose() {
     langSteamController.close();
-    _banner?.dispose();
+    // _banner?.dispose();
     super.dispose();
   }
 
@@ -187,14 +187,14 @@ class _MainPageState extends State<MainPage> {
       //     height: 30,
       //   ),
       // ),
-      bottomNavigationBar: _banner == null
-          ? SizedBox.shrink()
-          : Container(
-              // margin: const EdgeInsets.only(bottom: 12),
-              height: _banner?.size.height.toDouble(),
-              width: _banner?.size.width.toDouble(),
-              child: AdWidget(ad: _banner!),
-            ),
+      // bottomNavigationBar: _banner == null
+      //     ? SizedBox.shrink()
+      //     : Container(
+      //         // margin: const EdgeInsets.only(bottom: 12),
+      //         height: _banner?.size.height.toDouble(),
+      //         width: _banner?.size.width.toDouble(),
+      //         child: AdWidget(ad: _banner!),
+      //       ),
     );
   }
 }

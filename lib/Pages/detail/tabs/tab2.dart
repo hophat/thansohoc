@@ -86,7 +86,7 @@ class _My_tab2 extends State<diengiai_tab2_Page> {
               ? Text('loadding')
               : box_card(
               data_box: widget.data4, dinh: widget.tuoi_4.toString()),
-          spacing, spacing, spacing
+          // spacing, spacing, spacing
         ],
       ),
     );

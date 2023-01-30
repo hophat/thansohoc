@@ -94,23 +94,23 @@ class _MyDetailPage extends State<DetailPage>
     dinh_4 = await tinh_scd(ngay_temp + nam_temp);
   }
 
-  BannerAd? _banner;
-
-  _createBannerAd() {
-    if(Platform.isIOS) return;
-    _banner = BannerAd(
-      size: AdSize.banner,
-      adUnitId: AdMobService.instance.bannerAdUnitId,
-      // adUnitId: 'ca-app-pub-3940256099942544/6300978111',
-      listener: AdMobService.instance.bannerAdListener,
-      request: AdRequest(),
-    );
-    _banner?.load();
-  }
+  // BannerAd? _banner;
+  //
+  // _createBannerAd() {
+  //   if(Platform.isIOS) return;
+  //   _banner = BannerAd(
+  //     size: AdSize.banner,
+  //     adUnitId: AdMobService.instance.bannerAdUnitId,
+  //     // adUnitId: 'ca-app-pub-3940256099942544/6300978111',
+  //     listener: AdMobService.instance.bannerAdListener,
+  //     request: AdRequest(),
+  //   );
+  //   _banner?.load();
+  // }
 
   @override
   void dispose() {
-    _banner?.dispose();
+    // _banner?.dispose();
     _tabNotifier.dispose();
     _tabNotifier.removeListener(_tabListener);
     _tabController.dispose();
@@ -130,7 +130,7 @@ class _MyDetailPage extends State<DetailPage>
         initialIndex: 0,
         animationDuration: const Duration(milliseconds: 300));
     _tabController.addListener(_tabListener);
-    _createBannerAd();
+    // _createBannerAd();
     super.initState();
 
     ngay = widget.res.data['ngay'];
@@ -277,14 +277,14 @@ class _MyDetailPage extends State<DetailPage>
             tab3,
           ],
         ),
-        bottomNavigationBar: _banner == null
-            ? SizedBox.shrink()
-            : Container(
-                // margin: const EdgeInsets.only(bottom: 12),
-                height: _banner?.size.height.toDouble(),
-                width: _banner?.size.width.toDouble(),
-                child: AdWidget(ad: _banner!),
-              ),
+        // bottomNavigationBar: _banner == null
+        //     ? SizedBox.shrink()
+        //     : Container(
+        //         // margin: const EdgeInsets.only(bottom: 12),
+        //         height: _banner?.size.height.toDouble(),
+        //         width: _banner?.size.width.toDouble(),
+        //         child: AdWidget(ad: _banner!),
+        //       ),
       ),
     );
   }

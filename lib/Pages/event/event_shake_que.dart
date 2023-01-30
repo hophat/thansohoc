@@ -39,7 +39,7 @@ class _EventShakeQueState extends State<EventShakeQue>
 
   Timer? _debounce;
 
-  final int _limitReward = 8;
+  final int _limitReward = 6;
 
   Size get _size => MediaQuery.of(context).size;
 
