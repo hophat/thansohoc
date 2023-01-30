@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/detail.dart';
-import 'package:flutter_app_than_so_hoc_2/Pages/event/event_2.dart';
-import 'package:flutter_app_than_so_hoc_2/Pages/event/event_que.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/setting/setting.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
 import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
@@ -71,19 +69,6 @@ class _MyHomePageState extends State<HomePage> {
       });
     }
     return _l;
-  }
-
-  _showEvent() async {
-    // return;
-    // AnalyticsService.I.analytics.logAppOpen();
-    await showAnimatedDialog(
-      context: context,
-      animationType: DialogTransitionType.slideFromBottomFade,
-      curve: Curves.fastOutSlowIn,
-      duration: Duration(milliseconds: 1000),
-      builder: (_) => EventQue(),
-    );
-    _get_birh_date();
   }
 
   _createInterstitialAd() {
@@ -226,8 +211,6 @@ class _MyHomePageState extends State<HomePage> {
                     SizedBox(height: 20),
                     _buildDate(),
                     SizedBox(height: 20),
-                    _buildLixiBtn(),
-                    SizedBox(height: 20),
                     _buildSubmit(),
                   ],
                 ),
@@ -249,12 +232,6 @@ class _MyHomePageState extends State<HomePage> {
       ),
     );
   }
-
-  _buildLixiBtn() => IconButton(
-    onPressed: () => _showEvent(),
-    iconSize: 72,
-    icon: Image.asset('assets/tet/ic_lixi.png'),
-  );
 
   _buildDate() => InkWell(
         onTap: () => DatePicker.showDatePicker(context,

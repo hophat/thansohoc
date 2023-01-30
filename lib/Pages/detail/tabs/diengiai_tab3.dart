@@ -105,8 +105,6 @@ class _My_tab3 extends State<diengiai_tab3_Page> {
               ]
             ],
           )),
-          spacing,
-          spacing
         ],
       ),
     );

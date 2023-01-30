@@ -1,11 +1,6 @@
 import 'dart:io';
 
-// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:backdrop/backdrop.dart';
-import 'package:flutter_app_than_so_hoc_2/Pages/event/event_2.dart';
-import 'package:flutter_app_than_so_hoc_2/Pages/event/event_page.dart';
-import 'package:flutter_app_than_so_hoc_2/Pages/hangngay/hangngay.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Lang.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/admob/admob_service.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/list_extension.dart';
@@ -16,10 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Pages/home/home.dart';
-import 'Pages/setting/setting.dart';
-// import 'firebase_options.dart';
 import 'generated/l10n.dart';
-import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 
 String langCur = '';
 
@@ -120,48 +112,14 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  BannerAd? _banner;
-
-  _createBannerAd() async {
-    if(Platform.isIOS) return;
-    _banner = BannerAd(
-      size: AdSize.banner,
-      adUnitId: AdMobService.instance.bannerAdUnitId,
-      // adUnitId: 'ca-app-pub-3940256099942544/6300978111', test
-      listener: AdMobService.instance.bannerAdListener,
-      request: AdRequest(),
-    );
-    await _banner?.load();
-    setState(() {
-
-    });
-  }
-
-  _showEvent() {
-    // return;
-    showAnimatedDialog(
-      context: context,
-      animationType: DialogTransitionType.slideFromBottomFade,
-      curve: Curves.fastOutSlowIn,
-      duration: Duration(milliseconds: 1000),
-      builder: (_) => EventPage2(),
-    );
-  }
-
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    _createBannerAd();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      // Future.delayed(const Duration(seconds: 2)).then((value) => _showEvent());
-    });
   }
 
   @override
   void dispose() {
     langSteamController.close();
-    _banner?.dispose();
     super.dispose();
   }
 
@@ -175,26 +133,6 @@ class _MainPageState extends State<MainPage> {
           return HomePage();
         },
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   heroTag: 'lixi',
-      //   backgroundColor: Colors.white24,
-      //   onPressed: () {
-      //     _showEvent();
-      //   },
-      //   child: Image.asset(
-      //     'assets/tet/ic_lixi.png',
-      //     width: 30,
-      //     height: 30,
-      //   ),
-      // ),
-      bottomNavigationBar: _banner == null
-          ? SizedBox.shrink()
-          : Container(
-              // margin: const EdgeInsets.only(bottom: 12),
-              height: _banner?.size.height.toDouble(),
-              width: _banner?.size.width.toDouble(),
-              child: AdWidget(ad: _banner!),
-            ),
     );
   }
 }

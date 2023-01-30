@@ -1,15 +1,10 @@
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/tabs/diengiai_tab3.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/tabs/tab1.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/tabs/tab2.dart';
 import 'package:flutter_app_than_so_hoc_2/network/tsh_client.dart';
 import 'package:flutter_app_than_so_hoc_2/network/tsh_client2.dart';
-import 'package:flutter_app_than_so_hoc_2/provider/admob/admob_service.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 import 'package:html/parser.dart' show parse;
@@ -94,23 +89,8 @@ class _MyDetailPage extends State<DetailPage>
     dinh_4 = await tinh_scd(ngay_temp + nam_temp);
   }
 
-  BannerAd? _banner;
-
-  _createBannerAd() {
-    if(Platform.isIOS) return;
-    _banner = BannerAd(
-      size: AdSize.banner,
-      adUnitId: AdMobService.instance.bannerAdUnitId,
-      // adUnitId: 'ca-app-pub-3940256099942544/6300978111',
-      listener: AdMobService.instance.bannerAdListener,
-      request: AdRequest(),
-    );
-    _banner?.load();
-  }
-
   @override
   void dispose() {
-    _banner?.dispose();
     _tabNotifier.dispose();
     _tabNotifier.removeListener(_tabListener);
     _tabController.dispose();
@@ -130,7 +110,6 @@ class _MyDetailPage extends State<DetailPage>
         initialIndex: 0,
         animationDuration: const Duration(milliseconds: 300));
     _tabController.addListener(_tabListener);
-    _createBannerAd();
     super.initState();
 
     ngay = widget.res.data['ngay'];
@@ -277,14 +256,6 @@ class _MyDetailPage extends State<DetailPage>
             tab3,
           ],
         ),
-        bottomNavigationBar: _banner == null
-            ? SizedBox.shrink()
-            : Container(
-                // margin: const EdgeInsets.only(bottom: 12),
-                height: _banner?.size.height.toDouble(),
-                width: _banner?.size.width.toDouble(),
-                child: AdWidget(ad: _banner!),
-              ),
       ),
     );
   }

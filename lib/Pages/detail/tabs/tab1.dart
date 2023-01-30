@@ -272,9 +272,6 @@ class _My_tab1 extends State<tab1_Page> {
                   ],
                 ),
               ),
-              spacing,
-              spacing,
-              spacing
             ]),
       ),
     );
