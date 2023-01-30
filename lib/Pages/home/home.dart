@@ -47,7 +47,8 @@ extension ParseToString on LocaleType {
   }
 }
 
-class _MyHomePageState extends State<HomePage> {
+class _MyHomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   dynamic name;
   static DateTime dateCur = DateTime.now();
   late String ngay;
@@ -55,6 +56,9 @@ class _MyHomePageState extends State<HomePage> {
   late String nam;
   late int dateValue;
   String get lang => Intl.getCurrentLocale().toString();
+
+  late final AnimationController _animationController;
+  late final Animation<double> _lixiScaleAnimation;
 
   InterstitialAd? _interstitialAd;
 
@@ -87,7 +91,7 @@ class _MyHomePageState extends State<HomePage> {
   }
 
   _createInterstitialAd() {
-    if(Platform.isIOS) return;
+    if (Platform.isIOS) return;
     InterstitialAd.load(
         // adUnitId: 'ca-app-pub-3940256099942544/1033173712',//test
         adUnitId: AdMobService.instance.InterstitialAdUnitId,
@@ -104,12 +108,27 @@ class _MyHomePageState extends State<HomePage> {
     // TODO: implement initState
     super.initState();
     // lang = Intl.getCurrentLocale().toString();
+    _animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 500));
+    _lixiScaleAnimation =  Tween<double>(begin: 1.0, end: 1.2).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: const Interval(
+          0.0,
+          1.0,
+          curve: Curves.linear,
+        ),
+      ),
+    );
+    _animationController.forward();
+    _animationController.repeat(reverse: true);
     this._get_birh_date();
     _createInterstitialAd();
   }
 
   @override
   void dispose() {
+    _animationController.dispose();
     _interstitialAd?.dispose();
     super.dispose();
   }
@@ -218,10 +237,9 @@ class _MyHomePageState extends State<HomePage> {
                     Text(
                       S.of(context).hay_chon_ngay_sinh_cua_ban,
                       style: TextStyle(
-                        fontSize: 18,
-                        color: TSHColors().primaryTextColor,
-                        fontWeight: FontWeight.bold
-                      ),
+                          fontSize: 18,
+                          color: TSHColors().primaryTextColor,
+                          fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 20),
                     _buildDate(),
@@ -240,7 +258,8 @@ class _MyHomePageState extends State<HomePage> {
                   onPressed: () {
                     showModalBottomSheet(
                         backgroundColor: Colors.transparent,
-                        context: context, builder: (_) => settingPage());
+                        context: context,
+                        builder: (_) => settingPage());
                   },
                   icon: Image.asset('assets/tet/ic_language.png')),
             )
@@ -250,11 +269,21 @@ class _MyHomePageState extends State<HomePage> {
     );
   }
 
-  _buildLixiBtn() => IconButton(
-    onPressed: () => _showEvent(),
-    iconSize: 72,
-    icon: Image.asset('assets/tet/ic_lixi.png'),
-  );
+  _buildLixiBtn() {
+    return AnimatedBuilder(
+        animation: _animationController,
+        child: IconButton(
+          onPressed: () => _showEvent(),
+          iconSize: 72,
+          icon: Image.asset('assets/tet/ic_lixi.png'),
+        ),
+        builder: (_, c) {
+          return Transform.scale(
+            scale: _lixiScaleAnimation.value,
+            child: c,
+          );
+        });
+  }
 
   _buildDate() => InkWell(
         onTap: () => DatePicker.showDatePicker(context,
@@ -279,7 +308,8 @@ class _MyHomePageState extends State<HomePage> {
           ),
           child: Text(
             '$name',
-            style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
           ),
         ),
       );
