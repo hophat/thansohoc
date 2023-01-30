@@ -8,6 +8,7 @@ import 'package:flutter_app_than_so_hoc_2/Pages/event/event_page.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/hangngay/hangngay.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Lang.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/admob/admob_service.dart';
+import 'package:flutter_app_than_so_hoc_2/provider/env.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/list_extension.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/local_db/shared_pref.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -24,6 +25,7 @@ import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 String langCur = '';
 
 void main() async {
+  env = Env.dev;
   WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.android
