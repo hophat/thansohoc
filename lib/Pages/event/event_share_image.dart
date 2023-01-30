@@ -24,83 +24,81 @@ class EventShareImage extends StatelessWidget {
     final spacing = SizedBox(height: 15, width: 15);
     return Screenshot(
       controller: screenshotController,
-      child: Scaffold(
-        body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('assets/tet/que_bg.png'),
-                fit: BoxFit.scaleDown),
-          ),
-          margin: EdgeInsets.all(5),
-          child: Container(
-              padding: EdgeInsets.all(35),
-              alignment: Alignment.center,
-              height: double.infinity,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/tet/bg_result.png'),
-                    fit: BoxFit.scaleDown),
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      numberOfQue,
-                      style: GoogleFonts.getFont('Philosopher').copyWith(
-                        fontSize: 20,
-                        color: Color(0xFFE87F2B),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    spacing,
-                    Image.asset('assets/tet/card_cat.png', height: 112, width: 150,),
-                    _buildDivider(w/2),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 35),
-                      child: Text(
-                        '\"$title\"',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.getFont('Philosopher').copyWith(
-                          fontSize: 24,
-                          color: Color(0xFFDE3532),
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                    _buildDivider(w),
-                    // spacing, spacing,
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 35),
-                      child: Text(
-                        content,
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.getFont('Inter').copyWith(
-                          fontSize: 16,
-                          color: Color(0xFF843C02),
-                        ),
-                      ),
-                    ),
-                    spacing,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset('assets/tet/ic_hoa_mai.png', scale: 1.4,),
-                        spacing,
-                        Image.asset('assets/tet/ic_hoa_mai.png'),
-                        spacing,
-                        Image.asset('assets/tet/ic_hoa_mai.png', scale: 1.4,),
-                      ],
-                    )
-                  ],
-                ),
-              )
-              ),
+      child: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/tet/que_bg.png'),
+              fit: BoxFit.scaleDown),
         ),
-      ),
+        margin: EdgeInsets.all(5),
+        child: Container(
+            padding: EdgeInsets.all(35),
+            alignment: Alignment.center,
+            height: double.infinity,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/tet/bg_result.png'),
+                  fit: BoxFit.scaleDown),
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    numberOfQue,
+                    style: GoogleFonts.getFont('Philosopher').copyWith(
+                      fontSize: 20,
+                      color: Color(0xFFE87F2B),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  spacing,
+                  Image.asset('assets/tet/card_cat.png', height: 112, width: 150,),
+                  _buildDivider(w/2),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 35),
+                    child: Text(
+                      '\"$title\"',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.getFont('Philosopher').copyWith(
+                        fontSize: 24,
+                        color: Color(0xFFDE3532),
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                  _buildDivider(w),
+                  // spacing, spacing,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 35),
+                    child: Text(
+                      content,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.getFont('Inter').copyWith(
+                        fontSize: 16,
+                        color: Color(0xFF843C02),
+                      ),
+                    ),
+                  ),
+                  spacing,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image.asset('assets/tet/ic_hoa_mai.png', scale: 1.4,),
+                      spacing,
+                      Image.asset('assets/tet/ic_hoa_mai.png'),
+                      spacing,
+                      Image.asset('assets/tet/ic_hoa_mai.png', scale: 1.4,),
+                    ],
+                  )
+                ],
+              ),
+            )
+        ),
+      )
     );
   }
 
