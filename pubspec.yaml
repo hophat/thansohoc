@@ -27,9 +27,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_datetime_picker: #^1.5.0
+  flutter_datetime_picker_plus:
 #  backdrop: #^0.5.3
-  intl: ^0.17.0
+  intl:
 #  http: #^0.12.2
   flutter_easyloading: #^2.2.2
   html: #^0.15.0

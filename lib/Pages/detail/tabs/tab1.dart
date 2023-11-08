@@ -2,7 +2,6 @@ import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_theme.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_html/style.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
