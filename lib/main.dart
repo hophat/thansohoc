@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Lang.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/admob/admob_service.dart';
@@ -11,15 +12,16 @@ import 'package:intl/intl.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Pages/home/home.dart';
+import 'firebase_options.dart';
 import 'generated/l10n.dart';
 
 String langCur = '';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.android
-  // );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform
+  );
   if(Platform.isAndroid) {
     MobileAds.instance.initialize();
   }

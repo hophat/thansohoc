@@ -51,6 +51,7 @@ class _MyHomePageState extends State<HomePage> {
   late String thang;
   late String nam;
   late int dateValue;
+
   String get lang => Intl.getCurrentLocale().toString();
 
   InterstitialAd? _interstitialAd;
@@ -71,7 +72,7 @@ class _MyHomePageState extends State<HomePage> {
   }
 
   _createInterstitialAd() {
-    if(Platform.isIOS) return;
+    if (Platform.isIOS) return;
     InterstitialAd.load(
         // adUnitId: 'ca-app-pub-3940256099942544/1033173712',//test
         adUnitId: AdMobService.instance.InterstitialAdUnitId,
@@ -125,21 +126,21 @@ class _MyHomePageState extends State<HomePage> {
   }
 
   void _submit() async {
-    if (_interstitialAd != null) {
-      _interstitialAd!.fullScreenContentCallback =
-          FullScreenContentCallback(onAdDismissedFullScreenContent: (ad) {
-        ad.dispose();
-        _createInterstitialAd();
-      }, onAdFailedToShowFullScreenContent: (ad, err) {
-        ad.dispose();
-        _createInterstitialAd();
-      });
-      _interstitialAd!.show();
-      _interstitialAd = null;
-    } else {
-      _createInterstitialAd();
-    }
-    await _interstitialAd?.show();
+    // if (_interstitialAd != null) {
+    //   _interstitialAd!.fullScreenContentCallback =
+    //       FullScreenContentCallback(onAdDismissedFullScreenContent: (ad) {
+    //     ad.dispose();
+    //     _createInterstitialAd();
+    //   }, onAdFailedToShowFullScreenContent: (ad, err) {
+    //     ad.dispose();
+    //     _createInterstitialAd();
+    //   });
+    //   _interstitialAd!.show();
+    //   _interstitialAd = null;
+    // } else {
+    //   _createInterstitialAd();
+    // }
+    // await _interstitialAd?.show();
 
     // AnalyticsService.I.analytics.logAppOpen();
 
@@ -153,7 +154,28 @@ class _MyHomePageState extends State<HomePage> {
     var bodyHttp = jsonEncode({
       "filter": {"scd_number": dateValue.toString(), "lang": lang}
     });
-
+    TSHClient.instance
+        .getSoChuDao(
+      scdNumber: dateValue.toString(),
+      lang: lang,
+    )
+        .then((res) {
+      if (res == null) return;
+      res.data['ngay'] = ngay;
+      res.data['thang'] = thang;
+      res.data['nam'] = nam;
+      print('res => ${res.data}');
+      print('res => ${res.data['ngay']}');
+      print('res => ${res.data['thang']}');
+      print('res => ${res.data['nam']}');
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DetailPage(res: res),
+        ),
+      );
+    });
+    return;
     TSHClient.instance.dio.post<String>(path, data: bodyHttp).then((response) {
       var dataDecode = jsonDecode(response.data ?? '');
 
@@ -202,10 +224,9 @@ class _MyHomePageState extends State<HomePage> {
                     Text(
                       S.of(context).hay_chon_ngay_sinh_cua_ban,
                       style: TextStyle(
-                        fontSize: 18,
-                        color: TSHColors().primaryTextColor,
-                        fontWeight: FontWeight.bold
-                      ),
+                          fontSize: 18,
+                          color: TSHColors().primaryTextColor,
+                          fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 20),
                     _buildDate(),
@@ -222,7 +243,8 @@ class _MyHomePageState extends State<HomePage> {
                   onPressed: () {
                     showModalBottomSheet(
                         backgroundColor: Colors.transparent,
-                        context: context, builder: (_) => settingPage());
+                        context: context,
+                        builder: (_) => settingPage());
                   },
                   icon: Image.asset('assets/tet/ic_language.png')),
             )
@@ -255,7 +277,8 @@ class _MyHomePageState extends State<HomePage> {
           ),
           child: Text(
             '$name',
-            style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
           ),
         ),
       );

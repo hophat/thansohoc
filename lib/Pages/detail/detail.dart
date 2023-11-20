@@ -117,6 +117,7 @@ class _MyDetailPage extends State<DetailPage>
     nam = widget.res.data['nam'];
 
     this.loaded(ngay, thang, nam).then((res) {
+      return;
       get4(dinh_1, lang).then((res) {
         setState(() {
           data1 = res;
@@ -155,10 +156,10 @@ class _MyDetailPage extends State<DetailPage>
   }
 
   Widget build(BuildContext context) {
-    var data = widget.res.data['entries'][0];
+   var data = widget.res.data as Map;
     var scdNumber = data['scd_number'];
     var scdMucDich = parse(data['scd_muc_dich']);
-    var scdDacDiemNoiBat = parse(data['scd_dac_diem_noi_bat']);
+    var scdDacDiemNoiBat = parse(data['scd_diem_noi_bat']);
     var scdUuDiem = parse(data['scd_uu_diem']);
     var scdKhuyetDiem = parse(data['scd_khuyet_diem']);
     var scdDeXuatPhatTrien = parse(data['scd_de_xuat_phat_trien']);
