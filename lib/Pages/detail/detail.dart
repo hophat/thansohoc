@@ -44,6 +44,7 @@ Future<int> tinh_dinh_cao_1(date_) async {
 }
 
 get4(dinh_cao, lang) async {
+  return TSHClient.instance.getDinhCao(dcNumber: dinh_cao.toString(), lang: lang);
   // lây thông tin của 4 moc thoi gian
   var path = 'collections/get/tsh_dinhcao';
   var bodyHttp = jsonEncode({
@@ -117,7 +118,6 @@ class _MyDetailPage extends State<DetailPage>
     nam = widget.res.data['nam'];
 
     this.loaded(ngay, thang, nam).then((res) {
-      return;
       get4(dinh_1, lang).then((res) {
         setState(() {
           data1 = res;
@@ -145,6 +145,7 @@ class _MyDetailPage extends State<DetailPage>
 
     get_so_ngay_sinh(ngay + thang + nam, lang).then((res) {
       setState(() {
+        print('get_so_ngay_sinh -> $res');
         data_tab3 = res.data;
       });
     });
@@ -287,6 +288,7 @@ class _MyDetailPage extends State<DetailPage>
 }
 
 get_so_ngay_sinh(sns_key, lang) async {
+  return TSHClient.instance.getNgaySinh(snsKey: sns_key.toString(), lang: lang);
   // lây thông tin của 4 moc thoi gian
   // var url = 'http://apitwo.gulagi.com/ngaysinh?date=$sns_key&appLang=$lang';
   var path = 'ngaysinh?date=$sns_key&appLang=$lang';

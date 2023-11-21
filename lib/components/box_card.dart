@@ -16,7 +16,8 @@ class box_card extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget spacing = SizedBox(height: 15, width: 15);
 
-    var data_4 = data_box.data['entries'][0];
+    var data_4 = data_box.data;
+    print('data -> ${data_4}');
     return Container(
       decoration: TSHTheme().cardDecoration,
       padding: EdgeInsets.all(24),

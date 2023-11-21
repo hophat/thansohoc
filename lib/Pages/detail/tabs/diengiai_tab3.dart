@@ -98,7 +98,7 @@ class _My_tab3 extends State<diengiai_tab3_Page> {
                 textAlign: TextAlign.center,
               ),
               spacing,
-              for (var item in widget.data_3) ...[
+              for (var item in widget?.data_3 ?? []) ...[
                 card_tab_3(
                     content: item['sns_content'], so_key: item['sns_key']),
                 spacing,
