@@ -13,11 +13,16 @@ class diengiai_tab3_Page extends StatefulWidget {
   final MyDate;
 
   const diengiai_tab3_Page({this.data_3, this.MyDate});
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
     return _My_tab3();
   }
+}
+
+extension tryToInt on String? {
+  int get safeToInt => int.tryParse((this ?? '')[0]) ?? -1;
 }
 
 class _My_tab3 extends State<diengiai_tab3_Page> {
@@ -67,6 +72,12 @@ class _My_tab3 extends State<diengiai_tab3_Page> {
 
     listNumber =
         ListNumber(one, two, three, four, five, six, seven, eight, nine);
+    try {
+      widget.data_3.sort((f, s) => f['sns_key']
+          .toString()
+          .safeToInt
+          .compareTo(s['sns_key'].toString().safeToInt));
+    } catch (_) {}
   }
 
   Iterable<card_tab_3> getListCard3(List<dynamic> list) {
@@ -98,7 +109,7 @@ class _My_tab3 extends State<diengiai_tab3_Page> {
                 textAlign: TextAlign.center,
               ),
               spacing,
-              for (var item in widget?.data_3 ?? []) ...[
+              for (var item in widget.data_3 ?? []) ...[
                 card_tab_3(
                     content: item['sns_content'], so_key: item['sns_key']),
                 spacing,

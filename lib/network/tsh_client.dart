@@ -4,18 +4,11 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class TSHClient {
   late final Dio dio;
-  final rtdb = FirebaseDatabase.instanceFor(
-    app: Firebase.app(),
-    databaseURL:
-        'https://thansohoc-1-default-rtdb.asia-southeast1.firebasedatabase.app/',
-  );
-
   final firestore = FirebaseFirestore.instanceFor(
     app: Firebase.app(),
   );
@@ -60,87 +53,81 @@ class TSHClient {
   }
 
   Future<Res?> getSoChuDao({String scdNumber = '2', String lang = 'en'}) async {
-    // firestore.collection('sochudao').where('scd_number', isEqualTo: '2').get().then((value) {
-    //   print('getSoChuDao -> firestore ${value.docs}');
-    // });
-    // return Res(true, "22", 'data');
-    final dbEvent = await rtdb
-        .ref('sochudao')
-        .orderByChild('scd_number')
-        .equalTo('4')
-        .once();
-    log('data -> getSoChuDao ${dbEvent.snapshot.value}');
-    // final dataDecode = jsonDecode(data.snapshot.value as Map<String, dynamic>);
-    if (!dbEvent.snapshot.exists) return null;
-    final dataEncode = jsonEncode(dbEvent.snapshot.value);
-    final dataDecode = jsonDecode(dataEncode);
-    log('res -> dataEncode getSoChuDao ${dataEncode}');
-    final Res? res;
-    if (dataDecode is List) {
-      final data = dataDecode.firstWhere((element) =>
-              element['lang'] == lang && element['scd_number'] == scdNumber) ??
-          dataDecode
-              .firstWhere((element) => element['scd_number'] == scdNumber) ??
-          dataDecode.first;
-      res = Res(true, "22", data);
-    } else {
-      res = Res(true, "22", dataDecode);
+    final QuerySnapshot<Map<String, dynamic>> v = await firestore
+        .collection('sochudao')
+        .where('scd_number', isEqualTo: scdNumber)
+        .where('lang', isEqualTo: lang)
+        .get();
+    Map<String, dynamic> data = {};
+    if (v.docs.isNotEmpty) {
+      data = v.docs.first.data();
     }
-
-    return res;
+    return Res(true, "22", data);
   }
 
   Future<Res?> getDinhCao({String dcNumber = '2', String lang = 'en'}) async {
-    final dbEvent = await rtdb
-        .ref('dinhcao')
-        // .orderByChild('scd_number')
-        .once();
-    log('data -> ${dbEvent.snapshot.value}');
-    // final dataDecode = jsonDecode(data.snapshot.value as Map<String, dynamic>);
-    if (!dbEvent.snapshot.exists) return null;
-    final dataEncode = jsonEncode(dbEvent.snapshot.value);
-    final dataDecode = jsonDecode(dataEncode);
-    log('res -> dataEncode ${dataEncode}');
-    final Res? res;
-    if (dataDecode is List) {
-      final data = dataDecode.firstWhere((element) =>
-              element['lang'] == lang && element['dinh_cao_key'] == dcNumber) ??
-          dataDecode
-              .firstWhere((element) => element['dinh_cao_key'] == dcNumber) ??
-          dataDecode.first;
-      res = Res(true, "22", data);
-    } else {
-      res = Res(true, "22", dataDecode);
+    final QuerySnapshot<Map<String, dynamic>> v = await firestore
+        .collection('dinhcao')
+        .where('dinh_cao_key', isEqualTo: dcNumber)
+        .where('lang', isEqualTo: lang)
+        .get();
+    Map<String, dynamic> data = {};
+    if (v.docs.isNotEmpty) {
+      data = v.docs.first.data();
     }
-
-    return res;
+    return Res(true, "22", data);
   }
 
-  Future<Res?> getNgaySinh({String snsKey = '2', String lang = 'en'}) async {
-    final dbEvent = await rtdb
-        .ref('ngaysinh')
-        .orderByChild('sns_key')
-        .equalTo(snsKey)
-        .once();
-    log('data -> getNgaySinh ${dbEvent.snapshot.value}');
-    // final dataDecode = jsonDecode(data.snapshot.value as Map<String, dynamic>);
-    if (!dbEvent.snapshot.exists) return null;
-    final dataEncode = jsonEncode(dbEvent.snapshot.value);
-    final dataDecode = jsonDecode(dataEncode);
-    log('res -> dataEncode getNgaySinh ${dataEncode}');
-    final Res? res;
-    if (dataDecode is List) {
-      final data = dataDecode.firstWhere((element) =>
-      element['lang'] == lang && element['sns_key'] == snsKey) ??
-          dataDecode
-              .firstWhere((element) => element['sns_key'] == snsKey) ??
-          dataDecode.first;
-      res = Res(true, "22", data);
-    } else {
-      res = Res(true, "22", dataDecode);
+  Future<Res?> getNgaySinh({String snsKey = '22223344', String lang = 'en'}) async {
+    var listString = snsKey.split('').map((String text) => text).toList();
+
+    var one = '';
+    var two = '';
+    var three = '';
+    var four = '';
+    var five = '';
+    var six = '';
+    var seven = '';
+    var eight = '';
+    var nine = '';
+
+    for (var item in listString) {
+      if (int.parse(item) == 1) {
+        one = one + item;
+      } else if (int.parse(item) == 2) {
+        two = two + item;
+      } else if (int.parse(item) == 3) {
+        three = three + item;
+      } else if (int.parse(item) == 4) {
+        four = four + item;
+      } else if (int.parse(item) == 5) {
+        five = five + item;
+      } else if (int.parse(item) == 6) {
+        six = six + item;
+      } else if (int.parse(item) == 7) {
+        seven = seven + item;
+      } else if (int.parse(item) == 8) {
+        eight = eight + item;
+      } else if (int.parse(item) == 9) {
+        nine = nine + item;
+      }
     }
 
-    return res;
-  }
+    final List<String> queryData =  [one, two, three, four, five, six, seven, eight, nine];
+    queryData.removeWhere((element) => element.trim().isEmpty);
 
+    final QuerySnapshot<Map<String, dynamic>> v = await firestore
+        .collection('ngaysinh')
+        .where(
+          'sns_key',
+          whereIn: queryData,
+        )
+        .where('lang', isEqualTo: lang)
+        .get();
+    List<Map<String, dynamic>> data = [];
+    for(final doc in v.docs) {
+      data.add(doc.data());
+    }
+    return Res(true, "22", data);
+  }
 }

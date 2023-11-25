@@ -1,7 +1,11 @@
+import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Lang.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/admob/admob_service.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/list_extension.dart';
@@ -135,6 +139,21 @@ class _MainPageState extends State<MainPage> {
           return HomePage();
         },
       ),
+
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () async {
+      //     // return;
+      //     String jsonString = await rootBundle.loadString('assets/data/sochudao.json');
+      //     final data = json.decode(jsonString);
+      //     EasyLoading.show();
+      //     for(final cc in data) {
+      //       // cc['lang'] = 'vi';
+      //       await FirebaseFirestore.instance.collection('sochudao').add(cc);
+      //     }
+      //     EasyLoading.dismiss();
+      //
+      //   },
+      // ),
     );
   }
 }

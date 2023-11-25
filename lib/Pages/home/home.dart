@@ -10,6 +10,7 @@ import 'package:flutter_app_than_so_hoc_2/network/tsh_client.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/local_db/shared_pref.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
@@ -154,13 +155,14 @@ class _MyHomePageState extends State<HomePage> {
     var bodyHttp = jsonEncode({
       "filter": {"scd_number": dateValue.toString(), "lang": lang}
     });
+    EasyLoading.show();
     TSHClient.instance
         .getSoChuDao(
       scdNumber: dateValue.toString(),
       lang: lang,
     )
         .then((res) {
-          return;
+      EasyLoading.dismiss();
       if (res == null) return;
       res.data['ngay'] = ngay;
       res.data['thang'] = thang;
