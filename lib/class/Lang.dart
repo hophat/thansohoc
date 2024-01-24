@@ -14,7 +14,7 @@ final List<Lang> listLang = <Lang>[
   Lang('vi', "Tiếng Việt"), // vn
   // Lang('ru', "русский язык"),// nga
   // // Lang('lo', "ພາສາລາວ"), // lào
-  // Lang('hi', "Hindi"), // Ấn
+  Lang('hi', "Hindi"), // Ấn
   // Lang('fr', "français"), // pháp
   // Lang('zh', "中国"), // pháp
   // Lang('id', "Indonesian"), // indonesia
