@@ -30,7 +30,8 @@ class AdMobService {
   // String get InterstitialAdUnitId => 'ca-app-pub-8539908368627646/9674777099';
   String get InterstitialAdUnitId {
     if(Platform.isAndroid) {
-      return kDebugMode ? 'ca-app-pub-3940256099942544/1033173712' : 'ca-app-pub-8539908368627646/9674777099';
+      // return kDebugMode ? 'ca-app-pub-3940256099942544/1033173712' : 'ca-app-pub-8539908368627646/5061932671';
+      return 'ca-app-pub-8539908368627646/5061932671';
     }
     return 'ca-app-pub-3940256099942544/6978759866';
   }

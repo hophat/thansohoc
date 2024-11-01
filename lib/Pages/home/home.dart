@@ -127,21 +127,21 @@ class _MyHomePageState extends State<HomePage> {
   }
 
   void _submit() async {
-    // if (_interstitialAd != null) {
-    //   _interstitialAd!.fullScreenContentCallback =
-    //       FullScreenContentCallback(onAdDismissedFullScreenContent: (ad) {
-    //     ad.dispose();
-    //     _createInterstitialAd();
-    //   }, onAdFailedToShowFullScreenContent: (ad, err) {
-    //     ad.dispose();
-    //     _createInterstitialAd();
-    //   });
-    //   _interstitialAd!.show();
-    //   _interstitialAd = null;
-    // } else {
-    //   _createInterstitialAd();
-    // }
-    // await _interstitialAd?.show();
+    if (_interstitialAd != null) {
+      _interstitialAd!.fullScreenContentCallback =
+          FullScreenContentCallback(onAdDismissedFullScreenContent: (ad) {
+        ad.dispose();
+        _createInterstitialAd();
+      }, onAdFailedToShowFullScreenContent: (ad, err) {
+        ad.dispose();
+        _createInterstitialAd();
+      });
+      _interstitialAd!.show();
+      _interstitialAd = null;
+    } else {
+      _createInterstitialAd();
+    }
+    await _interstitialAd?.show();
 
     // AnalyticsService.I.analytics.logAppOpen();
 
