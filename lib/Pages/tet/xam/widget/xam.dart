@@ -7,7 +7,7 @@ import 'package:spine_flutter/spine_flutter.dart' as spine;
 import 'package:vibration/vibration.dart';
 
 class Xam extends StatefulWidget {
-  const Xam({super.key, required this.onResult});
+  const Xam({Key? key, required this.onResult}) : super(key: key);
   final Function() onResult;
 
   @override

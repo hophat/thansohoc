@@ -2,13 +2,15 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gieoque/features/splash/screen/splash.dart';
+
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../splash/screen/splash.dart';
 
 class Result extends StatefulWidget {
   final Function() onRetry;
 
-  const Result({super.key, required this.onRetry});
+  const Result({Key? key, required this.onRetry}) : super(key: key);
 
   @override
   State<Result> createState() => _ResultState();
@@ -115,7 +117,7 @@ class _ResultState extends State<Result> {
                           borderRadius: BorderRadius.circular(5.0))),
                   onPressed: () {
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (_){
-                      return const SplashScreen();
+                      return const XamSplashScreen();
                     }),);
                     // widget.onRetry.call();
                   },

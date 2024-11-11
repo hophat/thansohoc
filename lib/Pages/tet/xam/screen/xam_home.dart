@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gieoque/const.dart';
+// import 'package:gieoque/const.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
@@ -7,14 +7,14 @@ import '../widget/result.dart';
 import '../widget/tet_background.dart';
 import '../widget/xam.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class XamHome extends StatefulWidget {
+  const XamHome({Key? key}): super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  State<XamHome> createState() => _XamHomeState();
 }
 
-class _HomeState extends State<Home> {
+class _XamHomeState extends State<XamHome> {
   bool result = false;
   bool isShakingInstruct = true;
   final txtColor = const Color(0xFFFFF385);
@@ -25,7 +25,8 @@ class _HomeState extends State<Home> {
   }
 
   void _init() {
-    isShakingInstruct = globalShared.getBool(instructionKey) ?? true;
+    isShakingInstruct = false;
+    // isShakingInstruct = globalShared.getBool(instructionKey) ?? true;
     // isShakingInstruct = true;
   }
 
@@ -100,7 +101,7 @@ class _HomeState extends State<Home> {
       onTap: () {
         setState(() {
           isShakingInstruct = false;
-          globalShared.setBool(instructionKey, isShakingInstruct);
+          // globalShared.setBool(instructionKey, isShakingInstruct);
         });
       },
       child: Container(

@@ -1,0 +1,67 @@
+bg_gieoque_1.png
+size:5141,2173
+filter:Linear,Linear
+pma:true
+Layer 0
+bounds:2,251,1137,1920
+offsets:1,1,1139,1922
+cay mai
+bounds:2280,909,1118,1262
+cloud 1
+bounds:4539,901,684,483
+offsets:1,1,686,485
+rotate:90
+cloud 2
+bounds:2943,114,793,495
+offsets:1,1,795,497
+rotate:90
+den L
+bounds:4477,144,394,394
+offsets:1,1,396,396
+den R
+bounds:4539,1587,586,584
+offsets:1,1,588,586
+dust
+bounds:2280,93,814,661
+offsets:1,1,816,663
+rotate:90
+fan 1
+bounds:3994,327,481,609
+offsets:14,14,511,640
+fan 2
+bounds:3440,379,557,552
+offsets:13,14,586,582
+rotate:90
+glow
+bounds:1141,564,1137,1607
+offsets:1,1,1139,1678
+gold L
+bounds:574,77,277,172
+offsets:1,1,279,174
+gold R 1
+bounds:2,103,364,146
+offsets:1,1,366,148
+gold R 2
+bounds:368,122,204,127
+offsets:1,1,206,129
+ground
+bounds:1141,2,1137,560
+offsets:1,1,1139,562
+pattern
+bounds:3400,938,1137,1233
+offsets:1,1,1139,1235
+shadow den L
+bounds:853,94,273,155
+offsets:1,9,284,173
+shadow gold L
+bounds:205,49,196,52
+offsets:6,5,208,63
+shadow gold R 2
+bounds:2,44,201,57
+offsets:6,6,213,69
+smoke 1
+bounds:4477,540,662,359
+offsets:1,1,664,361
+smoke 2
+bounds:3440,67,991,258
+offsets:1,1,993,260

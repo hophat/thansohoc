@@ -12,10 +12,12 @@ import 'package:flutter_app_than_so_hoc_2/provider/admob/admob_service.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/list_extension.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/local_db/shared_pref.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:spine_flutter/spine_flutter.dart';
 import 'Pages/home/home.dart';
 import 'firebase_options.dart';
 import 'generated/l10n.dart';
@@ -24,6 +26,8 @@ String langCur = '';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await ScreenUtil.ensureScreenSize();
+  await initSpineFlutter(enableMemoryDebugging: false);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform
   );
@@ -86,21 +90,27 @@ class _MyAppState extends State<MyApp> {
       // menu_2 = "Tử vi hôm nay";
       menu_3 = "Ngôn ngữ";
     }
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: title_app,
-      localizationsDelegates: [
-        S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: S.delegate.supportedLocales,
-      locale: _findLocale(langCur),
-      initialRoute: '/',
-      builder: EasyLoading.init(),
-      home: MainPage(),
-    );
+    return ScreenUtilInit(
+        designSize: const Size(390, 844),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (_, c) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: title_app,
+            localizationsDelegates: [
+              S.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: S.delegate.supportedLocales,
+            locale: _findLocale(langCur),
+            initialRoute: '/',
+            builder: EasyLoading.init(),
+            home: MainPage(),
+          );
+        });
   }
 
   Locale _findLocale(String? code) {

@@ -8,6 +8,7 @@ import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
 import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
 import 'package:flutter_app_than_so_hoc_2/network/tsh_client.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/local_db/shared_pref.dart';
+import 'package:flutter_app_than_so_hoc_2/utils/const.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -18,6 +19,8 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../provider/admob/admob_service.dart';
+import '../tet/splash/screen/splash.dart';
+import '../tet/xam/screen/xam_home.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -115,8 +118,8 @@ class _MyHomePageState extends State<HomePage> {
   void _get_birh_date() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      if (prefs.getString('birh_date_store') != null) {
-        dateCur = DateTime.parse(prefs.getString('birh_date_store')!);
+      if (prefs.getString(birthDayKey) != null) {
+        dateCur = DateTime.parse(prefs.getString(birthDayKey)!);
       }
       if (Intl.getCurrentLocale().toString() == "vi") {
         name = DateFormat('dd-MM-yyyy').format(dateCur);
@@ -235,6 +238,8 @@ class _MyHomePageState extends State<HomePage> {
                     _buildDate(),
                     SizedBox(height: 20),
                     _buildSubmit(),
+                    SizedBox(height: 20),
+                    _buildTet()
                   ],
                 ),
               ),
@@ -255,6 +260,15 @@ class _MyHomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  _buildTet() {
+    return IconButton(onPressed: (){
+      Navigator.push(context, MaterialPageRoute(builder: (_){
+        return XamSplashScreen();
+      }));
+
+    }, icon: Icon(Icons.abc));
   }
 
   _buildDate() => InkWell(

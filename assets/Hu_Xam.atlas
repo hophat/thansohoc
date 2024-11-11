@@ -1,0 +1,32 @@
+Hu_Xam.png
+size:2905,1924
+filter:Linear,Linear
+pma:true
+Hu
+bounds:1924,1041,548,881
+offsets:1,1,550,883
+Layer 36
+bounds:2296,291,251,748
+offsets:1,1,253,750
+Layer 37
+bounds:1924,304,370,735
+offsets:1,1,372,737
+Layer 38
+bounds:2474,1176,263,746
+offsets:1,1,265,748
+Layer 39
+bounds:2708,416,195,751
+offsets:1,1,197,753
+Layer 40
+bounds:2549,425,157,749
+offsets:1,1,159,751
+Layer 41
+bounds:1924,67,222,750
+offsets:1,1,224,765
+rotate:90
+Layer 42
+bounds:2739,1169,158,753
+offsets:1,1,160,755
+black
+bounds:2,2,1920,1920
+offsets:1,1,1922,1922

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:spine_flutter/spine_flutter.dart' as spine;
 
 class TetBackground extends StatefulWidget {
-  const TetBackground({super.key});
+  const TetBackground({Key? key}): super(key: key);
 
   @override
   State<TetBackground> createState() => _TetBackgroundState();
