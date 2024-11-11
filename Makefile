@@ -25,3 +25,7 @@ env:
 gen: ## Build the files for changes
 	@echo "╠ Building the project..."
 	@flutter pub run build_runner build --delete-conflicting-outputs
+
+run:
+    @echo "╠ Running the project..."
+    @fvm flutter run -d R7AWA06EAJT
