@@ -20,6 +20,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../provider/admob/admob_service.dart';
 import '../tet/splash/screen/splash.dart';
+import '../tet/splash/widget/tet_btn_widget.dart';
 import '../tet/xam/screen/xam_home.dart';
 
 class HomePage extends StatefulWidget {
@@ -263,12 +264,7 @@ class _MyHomePageState extends State<HomePage> {
   }
 
   _buildTet() {
-    return IconButton(onPressed: (){
-      Navigator.push(context, MaterialPageRoute(builder: (_){
-        return XamSplashScreen();
-      }));
-
-    }, icon: Icon(Icons.abc));
+    return TetBtnWidget();
   }
 
   _buildDate() => InkWell(
