@@ -16,11 +16,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spine_flutter/spine_flutter.dart';
 import 'Pages/home/home.dart';
 import 'firebase_options.dart';
 import 'generated/l10n.dart';
+import 'provider/audio/audio_provider.dart';
 
 String langCur = '';
 

@@ -3,6 +3,7 @@ import 'package:flutter_app_than_so_hoc_2/Pages/tet/xam/screen/xam_home.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../provider/audio/audio_provider.dart';
 import '../../../../provider/local_db/shared_pref.dart';
 import '../../../../utils/const.dart';
 
@@ -66,49 +67,54 @@ class _XamSplashScreenState extends State<XamSplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          Positioned.fill(
-            child: Image.asset(
-              'assets/bg_tet.png',
-              fit: BoxFit.cover,
+    return PopScope(
+      onPopInvoked: (v) async {
+        AudioProvider.I.stopBg();
+      },
+      child: Scaffold(
+        body: Stack(
+          fit: StackFit.expand,
+          children: [
+            Positioned.fill(
+              child: Image.asset(
+                'assets/bg_tet.png',
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          Positioned.fill(
-            child: Container(
-              color: Colors.black54,
+            Positioned.fill(
+              child: Container(
+                color: Colors.black54,
+              ),
             ),
-          ),
-          AnimatedSwitcher(
-            duration: _scaleDuration,
-            child: step == 0 ? _hello() : _input(),
-          ),
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              leading: Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.black45,
-                ),
-                child: IconButton(
-                  icon: const Icon(Icons.arrow_back, color: Colors.white),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
+            AnimatedSwitcher(
+              duration: _scaleDuration,
+              child: step == 0 ? _hello() : _input(),
+            ),
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: AppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                leading: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.black45,
+                  ),
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_back, color: Colors.white),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/tet/splash/screen/splash.dart';
+import 'package:flutter_app_than_so_hoc_2/main.dart';
+import 'package:provider/provider.dart';
 
+import '../../../../provider/audio/audio_provider.dart';
 import '../../../../utils/theme/app_color.dart';
 
 class TetBtnWidget extends StatefulWidget {
@@ -38,6 +41,7 @@ class _TetBtnWidgetState extends State<TetBtnWidget>
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        AudioProvider.I.playBg();
         Navigator.push(context, MaterialPageRoute(builder: (_) {
           return XamSplashScreen();
         }));

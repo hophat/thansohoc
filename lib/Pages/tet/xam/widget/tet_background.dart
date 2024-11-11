@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:spine_flutter/spine_flutter.dart' as spine;
 
+import '../../../../provider/audio/audio_provider.dart';
+
 class TetBackground extends StatefulWidget {
   const TetBackground({Key? key}): super(key: key);
 
@@ -22,6 +24,12 @@ class _TetBackgroundState extends State<TetBackground> {
     });
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    AudioProvider.I.stopBg();
+    super.dispose();
   }
 
   @override
