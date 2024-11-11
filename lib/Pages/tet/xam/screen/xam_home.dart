@@ -1,0 +1,133 @@
+import 'package:flutter/material.dart';
+import 'package:gieoque/const.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
+
+import '../widget/result.dart';
+import '../widget/tet_background.dart';
+import '../widget/xam.dart';
+
+class Home extends StatefulWidget {
+  const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  bool result = false;
+  bool isShakingInstruct = true;
+  final txtColor = const Color(0xFFFFF385);
+  @override
+  void initState() {
+    super.initState();
+    _init();
+  }
+
+  void _init() {
+    isShakingInstruct = globalShared.getBool(instructionKey) ?? true;
+    // isShakingInstruct = true;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          const Positioned.fill(child: TetBackground()),
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 800),
+            child: isShakingInstruct
+                ? Align(
+                    key: const ValueKey('instruction'),
+                    alignment: Alignment.center,
+                    child: Container(
+                      alignment: Alignment.center,
+                      decoration: const BoxDecoration(
+                        color: Colors.black87,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Lottie.asset('assets/shaking_phone.json'),
+                          Text('Lắc mạnh phone để lấy quẻ', style: GoogleFonts.livvic(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            color: txtColor,
+                          ),),
+                          const SizedBox(height: 16),
+                          _submit(),
+                          // ElevatedButton(
+                          //   child: const Text('Bắt đầu'),
+                          //   onPressed: () {
+                          //     setState(() {
+                          //       isShakingInstruct = false;
+                          //       globalShared.setBool(instructionKey, isShakingInstruct);
+                          //     });
+                          //   },
+                          // ),
+
+                        ],
+                      ),
+                    ),
+                  )
+                : Align(
+                    key: const ValueKey('xam'),
+                    alignment: Alignment.center,
+                    child: !result
+                        ? Xam(
+                            onResult: () {
+                              result = true;
+                              setState(() {});
+                            },
+                          )
+                        : Result(
+                            onRetry: () {
+                              result = false;
+                              setState(() {});
+                            },
+                          ),
+                  ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _submit() {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          isShakingInstruct = false;
+          globalShared.setBool(instructionKey, isShakingInstruct);
+        });
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: const Color(0xFFD2290A),
+          border: Border.all(
+            color: const Color(0xFFFFFF85),
+            width: 4.0,
+          ),
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        padding: const EdgeInsets.all(10.0),
+        constraints: BoxConstraints(
+          minWidth: MediaQuery.of(context).size.width * 0.25,
+          maxWidth: MediaQuery.of(context).size.width * 0.4,
+        ),
+        child: FittedBox(
+          child: Text(
+            'Bắt đầu',
+            style: GoogleFonts.livvic(
+              // fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: txtColor,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

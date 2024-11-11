@@ -18,14 +18,11 @@ ios-update:
 	@pod repo update
 	@make ios-install
 
-env:
-	@echo "╠ SETTING ENV"
-	@sh scripts/set_env.sh
+run:
+	@echo "╠ RUN"
+	@fvm flutter run -d R7AWA06EAJT
 
 gen: ## Build the files for changes
 	@echo "╠ Building the project..."
 	@flutter pub run build_runner build --delete-conflicting-outputs
 
-run:
-    @echo "╠ Running the project..."
-    @fvm flutter run -d R7AWA06EAJT
