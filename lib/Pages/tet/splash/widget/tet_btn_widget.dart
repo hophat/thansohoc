@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/tet/splash/screen/splash.dart';
-import 'package:flutter_app_than_so_hoc_2/main.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../provider/audio/audio_provider.dart';
 import '../../../../utils/theme/app_color.dart';

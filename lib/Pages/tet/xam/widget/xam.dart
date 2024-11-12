@@ -52,54 +52,58 @@ class _XamState extends State<Xam> {
     detector = ShakeDetector.autoStart(
       shakeThresholdGravity: 1.3,
       onPhoneShake: () {
-        Future.delayed(const Duration(milliseconds: 400), (){
-          shakerPlayer.play(AssetSource('audio/shaker.mp3'));
-        });
-        _shakeCount++;
-        Vibration.vibrate(duration: 100);
+        _shakeHandler();
+      },
+    );
+  }
+
+  _shakeHandler() {
+    Future.delayed(const Duration(milliseconds: 400), (){
+      shakerPlayer.play(AssetSource('audio/shaker.mp3'));
+    });
+    _shakeCount++;
+    Vibration.vibrate(duration: 100);
+    ctrl.animationState
+        .addAnimationByName(_trackIndex, stateAnim.last, false, 0);
+    if (_shakeCount > 5) {
+      if (_debounce?.isActive ?? false) _debounce?.cancel();
+      _debounce = Timer.periodic(const Duration(milliseconds: 1200), (_) {
+        if (hasResult) {
+          //handle
+          _debounce?.cancel();
+          return;
+        }
+        hasResult = true;
         ctrl.animationState
-            .addAnimationByName(_trackIndex, stateAnim.last, false, 0);
-        if (_shakeCount > 5) {
-          if (_debounce?.isActive ?? false) _debounce?.cancel();
-          _debounce = Timer.periodic(const Duration(milliseconds: 1200), (_) {
-            if (hasResult) {
-              //handle
-              _debounce?.cancel();
-              return;
-            }
-            hasResult = true;
+            .addAnimationByName(
+          _trackIndex,
+          stateResultAnim[_randomNumber],
+          false,
+          0,
+        )
+            .setListener((type, entry, event) {
+          detector?.stopListening();
+          detector = null;
+          if (type == spine.EventType.complete) {
+            expanded = true;
+            setState(() {});
             ctrl.animationState
                 .addAnimationByName(
               _trackIndex,
-              stateResultAnim[_randomNumber],
+              stateResultAnim[_randomNumber + _stackNumber],
               false,
               0,
             )
-                .setListener((type, entry, event) {
-              detector?.stopListening();
-              detector = null;
-              if (type == spine.EventType.complete) {
-                expanded = true;
-                setState(() {});
-                ctrl.animationState
-                    .addAnimationByName(
-                  _trackIndex,
-                  stateResultAnim[_randomNumber + _stackNumber],
-                  false,
-                  0,
-                )
-                    .setListener((typeResult, _, __) {
-                  if (typeResult == spine.EventType.complete) {
-                    widget.onResult.call();
-                  }
-                });
+                .setListener((typeResult, _, __) {
+              if (typeResult == spine.EventType.complete) {
+                widget.onResult.call();
               }
             });
-            _debounce?.cancel();
-          });
-        }
-      },
-    );
+          }
+        });
+        _debounce?.cancel();
+      });
+    }
   }
 
   _setUpXam(){
