@@ -22,6 +22,7 @@ import 'Pages/home/home.dart';
 import 'firebase_options.dart';
 import 'generated/l10n.dart';
 import 'provider/audio/audio_provider.dart';
+import 'provider/notification/app_notification_service.dart';
 
 String langCur = '';
 
@@ -32,6 +33,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform
   );
+  await AppNotiService().initNotifications();
   await FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
   if(Platform.isAndroid) {
     MobileAds.instance.initialize();
