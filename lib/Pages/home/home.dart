@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
+// import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/detail.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/setting/setting.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
