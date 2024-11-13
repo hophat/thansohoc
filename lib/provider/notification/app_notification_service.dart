@@ -1,8 +1,13 @@
 import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_app_than_so_hoc_2/Pages/tet/splash/screen/splash.dart';
+import 'package:flutter_app_than_so_hoc_2/Pages/tet/xam/screen/xam_home.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+import '../navigator_service.dart';
 
 
 part 'noti_config.dart';
@@ -20,6 +25,11 @@ class AppNotiService {
     debugPrint("FCM TOKEN: $fcmToken");
     initLocalNotification();
     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      Navigator.of(NavigatorService.I.context).push(MaterialPageRoute(builder: (_){
+        return XamSplashScreen();
+      }));
+    });
   }
 
   Future<void> initLocalNotification() async {
@@ -27,8 +37,16 @@ class AppNotiService {
     const ios = DarwinInitializationSettings();
     const settings = InitializationSettings(android: android, iOS: ios);
 
-    await _localNotifications.initialize(settings);
-    FirebaseMessaging.onMessage.listen(_handleForegroundMessage);
+    await _localNotifications.initialize(settings, onDidReceiveNotificationResponse: (res){
+      Navigator.of(NavigatorService.I.context).push(MaterialPageRoute(builder: (_){
+        return XamSplashScreen();
+      }));
+    });
+    FirebaseMessaging.onMessage.listen(_handleForegroundMessage, onDone: () {
+      debugPrint("FirebaseMessaging.onMessage: Done");
+    }, onError: (e) {
+      debugPrint("FirebaseMessaging.onMessage: Error => $e");
+    });
 
   }
 

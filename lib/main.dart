@@ -11,6 +11,7 @@ import 'package:flutter_app_than_so_hoc_2/class/Lang.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/admob/admob_service.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/list_extension.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/local_db/shared_pref.dart';
+import 'package:flutter_app_than_so_hoc_2/provider/navigator_service.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -110,6 +111,7 @@ class _MyAppState extends State<MyApp> {
             supportedLocales: S.delegate.supportedLocales,
             locale: _findLocale(langCur),
             initialRoute: '/',
+            navigatorKey: NavigatorService.I.navigatorKey,
             builder: EasyLoading.init(),
             home: MainPage(),
           );
