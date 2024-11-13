@@ -23,7 +23,7 @@ class AppNotiService {
   }
 
   Future<void> initLocalNotification() async {
-    const android = AndroidInitializationSettings('@drawable/ic_noti');
+    const android = AndroidInitializationSettings('@mipmap/ic_launcher');
     const ios = DarwinInitializationSettings();
     const settings = InitializationSettings(android: android, iOS: ios);
 
@@ -34,15 +34,16 @@ class AppNotiService {
 
   @pragma("vm:entry-point")
   Future<void> _handleForegroundMessage(RemoteMessage? message) async {
+    print('message notify: _handleForegroundMessage $message');
     final notification = message?.notification;
-    if(message?.data == null) return;
+    // if(message?.data == null) return;
     if (message == null) return;
     try {
-      final title = message.data["title"] ?? "";
-      final body = message.data["body"] ?? "";
+      final title = message.notification?.title ?? '';
+      final body = message.notification?.body ?? '';
       final platformChannelSpecifics = NotificationDetails(
-          android: AndroidNoti.notificationDetails(sound: (message.data["sound"]??"common_noti").toString().split(".").first),
-          iOS: const DarwinNotificationDetails(sound: 'common_noti.aiff'));
+          android: AndroidNoti.notificationDetails(sound: ''),
+          iOS: const DarwinNotificationDetails(sound: ''));
       await _localNotifications.show(
           notification.hashCode,
           title,
@@ -59,6 +60,7 @@ class AppNotiService {
 @pragma("vm:entry-point")
 Future<void> handleBackgroundMessage(RemoteMessage message) async {
   /// ! hot fix duplicate from server
+  print('message notify: handleBackgroundMessage');
   int msgId = int.tryParse(message.data["msg_id"].toString()) ?? 0;
 
   final androidPlatformChannelSpecifics = AndroidNoti.notificationDetails(sound: message.data["sound"].toString().split(".").first);
@@ -69,8 +71,8 @@ Future<void> handleBackgroundMessage(RemoteMessage message) async {
   /// * temp hide
   // final androidPlatformChannelSpecifics = AndroidNoti.notificationDetails();
   // const iOSPlatformChannelSpecifics = DarwinNotificationDetails(sound: 'common_noti.aiff');
-  final title = message.data["title"] ?? "";
-  final body = message.data["body"] ?? "";
+  final title = message.notification?.title?? "";
+  final body = message.notification?.body ?? "";
   try {
     await FlutterLocalNotificationsPlugin().show(
       msgId,

@@ -16,7 +16,7 @@ class AndroidNoti{
       _androidChannel.id,
       _androidChannel.name,
       channelDescription: _androidChannel.description,
-      icon: '@drawable/ic_noti',
+      icon: '@mipmap/ic_launcher',
       color: TSHColors().primaryTextColor,
       importance: _androidChannel.importance,
       sound: RawResourceAndroidNotificationSound( kDebugMode ? sound : ''),

@@ -33,7 +33,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform
   );
-  await AppNotiService().initNotifications();
+  AppNotiService().initNotifications();
   await FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
   if(Platform.isAndroid) {
     MobileAds.instance.initialize();
