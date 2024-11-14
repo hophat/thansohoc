@@ -11,6 +11,7 @@ import 'package:flutter_app_than_so_hoc_2/app/locator/app_locator.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Lang.dart';
 import 'package:flutter_app_than_so_hoc_2/network/repository/user_repository.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/admob/admob_service.dart';
+import 'package:flutter_app_than_so_hoc_2/provider/auth/auth_provider.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/list_extension.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/local_db/shared_pref.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/navigator_service.dart';
@@ -19,6 +20,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spine_flutter/spine_flutter.dart';
 import 'Pages/home/home.dart';
@@ -84,13 +86,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void didChangeDependencies() {
-    getIt.get<UserRepository>().fetchDefaultToken().then((res){
-      res.fold((l){
-        print('fold left $l');
-      }, (r){
-        print('fold right $r');
-      });
-    });
     super.didChangeDependencies();
   }
 
@@ -128,7 +123,12 @@ class _MyAppState extends State<MyApp> {
             initialRoute: '/',
             navigatorKey: NavigatorService.I.navigatorKey,
             builder: EasyLoading.init(),
-            home: MainPage(),
+            home: MultiProvider(
+              providers: [
+                ChangeNotifierProvider(create: (_) => AuthProvider(), lazy: false),
+              ],
+              child: MainPage(),
+            ),
           );
         });
   }

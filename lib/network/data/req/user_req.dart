@@ -1,0 +1,70 @@
+import 'package:flutter_app_than_so_hoc_2/app/locator/app_locator.dart';
+import 'package:flutter_app_than_so_hoc_2/utils/const.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class UserReq {
+  final String? name;
+  final String? email;
+  final String? sex;
+  final DateTime? birthDate;
+  final String? deviceToken;
+  // final String? deviceID;
+  final String? zodiac;
+  final DateTime? timeNotice;
+  final bool? isNotice;
+  final int? point;
+  final String? country;
+
+  const UserReq({
+    this.name,
+    this.email,
+    this.sex,
+    this.birthDate,
+    this.deviceToken,
+    // this.deviceID,
+    this.zodiac,
+    this.timeNotice,
+    this.isNotice,
+    this.point,
+    this.country,
+  });
+
+  factory UserReq.fromJson(Map<String, dynamic> json) {
+    return UserReq(
+      name: json['name'],
+      email: json['email'],
+      sex: json['sex'],
+      birthDate: json['birthDate'] != null
+          ? DateTime.tryParse(json['birthDate'])?.toLocal()
+          : null,
+      deviceToken: json['deviceToken'],
+      // deviceID: json['deviceID'],
+      zodiac: json['zodiac'],
+      timeNotice: json['timeNotice'] != null
+          ? DateTime.tryParse(json['timeNotice'])?.toLocal()
+          : null,
+      isNotice: json['isNotice'],
+      point: json['point'],
+      country: json['country'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final m = {
+      'name': name,
+      'email': email,
+      'sex': sex,
+      'birthDate': birthDate?.toIso8601String(),
+      'deviceToken': deviceToken,
+      'deviceID': getIt.get<SharedPreferences>().getString(deviceIDKey),
+      'zodiac': zodiac,
+      'timeNotice': timeNotice?.toIso8601String(),
+      'isNotice': isNotice,
+      'point': point,
+      'country': country,
+    };
+    m.removeWhere((key, value) => value == null);
+
+    return m;
+  }
+}

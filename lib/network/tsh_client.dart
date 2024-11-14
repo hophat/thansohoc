@@ -11,6 +11,8 @@ import 'package:flutter_app_than_so_hoc_2/network/data/base_response.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../utils/const.dart';
+
 typedef DataFactory<T> = T Function(Map<String,dynamic> json);
 
 class TSHClient {
@@ -36,9 +38,10 @@ class TSHClient {
   _setUpInterceptors() {
     dio.interceptors.add(InterceptorsWrapper(onRequest: (op, req) {
       final shared = getIt.get<SharedPreferences>();
-      // EasyLoading.show();
-      if((shared.getString("default_token")??'').isNotEmpty) {
-        op.headers['token'] = shared.get("default_token");
+      EasyLoading.show();
+      final defaultToken = shared.getString(defaultTokenKey) ?? '';
+      if(defaultToken.isNotEmpty) {
+        op.headers['token'] = defaultToken;
       }
       log('[REQUEST] [${op.method}] -> ${op.baseUrl}${op.path}');
       log('[HEADER] -> ${op.headers}');
