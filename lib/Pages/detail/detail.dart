@@ -291,9 +291,9 @@ get_so_ngay_sinh(sns_key, lang) async {
   return TSHClient.instance.getNgaySinh(snsKey: sns_key.toString(), lang: lang);
   // lây thông tin của 4 moc thoi gian
   // var url = 'http://apitwo.gulagi.com/ngaysinh?date=$sns_key&appLang=$lang';
-  var path = 'ngaysinh?date=$sns_key&appLang=$lang';
-  // final response = await http.get(Uri.parse(url));
-  final response = await TSHClient2.instance.blankGet<String>(path);
-  var dataDecode = await jsonDecode(response.data ?? '');
-  return Res(true, "ok", dataDecode);
+  // var path = 'ngaysinh?date=$sns_key&appLang=$lang';
+  // // final response = await http.get(Uri.parse(url));
+  // final response = await TSHClient2.instance.blankGet<String>(path);
+  // var dataDecode = await jsonDecode(response.data ?? '');
+  // return Res(true, "ok", dataDecode);
 }

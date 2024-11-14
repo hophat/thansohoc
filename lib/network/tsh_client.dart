@@ -3,9 +3,15 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
+import 'package:either_dart/either.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_app_than_so_hoc_2/app/locator/app_locator.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
+import 'package:flutter_app_than_so_hoc_2/network/data/base_response.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+typedef DataFactory<T> = T Function(Map<String,dynamic> json);
 
 class TSHClient {
   late final Dio dio;
@@ -15,9 +21,9 @@ class TSHClient {
 
   TSHClient._() {
     BaseOptions options = BaseOptions(
-      baseUrl: 'http://app.gulagi.com/api/',
+      baseUrl: 'https://tsh-api.gulagi.com/api/',
       headers: {
-        'Cockpit-Token': '235a9449e91330b05871d371121134',
+        // 'Cockpit-Token': '235a9449e91330b05871d371121134',
         'Content-Type': 'application/json; charset=UTF-8'
       },
     );
@@ -29,7 +35,11 @@ class TSHClient {
 
   _setUpInterceptors() {
     dio.interceptors.add(InterceptorsWrapper(onRequest: (op, req) {
-      EasyLoading.show();
+      final shared = getIt.get<SharedPreferences>();
+      // EasyLoading.show();
+      if((shared.getString("default_token")??'').isNotEmpty) {
+        op.headers['token'] = shared.get("default_token");
+      }
       log('[REQUEST] [${op.method}] -> ${op.baseUrl}${op.path}');
       log('[HEADER] -> ${op.headers}');
       log('[BODY] -> ${op.data}');
@@ -50,6 +60,51 @@ class TSHClient {
   static TSHClient get instance {
     _instance ??= TSHClient._();
     return _instance!;
+  }
+
+  Future<Either<BaseResponse, T>> get<T>(
+    String path, {
+    String rootData = 'data',
+    Map<String, dynamic>? queryParam,
+    required DataFactory dataFactory,
+  }) async {
+    final response = await dio.get(path, queryParameters: queryParam);
+    if (response.statusCode == 200) {
+      if(response.data[rootData] == null) {
+        return Left(BaseResponse(
+          data: response.data,
+          codeStatus: response.statusCode,
+          message: "Không có dữ liệu.",
+          success: response.statusCode == 200,
+        ));
+      }
+      return Right(dataFactory.call(response.data[rootData]));
+    }
+
+    return Left(BaseResponse(
+      data: response.data,
+      codeStatus: response.statusCode,
+      message: response.data['message'],
+      success: response.statusCode == 200,
+    ));
+  }
+
+  Future<Either<BaseResponse, T>> getSingleData<T>(
+      String path, {
+        Map<String, dynamic>? queryParam,
+        required DataFactory dataFactory,
+      }) async {
+    final response = await dio.get(path, queryParameters: queryParam);
+    if (response.statusCode == 200) {
+      return Right(dataFactory.call(response.data));
+    }
+
+    return Left(BaseResponse(
+      data: response.data,
+      codeStatus: response.statusCode,
+      message: response.data['message'],
+      success: response.statusCode == 200,
+    ));
   }
 
   Future<Res?> getSoChuDao({String scdNumber = '2', String lang = 'en'}) async {

@@ -7,7 +7,9 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app_than_so_hoc_2/app/locator/app_locator.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Lang.dart';
+import 'package:flutter_app_than_so_hoc_2/network/repository/user_repository.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/admob/admob_service.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/list_extension.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/local_db/shared_pref.dart';
@@ -29,6 +31,7 @@ String langCur = '';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await configLocator();
   await ScreenUtil.ensureScreenSize();
   await initSpineFlutter(enableMemoryDebugging: false);
   await Firebase.initializeApp(
@@ -39,7 +42,7 @@ void main() async {
   if(Platform.isAndroid) {
     MobileAds.instance.initialize();
   }
-  myShared = await SharedPreferences.getInstance();
+  myShared = getIt.get<SharedPreferences>();
   langCur = await myShared.getString('langCur') ?? '';
   print('langCur before => $langCur');
   if (langCur.isNotEmpty) {
@@ -78,6 +81,18 @@ class _MyAppState extends State<MyApp> {
   String menu_2 = '';
 
   String menu_3 = '';
+
+  @override
+  void didChangeDependencies() {
+    getIt.get<UserRepository>().fetchDefaultToken().then((res){
+      res.fold((l){
+        print('fold left $l');
+      }, (r){
+        print('fold right $r');
+      });
+    });
+    super.didChangeDependencies();
+  }
 
 
   @override

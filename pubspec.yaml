@@ -67,6 +67,8 @@ dependencies:
   audioplayers: 6.1.0
   firebase_messaging: ^14.7.10
   flutter_local_notifications: ^18.0.1
+  either_dart: ^1.0.0
+  get_it: ^8.0.2
 #  shake: ^2.2.0
 #  vibration: ^1.7.6
 #  share_plus: ^6.3.0
