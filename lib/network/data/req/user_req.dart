@@ -1,11 +1,12 @@
 import 'package:flutter_app_than_so_hoc_2/app/locator/app_locator.dart';
+import 'package:flutter_app_than_so_hoc_2/network/data/gender_enum.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserReq {
   final String? name;
   final String? email;
-  final String? sex;
+  final Gender sex;
   final DateTime? birthDate;
   final String? deviceToken;
   // final String? deviceID;
@@ -18,7 +19,7 @@ class UserReq {
   const UserReq({
     this.name,
     this.email,
-    this.sex,
+    this.sex = Gender.other,
     this.birthDate,
     this.deviceToken,
     // this.deviceID,
@@ -33,7 +34,7 @@ class UserReq {
     return UserReq(
       name: json['name'],
       email: json['email'],
-      sex: json['sex'],
+      sex: Gender.fromString(json['sex']),
       birthDate: json['birthDate'] != null
           ? DateTime.tryParse(json['birthDate'])?.toLocal()
           : null,
@@ -53,7 +54,7 @@ class UserReq {
     final m = {
       'name': name,
       'email': email,
-      'sex': sex,
+      'sex': sex.v,
       'birthDate': birthDate?.toIso8601String(),
       'deviceToken': deviceToken,
       'deviceID': getIt.get<SharedPreferences>().getString(deviceIDKey),

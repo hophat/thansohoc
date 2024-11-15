@@ -1,16 +1,10 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_app_than_so_hoc_2/app/locator/app_locator.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Lang.dart';
-import 'package:flutter_app_than_so_hoc_2/network/repository/user_repository.dart';
-import 'package:flutter_app_than_so_hoc_2/provider/admob/admob_service.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/auth/auth_provider.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/list_extension.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/local_db/shared_pref.dart';
@@ -26,7 +20,6 @@ import 'package:spine_flutter/spine_flutter.dart';
 import 'Pages/home/home.dart';
 import 'firebase_options.dart';
 import 'generated/l10n.dart';
-import 'provider/audio/audio_provider.dart';
 import 'provider/notification/app_notification_service.dart';
 
 String langCur = '';
@@ -109,25 +102,25 @@ class _MyAppState extends State<MyApp> {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (_, c) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: title_app,
-            localizationsDelegates: [
-              S.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
+          return MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (_) => AuthProvider(), lazy: false),
             ],
-            supportedLocales: S.delegate.supportedLocales,
-            locale: _findLocale(langCur),
-            initialRoute: '/',
-            navigatorKey: NavigatorService.I.navigatorKey,
-            builder: EasyLoading.init(),
-            home: MultiProvider(
-              providers: [
-                ChangeNotifierProvider(create: (_) => AuthProvider(), lazy: false),
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: title_app,
+              localizationsDelegates: [
+                S.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
               ],
-              child: MainPage(),
+              supportedLocales: S.delegate.supportedLocales,
+              locale: _findLocale(langCur),
+              initialRoute: '/',
+              navigatorKey: NavigatorService.I.navigatorKey,
+              builder: EasyLoading.init(),
+              home: MainPage(),
             ),
           );
         });

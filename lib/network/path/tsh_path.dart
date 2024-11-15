@@ -4,6 +4,8 @@ class TSHPath {
   static TSHPath get I => _instance ??= TSHPath._();
 
   String defaultToken = '/auth/default-token';
+  String fetchUser = '/users/';
+  String registerUser = '/users/';
 
 }
 

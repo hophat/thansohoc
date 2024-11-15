@@ -38,21 +38,18 @@ class TSHClient {
   _setUpInterceptors() {
     dio.interceptors.add(InterceptorsWrapper(onRequest: (op, req) {
       final shared = getIt.get<SharedPreferences>();
-      EasyLoading.show();
       final defaultToken = shared.getString(defaultTokenKey) ?? '';
       if(defaultToken.isNotEmpty) {
-        op.headers['token'] = defaultToken;
+        op.headers['Authorization'] = 'Bearer $defaultToken';
       }
       log('[REQUEST] [${op.method}] -> ${op.baseUrl}${op.path}');
       log('[HEADER] -> ${op.headers}');
       log('[BODY] -> ${op.data}');
       req.next(op);
     }, onResponse: (op, res) {
-      EasyLoading.dismiss();
       log('[RESPONSE] [${op.statusCode}] -> ${op.data}');
       res.next(op);
     }, onError: (err, errHandle) {
-      EasyLoading.dismiss();
       log('[ERROR] -> [${err.message}');
       errHandle.next(err);
     }));
@@ -63,6 +60,38 @@ class TSHClient {
   static TSHClient get instance {
     _instance ??= TSHClient._();
     return _instance!;
+  }
+
+  Future<Either<BaseResponse, T>> post<T>(
+      String path, {
+        String rootData = 'data',
+        Map<String, dynamic>? queryParam,
+        Map<String, dynamic>? body,
+        required DataFactory dataFactory,
+      }) async {
+    final response = await dio.post(
+      path,
+      queryParameters: queryParam,
+      data: body ?? {},
+    );
+    if (response.statusCode == 200) {
+      if(response.data[rootData] == null) {
+        return Left(BaseResponse(
+          data: response.data,
+          codeStatus: response.statusCode,
+          message: "Không có dữ liệu.",
+          success: response.statusCode == 200,
+        ));
+      }
+      return Right(dataFactory.call(response.data[rootData]));
+    }
+
+    return Left(BaseResponse(
+      data: response.data,
+      codeStatus: response.statusCode,
+      message: response.data['message'],
+      success: response.statusCode == 200,
+    ));
   }
 
   Future<Either<BaseResponse, T>> get<T>(

@@ -3,10 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 // import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/detail.dart';
+import 'package:flutter_app_than_so_hoc_2/Pages/hangngay/zodiac_menu.dart';
+import 'package:flutter_app_than_so_hoc_2/Pages/home/profile_icon_widget.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/setting/setting.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
 import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
 import 'package:flutter_app_than_so_hoc_2/network/tsh_client.dart';
+import 'package:flutter_app_than_so_hoc_2/provider/auth/auth_provider.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/local_db/shared_pref.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/const.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
@@ -15,6 +18,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -171,10 +175,7 @@ class _MyHomePageState extends State<HomePage> {
       res.data['ngay'] = ngay;
       res.data['thang'] = thang;
       res.data['nam'] = nam;
-      print('res => ${res.data}');
-      print('res => ${res.data['ngay']}');
-      print('res => ${res.data['thang']}');
-      print('res => ${res.data['nam']}');
+      // Navigator.pushNamed(context, '/detail', arguments: res);
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -256,7 +257,12 @@ class _MyHomePageState extends State<HomePage> {
                         builder: (_) => settingPage());
                   },
                   icon: Image.asset('assets/tet/ic_language.png')),
-            )
+            ),
+            Positioned(
+              top: 15 * 2 + 15,
+              left: 15,
+              child: ProfileIconWidget(),
+              ),
           ],
         ),
       ),
