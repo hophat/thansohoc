@@ -16,7 +16,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:spine_flutter/spine_flutter.dart';
+import 'package:spine_flutter/spine_flutter.dart' as spine;
 import 'Pages/home/home.dart';
 import 'firebase_options.dart';
 import 'generated/l10n.dart';
@@ -28,7 +28,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configLocator();
   await ScreenUtil.ensureScreenSize();
-  await initSpineFlutter(enableMemoryDebugging: false);
+  await spine.initSpineFlutter(enableMemoryDebugging: false);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform
   );
@@ -182,3 +182,52 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
+
+
+
+class MyAppQQ extends StatelessWidget {
+  const MyAppQQ({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text("Blend Mode Negative Example")),
+        body: Center(
+          child: ColorFiltered(
+            colorFilter: ColorFilter.matrix(
+              <double>[
+                -1,  0,  0,  0, 255, // Red
+                0, -1,  0,  0, 255, // Green
+                0,  0, -1,  0, 255, // Blue
+                0,  0,  0,  1,   0, // Alpha
+              ],
+            ),
+            child: Stack(
+              children: [
+                ColorFiltered(
+                  colorFilter: ColorFilter.matrix(
+                    <double>[
+                      1.5, 0, 0, 0, -75, // Tăng đỏ và giảm nền tối
+                      0, 1.5, 0, 0, -75, // Tăng xanh lá và giảm nền tối
+                      0, 0, 1.5, 0, -75, // Tăng xanh dương và giảm nền tối
+                      0, 0, 0, 1, 0,    // Alpha không đổi
+                    ],
+                  ),
+                  child: Image.asset(
+                    'assets/IMG_4178.JPG',
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: double.infinity,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+

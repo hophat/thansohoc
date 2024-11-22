@@ -261,7 +261,9 @@ class _MyHomePageState extends State<HomePage> {
             Positioned(
               top: 15 * 2 + 15,
               left: 15,
-              child: ProfileIconWidget(),
+              child: Hero(
+                  tag: 'profile',
+                  child: ProfileIconWidget()),
               ),
           ],
         ),

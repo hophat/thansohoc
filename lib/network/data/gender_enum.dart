@@ -15,3 +15,17 @@ enum Gender {
     }
   }
 }
+
+extension GenderExtension on Gender{
+  String get value => v;
+  String get display {
+    switch (this) {
+      case Gender.man:
+        return 'Nam';
+      case Gender.feMan:
+        return 'Nữ';
+      default:
+        return 'Bí mật';
+    }
+  }
+}

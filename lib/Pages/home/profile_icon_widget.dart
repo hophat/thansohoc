@@ -33,6 +33,12 @@ class _ProfileIconWidgetState extends State<ProfileIconWidget>
   }
 
   @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: _boxSize,
@@ -45,8 +51,6 @@ class _ProfileIconWidgetState extends State<ProfileIconWidget>
       ),
       child: IconButton(
         onPressed: () {
-          print('click ${context.read<AuthProvider>().isLogin}');
-
           Navigator.push(NavigatorService.I.context, MaterialPageRoute(builder: (context) => ChangeNotifierProvider.value(
             value: context.read<AuthProvider>(),
             child: ZodiacMenu(),

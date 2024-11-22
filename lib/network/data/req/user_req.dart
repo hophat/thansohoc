@@ -68,4 +68,9 @@ class UserReq {
 
     return m;
   }
+
+  @override
+  String toString() {
+    return 'UserReq{name: $name, email: $email, sex: $sex, birthDate: $birthDate, deviceToken: $deviceToken, zodiac: $zodiac, timeNotice: $timeNotice, isNotice: $isNotice, point: $point, country: $country}';
+  }
 }

@@ -72,6 +72,7 @@ dependencies:
   provider: ^6.1.2
   android_id: ^0.4.0
   screenshot: ^3.0.0
+  blinking_text: ^1.0.4
 #  shake: ^2.2.0
 #  vibration: ^1.7.6
 #  share_plus: ^6.3.0
