@@ -6,6 +6,7 @@ class TSHPath {
   String defaultToken = '/auth/default-token';
   String fetchUser = '/users/';
   String registerUser = '/users/';
+  String updateUser = '/users/';
 
 }
 

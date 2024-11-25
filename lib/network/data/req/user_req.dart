@@ -52,20 +52,20 @@ class UserReq {
 
   Map<String, dynamic> toJson() {
     final m = {
-      'name': name,
+      'name': (name??'').isNotEmpty ? name : 'user_${DateTime.now().millisecondsSinceEpoch}',
       'email': email,
       'sex': sex.v,
-      'birthDate': birthDate?.toIso8601String(),
+      'birthDate': birthDate?.toUtc().toString(),
       'deviceToken': deviceToken,
       'deviceID': getIt.get<SharedPreferences>().getString(deviceIDKey),
       'zodiac': zodiac,
-      'timeNotice': timeNotice?.toIso8601String(),
-      'isNotice': isNotice,
+      'timeNotice': timeNotice?.toUtc().toString(),
+      // 'isNotice': isNotice,
       'point': point,
       'country': country,
     };
-    m.removeWhere((key, value) => value == null);
-
+    m.removeWhere((key, value) => value == null || (value is String && value.isEmpty));
+    print('UserReq.toJson: $m');
     return m;
   }
 

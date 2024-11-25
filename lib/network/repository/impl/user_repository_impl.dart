@@ -62,4 +62,21 @@ class UserRepositoryImpl implements UserRepository {
       return Left(BaseResponse.serverErr());
     }
   }
+
+  @override
+  Future<Either<BaseResponse, UserRes>> update(UserReq req) async {
+    try {
+      return await _service.patch(
+        (TSHPath.I.updateUser +
+            '/${getIt.get<SharedPreferences>().getString(deviceIDKey)}')
+            .v1,
+        dataFactory: UserRes.fromJson,
+        body: req.toJson(),
+      );
+    }catch(_){
+      return Left(BaseResponse.serverErr());
+    }
+  }
+
+
 }

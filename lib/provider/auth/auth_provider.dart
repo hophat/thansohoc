@@ -7,6 +7,7 @@ import 'package:flutter_app_than_so_hoc_2/network/data/req/user_req.dart';
 import 'package:flutter_app_than_so_hoc_2/network/data/res_model/user_res.dart';
 import 'package:flutter_app_than_so_hoc_2/network/repository/user_repository.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/const.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProvider extends ChangeNotifier{
@@ -48,7 +49,7 @@ class AuthProvider extends ChangeNotifier{
     });
   }
 
-  fetchUser() {
+  fetchUser({bool notify = false}) {
     final SharedPreferences prefs = getIt.get<SharedPreferences>();
     try{
       _userRes = UserRes.fromJson(jsonDecode(prefs.getString(userKey) ?? ''));
@@ -63,22 +64,45 @@ class AuthProvider extends ChangeNotifier{
       }, (r) {
         _userRes = r;
         prefs.setString(userKey, jsonEncode(_userRes?.toJson()));
+        if(notify) notifyListeners();
       });
     });
   }
 
-  register(UserReq req) {
+  register(UserReq req) async {
     final SharedPreferences prefs = getIt.get<SharedPreferences>();
     final deviceId = prefs.getString(deviceIDKey) ?? '';
     if(deviceId.isEmpty) return;
-    getIt.get<UserRepository>().fetch().then((value) {
-      value.fold((l) {
-        _userRes = null;
-      }, (r) {
-        _userRes = r;
-        prefs.setString(userKey, jsonEncode(_userRes?.toJson()));
+    try{
+      if(EasyLoading.isShow) return;
+      EasyLoading.show(status: 'Loading...');
+      getIt.get<UserRepository>().register(req).then((value) {
+        value.fold((l) {
+          _userRes = null;
+        }, (r) {
+          _userRes = r;
+          prefs.setString(userKey, jsonEncode(_userRes?.toJson()));
+        });
       });
-    });
+    }catch(_){
+
+    }finally{
+      EasyLoading.dismiss();
+    }
+  }
+
+  Future<void> update(UserReq req) async {
+    if(EasyLoading.isShow) return;
+    try{
+      EasyLoading.show(status: 'Loading...');
+      final res = await getIt.get<UserRepository>().update(req);
+      res.fold((l) {}, (r){
+        _userRes = r;
+      });
+    }catch(_){
+    }finally{
+      EasyLoading.dismiss();
+    }
   }
 
 }

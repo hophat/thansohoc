@@ -74,7 +74,8 @@ class TSHClient {
       queryParameters: queryParam,
       data: body ?? {},
     );
-    if (response.statusCode == 200) {
+    final statusCode = response.statusCode ?? 0;
+    if (statusCode > 200 && statusCode < 300) {
       if(response.data[rootData] == null) {
         return Left(BaseResponse(
           data: response.data,
@@ -84,6 +85,38 @@ class TSHClient {
         ));
       }
       return Right(dataFactory.call(response.data[rootData]));
+    }
+
+    return Left(BaseResponse(
+      data: response.data,
+      codeStatus: response.statusCode,
+      message: response.data['message'],
+      success: response.statusCode == 200,
+    ));
+  }
+
+  Future<Either<BaseResponse, T>> patch<T>(
+      String path, {
+        String rootData = 'data',
+        Map<String, dynamic>? queryParam,
+        Map<String, dynamic>? body,
+        required DataFactory dataFactory,
+      }) async {
+    final response = await dio.patch(
+      path,
+      queryParameters: queryParam,
+      data: body ?? {},
+    );
+    if (response.statusCode == 200) {
+      // if(response.data[rootData] == null) {
+      //   return Left(BaseResponse(
+      //     data: response.data,
+      //     codeStatus: response.statusCode,
+      //     message: "Không có dữ liệu.",
+      //     success: response.statusCode == 200,
+      //   ));
+      // }
+      return Right(dataFactory.call(response.data));
     }
 
     return Left(BaseResponse(

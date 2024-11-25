@@ -9,4 +9,5 @@ abstract class UserRepository {
   Future<Either<BaseResponse, DefaultToken>> fetchDefaultToken();
   Future<Either<BaseResponse, UserRes>> fetch();
   Future<Either<BaseResponse, UserRes>> register(UserReq req);
+  Future<Either<BaseResponse, UserRes>> update(UserReq req);
 }

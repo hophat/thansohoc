@@ -1,5 +1,5 @@
 enum Gender {
-  man('Man'), feMan('FeMan'), other('Other');
+  man('man'), feMan('feMan'), other('other');
   final String v;
   const Gender(this.v);
 
