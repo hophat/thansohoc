@@ -4,6 +4,7 @@ import 'package:flutter_app_than_so_hoc_2/Pages/detail/tabs/tab1.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/tabs/tab2.dart';
 import 'package:flutter_app_than_so_hoc_2/network/tsh_client.dart';
 import 'package:flutter_app_than_so_hoc_2/network/tsh_client2.dart';
+import 'package:flutter_app_than_so_hoc_2/provider/local_pub_sub.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
 import 'package:flutter/material.dart';
 
@@ -207,6 +208,7 @@ class _MyDetailPage extends State<DetailPage>
           elevation: 0,
           backgroundColor: Colors.transparent,
           bottom: TabBar(
+            tabAlignment: TabAlignment.start,
             splashBorderRadius: BorderRadius.circular(30),
             labelPadding: EdgeInsets.symmetric(vertical: 2),
             controller: _tabController,
@@ -249,6 +251,14 @@ class _MyDetailPage extends State<DetailPage>
           ),
           leadingWidth: 0,
           leading: const SizedBox.shrink(),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  AppLocalPubSub.I.emitEvent(LocalPubSub(EventName.shareSCD));
+                },
+                icon: Icon(Icons.share_outlined,
+                    color: TSHColors().primaryTextColor)),
+          ],
         ),
         body: TabBarView(
           controller: _tabController,

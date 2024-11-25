@@ -75,10 +75,10 @@ dependencies:
   blinking_text: ^1.0.4
 #  shake: ^2.2.0
 #  vibration: ^1.7.6
-#  share_plus: ^6.3.0
-#  path_provider:
+  share_plus: ^10.1.2
+  rxdart: ^0.28.0
+  path_provider:
 #  auto_size_text:
-#  gallery_saver: ^2.3.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
