@@ -8,6 +8,7 @@ import 'package:flutter_app_than_so_hoc_2/network/data/res_model/user_res.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/auth/auth_provider.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/const.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -237,21 +238,28 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
           ],
           readOnly: true,
           onTap: () {
-            showDatePicker(
-              context: context,
-              initialDate: _authProvider.user?.birthDate ??
-                  DateTime.now(),
-              firstDate: DateTime(1900),
-              lastDate: DateTime.now(),
-            ).then((value) {
-              if (value != null) {
+            DatePicker.showDatePicker(
+              context,
+              showTitleActions: true,
+              minTime: DateTime(1900, 1, 1),
+              maxTime: DateTime.now(),
+              onChanged: (v) {
                 final formatter = DateFormat(langCur == 'vi'
                     ? 'dd/MM/yyyy'
                     : 'MM/dd/yyyy');
                 _birthDateCtrl.text =
-                    formatter.format(value);
-              }
-            });
+                    formatter.format(v);
+              },
+              onConfirm: (v) {
+                final formatter = DateFormat(langCur == 'vi'
+                    ? 'dd/MM/yyyy'
+                    : 'MM/dd/yyyy');
+                _birthDateCtrl.text =
+                    formatter.format(v);
+              },
+              currentTime: parseDate(_birthDateCtrl.text),
+              locale: langCur == 'vi' ? LocaleType.vi : LocaleType.en,
+            );
           },
         ),
         SizedBox(height: 8),

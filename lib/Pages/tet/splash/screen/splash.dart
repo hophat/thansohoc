@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/tet/xam/screen/xam_home.dart';
+import 'package:flutter_app_than_so_hoc_2/main.dart';
+import 'package:flutter_app_than_so_hoc_2/network/data/gender_enum.dart';
+import 'package:flutter_app_than_so_hoc_2/provider/auth/auth_provider.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../provider/audio/audio_provider.dart';
 import '../../../../provider/local_db/shared_pref.dart';
@@ -12,18 +16,6 @@ class XamSplashScreen extends StatefulWidget {
 
   @override
   State<XamSplashScreen> createState() => _XamSplashScreenState();
-}
-
-enum GenderType {
-  male,
-  female,
-  unknown;
-
-  String get name {
-    if (this == GenderType.male) return 'Nam';
-    if (this == GenderType.female) return 'Nữ';
-    return 'Bí mật';
-  }
 }
 
 class _XamSplashScreenState extends State<XamSplashScreen> {
@@ -48,21 +40,24 @@ class _XamSplashScreenState extends State<XamSplashScreen> {
     _genderIndex = v;
   }
 
-  GenderType get _gender => GenderType.values[_genderIndex];
-
   String get dayStr => currentDate.day.toString();
 
   String get monthStr => currentDate.month.toString();
 
   String get yearStr => currentDate.year.toString();
 
+  late final AuthProvider _authProvider;
+
+  Gender _currentGender = Gender.other;
+
   @override
   void initState() {
     super.initState();
+    _authProvider = context.read<AuthProvider>();
     final String dateStr = myShared.getString(birthDayKey) ?? '';
-    final int gIndex = myShared.getInt(genderKey) ?? 2;
-    currentDate = DateTime.tryParse(dateStr) ?? DateTime.now();
-    genderIndex = gIndex;
+    currentDate = _authProvider.user?.birthDate ?? DateTime.tryParse(dateStr) ?? DateTime.now();
+    _currentGender = Gender.fromString(_authProvider.user?.sex);
+    _genderIndex = _currentGender.index;
   }
 
   @override
@@ -153,7 +148,6 @@ class _XamSplashScreenState extends State<XamSplashScreen> {
   Widget _submit() {
     return InkWell(
       onTap: () {
-        myShared.setInt(genderKey, _genderIndex);
         myShared.setString(birthDayKey, currentDate.toIso8601String()).then((_) {
           Navigator.pushReplacement(
             context,
@@ -286,9 +280,10 @@ class _XamSplashScreenState extends State<XamSplashScreen> {
                 child: InkWell(
                   onTap: () {
                     genderIndex = _genderIndex + 1;
+                    _currentGender = Gender.values[_genderIndex];
                     setState(() {});
                   },
-                  child: dateStr(_gender.name),
+                  child: dateStr(_currentGender.display),
                 ),
               ),
               const Expanded(child: SizedBox.shrink()),
