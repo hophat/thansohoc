@@ -51,10 +51,7 @@ class _ProfileIconWidgetState extends State<ProfileIconWidget>
       ),
       child: IconButton(
         onPressed: () {
-          Navigator.push(NavigatorService.I.context, MaterialPageRoute(builder: (context) => ChangeNotifierProvider.value(
-            value: context.read<AuthProvider>(),
-            child: ZodiacMenu(),
-          )));
+          Navigator.push(NavigatorService.I.context, MaterialPageRoute(builder: (context) => ZodiacMenu()));
         },
         icon: Stack(
           fit: StackFit.expand,
