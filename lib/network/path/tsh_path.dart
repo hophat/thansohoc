@@ -7,6 +7,7 @@ class TSHPath {
   String fetchUser = '/users/';
   String registerUser = '/users/';
   String updateUser = '/users/';
+  String daily = '/tarot';
 
 }
 

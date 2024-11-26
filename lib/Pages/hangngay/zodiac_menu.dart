@@ -1,10 +1,13 @@
 import 'package:blinking_text/blinking_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_than_so_hoc_2/main.dart';
 import 'package:flutter_app_than_so_hoc_2/network/data/gender_enum.dart';
 import 'package:flutter_app_than_so_hoc_2/network/data/res_model/user_res.dart';
+import 'package:flutter_app_than_so_hoc_2/network/repository/user_repository.dart';
+import 'package:flutter_app_than_so_hoc_2/provider/admob/admob_provider.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/auth/auth_provider.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/const.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
@@ -12,11 +15,14 @@ import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../app/locator/app_locator.dart';
 import '../../class/Lang.dart';
 import '../../network/data/req/user_req.dart';
+import '../../network/data/res_model/daily_res.dart';
 import '../home/profile_icon_widget.dart';
+import 'daily_screen.dart';
 
 class ZodiacMenu extends StatefulWidget {
   const ZodiacMenu({super.key});
@@ -32,6 +38,9 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
 
   bool get isLogin => context.read<AuthProvider>().isLogin;
 
+  DailyRes? daily;
+  Gender _currentGender = Gender.other;
+
   late final TextEditingController _nameCtrl,
       _emailCtrl,
       _birthDateCtrl,
@@ -43,7 +52,7 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
         name: _nameCtrl.text,
         email: _emailCtrl.text,
         birthDate: parseDate(_birthDateCtrl.text),
-        sex: Gender.fromString(_sexCtrl.text),
+        sex: _currentGender,
         country: _countryCtrl.text,
         timeNotice: parseDate(_noticeCtrl.text),
         deviceToken: _fcmToken,
@@ -108,8 +117,8 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
       ..text = _authProvider.user?.birthDate != null
           ? formatter.format(_authProvider.user?.birthDate ?? DateTime.now())
           : formatter.format(DateTime.tryParse(dateStore) ?? DateTime.now());
-    _sexCtrl = TextEditingController()
-      ..text = Gender.fromString(_authProvider.user?.sex).display;
+    _currentGender = Gender.fromString(_authProvider.user?.sex);
+    _sexCtrl = TextEditingController()..text = _currentGender.display;
     _countryCtrl = TextEditingController()
       ..text = _authProvider.user?.country ?? 'VietNam';
     _noticeCtrl = TextEditingController()
@@ -123,13 +132,31 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
     _isNotice = context.read<AuthProvider>().user?.isNotice ?? false;
     _isEdit = !context.read<AuthProvider>().isLogin;
     // _isEdit = false;
+    context.read<AdmobProvider>().load();
     _initCtrl();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _fetchDaily();
+    });
     super.initState();
   }
 
   TextStyle get _style => TextStyle(
         color: TSHColors().primaryTextColor,
       );
+
+  _fetchDaily() {
+    getIt.get<UserRepository>().daily().then((v) {
+      v.fold((l) {
+        daily = null;
+        setState(() {});
+      }, (r) {
+        daily = r;
+        if (!mounted) return;
+        setState(() {});
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -244,18 +271,14 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
               minTime: DateTime(1900, 1, 1),
               maxTime: DateTime.now(),
               onChanged: (v) {
-                final formatter = DateFormat(langCur == 'vi'
-                    ? 'dd/MM/yyyy'
-                    : 'MM/dd/yyyy');
-                _birthDateCtrl.text =
-                    formatter.format(v);
+                final formatter =
+                    DateFormat(langCur == 'vi' ? 'dd/MM/yyyy' : 'MM/dd/yyyy');
+                _birthDateCtrl.text = formatter.format(v);
               },
               onConfirm: (v) {
-                final formatter = DateFormat(langCur == 'vi'
-                    ? 'dd/MM/yyyy'
-                    : 'MM/dd/yyyy');
-                _birthDateCtrl.text =
-                    formatter.format(v);
+                final formatter =
+                    DateFormat(langCur == 'vi' ? 'dd/MM/yyyy' : 'MM/dd/yyyy');
+                _birthDateCtrl.text = formatter.format(v);
               },
               currentTime: parseDate(_birthDateCtrl.text),
               locale: langCur == 'vi' ? LocaleType.vi : LocaleType.en,
@@ -273,7 +296,8 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
           onTap: () {
             _selectGender().then((v) {
               if (v != null) {
-                _sexCtrl.text = v.display;
+                _currentGender = v;
+                _sexCtrl.text = _currentGender.display;
               }
             });
           },
@@ -328,9 +352,7 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
           color: Colors.transparent,
           child: InkWell(
             onTap: () async {
-              _fcmToken = await FirebaseMessaging
-                  .instance
-                  .getToken();
+              _fcmToken = await FirebaseMessaging.instance.getToken();
               if (_fcmToken == null) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
@@ -342,10 +364,24 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
                 return;
               }
               if (_authProvider.isLogin) {
-                _authProvider.update(req);
+                _authProvider.update(req).then((_) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Cập nhật thông tin thành công',
+                      ),
+                    ),
+                  );
+                  _isEdit = false;
+                  setState(() {});
+                });
                 return;
               }
-              _authProvider.register(req);
+              _authProvider.register(req).then((_) {
+                if (!mounted) return;
+                _isEdit = false;
+                Future.delayed(const Duration(seconds: 1), () => _fetchDaily());
+              });
             },
             child: Container(
               height: 40,
@@ -355,7 +391,7 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
                   borderRadius: BorderRadius.circular(8),
                   color: TSHColors().titleCardColor2),
               child: BlinkText(
-                'Xem tử vi',
+                isLogin ? 'Chỉnh sửa' : 'Xem tử vi',
                 endColor: Colors.white,
                 beginColor: TSHColors().primaryTextColor,
                 duration: Duration(milliseconds: 600),
@@ -368,6 +404,18 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
           ),
         ),
       ],
+    );
+  }
+
+  _navigateToDaily() {
+    if (!mounted) return;
+    context.read<AdmobProvider>().show();
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => DailyScreen(daily: daily),
+      ),
     );
   }
 
@@ -404,13 +452,16 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
                     elevation: 0,
                     color: Colors.transparent,
                     child: InkWell(
-                        onTap: (){
+                        onTap: () {
                           setState(() {
                             _isEdit = true;
                           });
                         },
                         borderRadius: BorderRadius.circular(50),
-                        child: Icon(Icons.edit_note, color: TSHColors().titleCardColor,)))
+                        child: Icon(
+                          Icons.edit_note,
+                          color: TSHColors().titleCardColor,
+                        )))
               ],
             ),
             Text(
@@ -426,33 +477,107 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
               'Giới tính: ${Gender.fromString(user?.sex).display}',
               style: TextStyle(fontSize: 18, color: TSHColors().titleCardColor),
             ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: () {},
-                  child: Container(
-                    height: 40,
-                    width: 160,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: TSHColors().titleCardColor2),
-                    child: BlinkText(
-                      'Xem Tử vi',
-                      endColor: Colors.white,
-                      beginColor: TSHColors().primaryTextColor,
-                      duration: Duration(milliseconds: 600),
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: TSHColors().primaryTextColor),
+            Divider(
+              color: TSHColors().borderCardColor,
+              thickness: 4,
+            ),
+            if (daily == null)
+              Align(
+                alignment: Alignment.centerRight,
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: _navigateToDaily,
+                    child: Container(
+                      height: 40,
+                      width: 160,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: TSHColors().titleCardColor2),
+                      child: BlinkText(
+                        'Xem Tử vi',
+                        endColor: Colors.white,
+                        beginColor: TSHColors().primaryTextColor,
+                        duration: Duration(milliseconds: 600),
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: TSHColors().primaryTextColor),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
+            if (daily != null) ...[
+              Text(
+                  'Tử vi ngày ${DateFormat('dd MMM yyyy').format(daily?.createdAt ?? DateTime.now())}',
+                  style: TextStyle(
+                      fontSize: 15,
+                      color: TSHColors().titleCardColor,
+                      fontWeight: FontWeight.w400)),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                        (daily?.card ?? '') +
+                            (daily?.category != null
+                                ? '(${daily?.category})'
+                                : ''),
+                        style: TextStyle(
+                            fontSize: 13,
+                            color: TSHColors().titleCardColor,
+                            fontWeight: FontWeight.w400)),
+                  ),
+                  CachedNetworkImage(
+                      imageUrl: daily?.image ?? '',
+                      fit: BoxFit.fitHeight,
+                      height: 38,
+                      errorWidget: (_, __, ___) => Skeletonizer(
+                            enabled: true,
+                            child: Container(
+                              height: 38,
+                              width: 20,
+                              color: TSHColors().titleCardColor,
+                            ),
+                          )),
+                  SizedBox(width: 8),
+                  CachedNetworkImage(
+                    imageUrl: daily?.image2 ?? '',
+                    fit: BoxFit.fitHeight,
+                    height: 38,
+                    errorWidget: (_, __, ___) => Skeletonizer(
+                      enabled: true,
+                      child: Container(
+                        height: 38,
+                        width: 20,
+                        color: TSHColors().titleCardColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 8),
+              Align(
+                  alignment: Alignment.centerRight,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: _navigateToDaily,
+                      child: BlinkText(
+                        'Xem thêm...',
+                        endColor: Colors.white,
+                        beginColor: TSHColors().titleCardColor,
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: TSHColors().titleCardColor,
+                            fontWeight: FontWeight.w400),
+                        duration: Duration(milliseconds: 1000),
+                        times: 2,
+                      ),
+                    ),
+                  ))
+            ]
           ],
         ),
       ),

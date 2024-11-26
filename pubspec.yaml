@@ -78,6 +78,8 @@ dependencies:
   share_plus: ^10.1.2
   rxdart: ^0.28.0
   path_provider:
+  cached_network_image: ^3.4.1
+  skeletonizer: ^1.4.2
 #  auto_size_text:
 dev_dependencies:
   flutter_test:

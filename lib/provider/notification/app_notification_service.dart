@@ -2,11 +2,10 @@ import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_than_so_hoc_2/Pages/tet/splash/screen/splash.dart';
-import 'package:flutter_app_than_so_hoc_2/Pages/tet/xam/screen/xam_home.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+import '../../Pages/hangngay/zodiac_menu.dart';
 import '../navigator_service.dart';
 
 
@@ -27,7 +26,7 @@ class AppNotiService {
     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
       Navigator.of(NavigatorService.I.context).push(MaterialPageRoute(builder: (_){
-        return XamSplashScreen();
+        return ZodiacMenu();
       }));
     });
   }
@@ -39,7 +38,7 @@ class AppNotiService {
 
     await _localNotifications.initialize(settings, onDidReceiveNotificationResponse: (res){
       Navigator.of(NavigatorService.I.context).push(MaterialPageRoute(builder: (_){
-        return XamSplashScreen();
+        return ZodiacMenu();
       }));
     });
     FirebaseMessaging.onMessage.listen(_handleForegroundMessage, onDone: () {

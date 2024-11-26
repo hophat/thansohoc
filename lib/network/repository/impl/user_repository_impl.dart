@@ -1,5 +1,6 @@
 import 'package:either_dart/src/either.dart';
 import 'package:flutter_app_than_so_hoc_2/app/locator/app_locator.dart';
+import 'package:flutter_app_than_so_hoc_2/main.dart';
 import 'package:flutter_app_than_so_hoc_2/network/data/base_response.dart';
 import 'package:flutter_app_than_so_hoc_2/network/data/res_model/default_token.dart';
 import 'package:flutter_app_than_so_hoc_2/network/data/res_model/user_res.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_app_than_so_hoc_2/utils/const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/req/user_req.dart';
+import '../../data/res_model/daily_res.dart';
 
 class UserRepositoryImpl implements UserRepository {
   final TSHClient _service;
@@ -72,6 +74,22 @@ class UserRepositoryImpl implements UserRepository {
             .v1,
         dataFactory: UserRes.fromJson,
         body: req.toJson(),
+      );
+    }catch(_){
+      return Left(BaseResponse.serverErr());
+    }
+  }
+
+  @override
+  Future<Either<BaseResponse, DailyRes>> daily() async {
+    try{
+      return await _service.get(
+        TSHPath.I.daily.v1,
+        queryParam: {
+          'deviceID': getIt.get<SharedPreferences>().getString(deviceIDKey),
+          'region': langCur.toLowerCase(),
+        },
+        dataFactory: DailyRes.fromJson,
       );
     }catch(_){
       return Left(BaseResponse.serverErr());

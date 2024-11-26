@@ -20,7 +20,9 @@ class AuthProvider extends ChangeNotifier{
   AuthProvider() {
     final SharedPreferences prefs = getIt.get<SharedPreferences>();
     final _token = prefs.getString(defaultTokenKey) ?? '';
-    final _deviceId = prefs.getString(deviceIDKey) ?? '';
+    final _deviceId = '';
+    // final _deviceId = 'debug123f';
+    // prefs.setString(deviceIDKey, _deviceId);
     if(_deviceId.isEmpty){
       AndroidId().getId().then((deviceId) {
         if((deviceId ?? '').isEmpty) return;
@@ -59,7 +61,7 @@ class AuthProvider extends ChangeNotifier{
 
     getIt.get<UserRepository>().fetch().then((value) {
       value.fold((l) {
-        if(_userRes != null) return;
+        // if(_userRes != null) return;
         _userRes = null;
       }, (r) {
         _userRes = r;
@@ -69,14 +71,14 @@ class AuthProvider extends ChangeNotifier{
     });
   }
 
-  register(UserReq req) async {
+  Future<void> register(UserReq req) async {
     final SharedPreferences prefs = getIt.get<SharedPreferences>();
     final deviceId = prefs.getString(deviceIDKey) ?? '';
     if(deviceId.isEmpty) return;
     try{
       if(EasyLoading.isShow) return;
       EasyLoading.show(status: 'Loading...');
-      getIt.get<UserRepository>().register(req).then((value) {
+      await getIt.get<UserRepository>().register(req).then((value) {
         value.fold((l) {
           _userRes = null;
         }, (r) {
