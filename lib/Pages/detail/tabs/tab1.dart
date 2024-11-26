@@ -100,6 +100,7 @@ class _My_tab1 extends State<tab1_Page> with AutomaticKeepAliveClientMixin{
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Future.delayed(const Duration(seconds: 2), () async {
         _isSharing = true;
+        if(!mounted) return;
         setState(() {});
         if (_image == null) {
           try{
@@ -117,6 +118,7 @@ class _My_tab1 extends State<tab1_Page> with AutomaticKeepAliveClientMixin{
   @override
   dispose() {
     _shareSub.cancel();
+    if(EasyLoading.isShow) EasyLoading.dismiss();
     super.dispose();
   }
 

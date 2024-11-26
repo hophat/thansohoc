@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_than_so_hoc_2/app/locator/app_locator.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Lang.dart';
+import 'package:flutter_app_than_so_hoc_2/provider/admob/admob_provider.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/auth/auth_provider.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/list_extension.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/local_db/shared_pref.dart';
@@ -105,6 +106,7 @@ class _MyAppState extends State<MyApp> {
           return MultiProvider(
             providers: [
               ChangeNotifierProvider(create: (_) => AuthProvider(), lazy: false),
+              ChangeNotifierProvider(create: (_) => AdmobProvider(), lazy: false),
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,

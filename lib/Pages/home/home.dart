@@ -9,6 +9,7 @@ import 'package:flutter_app_than_so_hoc_2/Pages/setting/setting.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
 import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
 import 'package:flutter_app_than_so_hoc_2/network/tsh_client.dart';
+import 'package:flutter_app_than_so_hoc_2/provider/admob/admob_provider.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/auth/auth_provider.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/local_db/shared_pref.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/const.dart';
@@ -63,9 +64,9 @@ class _MyHomePageState extends State<HomePage> {
 
   String get lang => Intl.getCurrentLocale().toString();
 
-  InterstitialAd? _interstitialAd;
-
   Size get _size => MediaQuery.of(context).size;
+
+  late final AdmobProvider _admobProvider;
 
   LocaleType get locate {
     LocaleType _l = LocaleType.en;
@@ -80,31 +81,18 @@ class _MyHomePageState extends State<HomePage> {
     return _l;
   }
 
-  _createInterstitialAd() {
-    if (Platform.isIOS) return;
-    InterstitialAd.load(
-        // adUnitId: 'ca-app-pub-3940256099942544/1033173712',//test
-        adUnitId: AdMobService.instance.InterstitialAdUnitId,
-        request: AdRequest(),
-        adLoadCallback: InterstitialAdLoadCallback(onAdLoaded: (ad) {
-          _interstitialAd = ad;
-        }, onAdFailedToLoad: (err) {
-          _interstitialAd = null;
-        }));
-  }
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     // lang = Intl.getCurrentLocale().toString();
     this._get_birh_date();
-    _createInterstitialAd();
+    _admobProvider = context.read<AdmobProvider>();
+    _admobProvider.load();
   }
 
   @override
   void dispose() {
-    _interstitialAd?.dispose();
     super.dispose();
   }
 
@@ -135,24 +123,7 @@ class _MyHomePageState extends State<HomePage> {
   }
 
   void _submit() async {
-    if (_interstitialAd != null) {
-      _interstitialAd!.fullScreenContentCallback =
-          FullScreenContentCallback(onAdDismissedFullScreenContent: (ad) {
-        ad.dispose();
-        _createInterstitialAd();
-      }, onAdFailedToShowFullScreenContent: (ad, err) {
-        ad.dispose();
-        _createInterstitialAd();
-      });
-      _interstitialAd!.show();
-      _interstitialAd = null;
-    } else {
-      _createInterstitialAd();
-    }
-    await _interstitialAd?.show();
-
-    // AnalyticsService.I.analytics.logAppOpen();
-
+    _admobProvider.show();
     dateValue = await tinh_scd(DateFormat('yyyyMMdd').format(dateCur));
     ngay = DateFormat('dd').format(dateCur);
     thang = DateFormat('MM').format(dateCur);
