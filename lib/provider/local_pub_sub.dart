@@ -5,6 +5,7 @@ import 'package:rxdart/rxdart.dart';
 
 enum EventName {
   shareSCD,
+  shareXAM,
 }
 
 class LocalPubSub {

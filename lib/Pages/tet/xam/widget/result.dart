@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app_than_so_hoc_2/provider/local_pub_sub.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -9,8 +10,10 @@ import '../../splash/screen/splash.dart';
 
 class Result extends StatefulWidget {
   final Function() onRetry;
+  final bool isClean;
 
-  const Result({Key? key, required this.onRetry}) : super(key: key);
+  const Result({Key? key, required this.onRetry, this.isClean = false})
+      : super(key: key);
 
   @override
   State<Result> createState() => _ResultState();
@@ -20,6 +23,8 @@ class _ResultState extends State<Result> {
   final Color txtColor = const Color(0xFF4E1C00);
   bool _isShowBtn = false;
   int _resultIndex = 0;
+
+  bool get isClean => widget.isClean;
 
   @override
   void initState() {
@@ -97,37 +102,69 @@ class _ResultState extends State<Result> {
                   ],
                 )),
           ),
-          Align(
+         Align(
             alignment: Alignment.bottomCenter,
             child: AnimatedOpacity(
               duration: const Duration(milliseconds: 300),
-              opacity: _isShowBtn ? 1 : 0,
+              opacity: _isShowBtn
+                  ? isClean
+                      ? 0
+                      : 1
+                  : 0,
               child: Padding(
                 padding: EdgeInsets.only(bottom: 20.h),
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                      backgroundColor: const Color(0xFFD2290A),
-                      side: const BorderSide(
-                        color: Color(0xFFFFFF85),
-                        width: 4.0,
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 30),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.0))),
-                  onPressed: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_){
-                      return const XamSplashScreen();
-                    }),);
-                    // widget.onRetry.call();
-                  },
-                  child: Text(
-                    'Quẻ mới',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                          backgroundColor: const Color(0xFFD2290A),
+                          side: const BorderSide(
+                            color: Color(0xFFFFFF85),
+                            width: 4.0,
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 30),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.0))),
+                      onPressed: () {
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_){
+                          return const XamSplashScreen();
+                        }),);
+                        // widget.onRetry.call();
+                      },
+                      child: Text(
+                        'Quẻ mới',
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.w900,
                           color: const Color(0xFFFFFF85),
                         ),
-                  ),
+                      ),
+                    ),
+                    SizedBox(width: 20.w),
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                          backgroundColor: const Color(0xFFD2290A),
+                          side: const BorderSide(
+                            color: Color(0xFFFFFF85),
+                            width: 4.0,
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 30),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.0))),
+                      onPressed: () {
+                        AppLocalPubSub.I.emitEvent(LocalPubSub(EventName.shareXAM));
+                      },
+                      child: Text(
+                        'Chia sẻ',
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.w900,
+                          color: const Color(0xFFFFFF85),
+                        ),
+                    ),
+                    ),
+                  ],
                 ),
               ),
             ),

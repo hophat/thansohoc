@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shake/shake.dart';
 import 'package:spine_flutter/spine_flutter.dart' as spine;
@@ -141,6 +142,7 @@ class _XamState extends State<Xam> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        if (kDebugMode) _shakeHandler();
         // _setUpXam();
         // setState(() {
         //
