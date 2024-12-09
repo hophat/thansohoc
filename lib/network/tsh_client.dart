@@ -23,7 +23,7 @@ class TSHClient {
 
   TSHClient._() {
     BaseOptions options = BaseOptions(
-      baseUrl: 'https://tsh-api.gulagi.com/api/',
+      baseUrl: 'https://tsh-app.gulagi.com/api/',
       headers: {
         // 'Cockpit-Token': '235a9449e91330b05871d371121134',
         'Content-Type': 'application/json; charset=UTF-8'
