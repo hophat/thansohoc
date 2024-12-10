@@ -43,6 +43,7 @@ class TSHClient {
         op.headers['Authorization'] = 'Bearer $defaultToken';
       }
       log('[REQUEST] [${op.method}] -> ${op.baseUrl}${op.path}');
+      log('[REQUEST] [${op.method}] -> ${op.baseUrl}${op.path}${op.queryParameters}');
       log('[HEADER] -> ${op.headers}');
       log('[BODY] -> ${op.data}');
       req.next(op);

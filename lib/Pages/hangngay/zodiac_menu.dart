@@ -1,6 +1,7 @@
 import 'package:blinking_text/blinking_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_than_so_hoc_2/main.dart';
@@ -142,17 +143,16 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
   }
 
   TextStyle get _style => TextStyle(
-        color: TSHColors().primaryTextColor,
-      );
+      color: TSHColors().primaryTextColor, fontWeight: FontWeight.w500);
 
   _fetchDaily() {
     getIt.get<UserRepository>().daily().then((v) {
+      if (!mounted) return;
       v.fold((l) {
         daily = null;
         setState(() {});
       }, (r) {
         daily = r;
-        if (!mounted) return;
         setState(() {});
       });
     });
@@ -166,11 +166,15 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
           inputDecorationTheme: InputDecorationTheme(
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: TSHColors().borderCardColor),
+              borderSide: BorderSide(color: Colors.red),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: TSHColors().primaryColor),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: TSHColors().borderCardColor),
+              borderSide: BorderSide(color: TSHColors().primaryTextColor),
             ),
             labelStyle: TextStyle(color: TSHColors().primaryTextColor),
           ),
@@ -195,7 +199,7 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
                       backgroundColor: Colors.transparent,
                       elevation: 0,
                       title: Text(
-                        'Tử vi hôm nay',
+                        'Tử vi hàng ngày',
                         style: TextStyle(
                             fontSize: 24, color: TSHColors().primaryTextColor),
                       ),
@@ -204,22 +208,31 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
                       ),
                       centerTitle: true,
                     ),
-                    Hero(
-                        tag: 'profile',
-                        child: SizedBox(
-                          height: 100,
-                          width: 100,
-                          child: FittedBox(
-                            child: IgnorePointer(
-                                ignoring: true, child: ProfileIconWidget()),
-                          ),
-                        )),
-                    if (!_isEdit)
+                    if (!_isEdit) ...[
+                      Padding(
+                        padding: EdgeInsets.all(16).copyWith(bottom: 0),
+                        child: _summary(),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(16).copyWith(bottom: 0),
+                        child: cardItem(auth.user),
+                      ),
+
                       Padding(
                         padding: EdgeInsets.all(16),
-                        child: cardItem(auth.user),
+                        child: _submitTuVi(),
                       )
-                    else ...[
+                    ] else ...[
+                      Hero(
+                          tag: 'profile',
+                          child: SizedBox(
+                            height: 175,
+                            width: 175,
+                            child: FittedBox(
+                              child: IgnorePointer(
+                                  ignoring: true, child: ProfileIconWidget()),
+                            ),
+                          )),
                       Padding(
                         padding: EdgeInsets.all(16),
                         child: formEdit(),
@@ -233,6 +246,108 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
         )),
       );
     });
+  }
+
+  Widget _submitTuVi(){
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: _navigateToDaily,
+        child: Container(
+          height: 40,
+          // width: 160,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xFFFAE9B1),
+                  Color(0xFFEDBE72),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              )),
+          child: BlinkText(
+            'Xem tử vi',
+            endColor: Colors.white,
+            beginColor: TSHColors().primaryColor,
+            duration: Duration(milliseconds: 600),
+            times: 2,
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: TSHColors().primaryColor),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _summary() {
+    final formatter = DateFormat(langCur == 'vi' ? 'dd/MM/yyyy' : 'MM/dd/yyyy');
+    return Container(
+      constraints: BoxConstraints(minHeight: 83,maxHeight: daily?.summary != null ? 150 : 83),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          gradient: LinearGradient(colors: TSHColors().gradiantCardColor),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.topLeft,
+                child: Image.asset(
+                  'assets/icons/daily_flow_left.png',
+                  height: 83,
+                ),
+              ),
+              Align(
+                alignment: Alignment.topRight,
+                child: Image.asset('assets/icons/daily_flow_right.png',
+                    height: 83),
+              ),
+              Positioned(
+                top: 16,
+                left: 16,
+                right: 16,
+                // bottom: 16,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      '${DateFormat('EEEE').format(DateTime.now())}',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        color: TSHColors().titleCardColor,
+                      ),
+                    ),
+                    Text(
+                      '${formatter.format(DateTime.now())}',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: TSHColors().titleCardColor,
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      daily?.summary ?? '',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: TSHColors().titleCardColor,
+                      ),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ));
   }
 
   Widget formEdit() {
@@ -347,7 +462,7 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
         //     ),
         //   ],
         // ),
-        SizedBox(height: 8),
+        SizedBox(height: 20),
         Material(
           color: Colors.transparent,
           child: InkWell(
@@ -385,20 +500,28 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
             },
             child: Container(
               height: 40,
-              width: 160,
+              // width: 160,
               alignment: Alignment.center,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  color: TSHColors().titleCardColor2),
+                  gradient: LinearGradient(
+                    colors: [
+                      Color(0xFFFAE9B1),
+                      Color(0xFFEDBE72),
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  )),
               child: BlinkText(
                 isLogin ? 'Chỉnh sửa' : 'Xem tử vi',
                 endColor: Colors.white,
-                beginColor: TSHColors().primaryTextColor,
+                beginColor: TSHColors().primaryColor,
                 duration: Duration(milliseconds: 600),
+                times: 2,
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: TSHColors().primaryTextColor),
+                    color: TSHColors().primaryColor),
               ),
             ),
           ),
@@ -409,7 +532,7 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
 
   _navigateToDaily() {
     if (!mounted) return;
-    context.read<AdmobProvider>().show();
+    if(!kDebugMode) context.read<AdmobProvider>().show();
 
     Navigator.push(
       context,
@@ -429,156 +552,182 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
       },
       tween: Tween<double>(begin: 0.0, end: 1),
       duration: const Duration(milliseconds: 1000),
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-            border: Border.all(color: TSHColors().borderCardColor, width: 2),
-            borderRadius: BorderRadius.circular(8),
-            gradient: LinearGradient(
-              colors: TSHColors().gradiantCardColor,
-            )),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Text('Thông tin cá nhân',
-                    style: TextStyle(
-                        fontSize: 24,
-                        color: TSHColors().titleCardColor,
-                        fontWeight: FontWeight.w400)),
-                Spacer(),
-                Material(
-                    elevation: 0,
-                    color: Colors.transparent,
-                    child: InkWell(
-                        onTap: () {
-                          setState(() {
-                            _isEdit = true;
-                          });
-                        },
-                        borderRadius: BorderRadius.circular(50),
-                        child: Icon(
-                          Icons.edit_note,
-                          color: TSHColors().titleCardColor,
-                        )))
-              ],
-            ),
-            Text(
-              'Tên: ${user?.name}',
-              style:
-                  TextStyle(fontSize: 18, color: TSHColors().titleCardColor3),
-            ),
-            Text(
-              'Ngày sinh: ${DateFormat(langCur == 'vi' ? 'dd/MM/yyyy' : 'MM/dd/yyyy').format(user?.birthDate ?? DateTime.now())}',
-              style: TextStyle(fontSize: 18, color: TSHColors().titleCardColor),
-            ),
-            Text(
-              'Giới tính: ${Gender.fromString(user?.sex).display}',
-              style: TextStyle(fontSize: 18, color: TSHColors().titleCardColor),
-            ),
-            Divider(
-              color: TSHColors().borderCardColor,
-              thickness: 4,
-            ),
-            if (daily == null)
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+              border: Border.all(color: Color(0xFFE94944), width: 2),
+              borderRadius: BorderRadius.circular(12),
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xFFE94944),
+                  Color(0xFFC72C25),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+          ),
+          child: Stack(
+            children: [
               Align(
-                alignment: Alignment.centerRight,
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    onTap: _navigateToDaily,
-                    child: Container(
-                      height: 40,
-                      width: 160,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: TSHColors().titleCardColor2),
-                      child: BlinkText(
-                        'Xem Tử vi',
-                        endColor: Colors.white,
-                        beginColor: TSHColors().primaryTextColor,
-                        duration: Duration(milliseconds: 600),
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: TSHColors().primaryTextColor),
-                      ),
+                alignment: Alignment.bottomRight,
+                child: Transform.scale(
+                  scale: 3,
+                  child: Transform.translate(
+                    offset: Offset(-7.5, 20),
+                    child: Image.asset(
+                      'assets/icons/zodiac.png',
+                      height: 100,
                     ),
                   ),
                 ),
               ),
-            if (daily != null) ...[
-              Text(
-                  'Tử vi ngày ${DateFormat('dd MMM yyyy').format(daily?.createdAt ?? DateTime.now())}',
-                  style: TextStyle(
-                      fontSize: 15,
-                      color: TSHColors().titleCardColor,
-                      fontWeight: FontWeight.w400)),
-              Row(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: Text(
-                        (daily?.card ?? '') +
-                            (daily?.category != null
-                                ? '(${daily?.category})'
-                                : ''),
-                        style: TextStyle(
-                            fontSize: 13,
-                            color: TSHColors().titleCardColor,
-                            fontWeight: FontWeight.w400)),
+                  Row(
+                    children: [
+                      Text('Thông tin cá nhân',
+                          style: TextStyle(
+                              fontSize: 24,
+                              color: TSHColors().primaryTextColor,
+                              fontWeight: FontWeight.w400)),
+                      Spacer(),
+                      Material(
+                          elevation: 0,
+                          color: Colors.transparent,
+                          child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  _isEdit = true;
+                                });
+                              },
+                              borderRadius: BorderRadius.circular(50),
+                              child: Icon(
+                                Icons.edit_note,
+                                color: TSHColors().primaryTextColor,
+                              )))
+                    ],
                   ),
-                  CachedNetworkImage(
-                      imageUrl: daily?.image ?? '',
-                      fit: BoxFit.fitHeight,
-                      height: 38,
-                      errorWidget: (_, __, ___) => Skeletonizer(
-                            enabled: true,
-                            child: Container(
-                              height: 38,
-                              width: 20,
-                              color: TSHColors().titleCardColor,
-                            ),
-                          )),
-                  SizedBox(width: 8),
-                  CachedNetworkImage(
-                    imageUrl: daily?.image2 ?? '',
-                    fit: BoxFit.fitHeight,
-                    height: 38,
-                    errorWidget: (_, __, ___) => Skeletonizer(
-                      enabled: true,
-                      child: Container(
-                        height: 38,
-                        width: 20,
-                        color: TSHColors().titleCardColor,
-                      ),
-                    ),
+                  Text(
+                    'Tên: ${user?.name}',
+                    style:
+                    TextStyle(fontSize: 18, color: TSHColors().primaryTextColor),
                   ),
+                  Text(
+                    'Ngày sinh: ${DateFormat(langCur == 'vi' ? 'dd/MM/yyyy' : 'MM/dd/yyyy').format(user?.birthDate ?? DateTime.now())}',
+                    style: TextStyle(fontSize: 18, color: TSHColors().primaryTextColor),
+                  ),
+                  Text(
+                    'Giới tính: ${Gender.fromString(user?.sex).display}',
+                    style: TextStyle(fontSize: 18, color: TSHColors().primaryTextColor),
+                  ),
+                  // Divider(
+                  //   color: TSHColors().borderCardColor,
+                  //   thickness: 4,
+                  // ),
+                  // if (daily == null)
+                  //   Align(
+                  //     alignment: Alignment.centerRight,
+                  //     child: Material(
+                  //       color: Colors.transparent,
+                  //       child: InkWell(
+                  //         onTap: _navigateToDaily,
+                  //         child: Container(
+                  //           height: 40,
+                  //           width: 160,
+                  //           alignment: Alignment.center,
+                  //           decoration: BoxDecoration(
+                  //               borderRadius: BorderRadius.circular(8),
+                  //               color: TSHColors().titleCardColor2),
+                  //           child: BlinkText(
+                  //             'Xem Tử vi',
+                  //             endColor: Colors.white,
+                  //             beginColor: TSHColors().primaryTextColor,
+                  //             duration: Duration(milliseconds: 600),
+                  //             style: TextStyle(
+                  //                 fontSize: 16,
+                  //                 fontWeight: FontWeight.w600,
+                  //                 color: TSHColors().primaryTextColor),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // if (daily != null) ...[
+                  //   Text(
+                  //       'Tử vi ngày ${DateFormat('dd MMM yyyy').format(daily?.createdAt ?? DateTime.now())}',
+                  //       style: TextStyle(
+                  //           fontSize: 15,
+                  //           color: TSHColors().titleCardColor,
+                  //           fontWeight: FontWeight.w400)),
+                  //   Row(
+                  //     children: [
+                  //       Expanded(
+                  //         child: Text(
+                  //             (daily?.card ?? '') +
+                  //                 (daily?.category != null
+                  //                     ? '(${daily?.category})'
+                  //                     : ''),
+                  //             style: TextStyle(
+                  //                 fontSize: 13,
+                  //                 color: TSHColors().titleCardColor,
+                  //                 fontWeight: FontWeight.w400)),
+                  //       ),
+                  //       CachedNetworkImage(
+                  //           imageUrl: daily?.image ?? '',
+                  //           fit: BoxFit.fitHeight,
+                  //           height: 38,
+                  //           errorWidget: (_, __, ___) => Skeletonizer(
+                  //                 enabled: true,
+                  //                 child: Container(
+                  //                   height: 38,
+                  //                   width: 20,
+                  //                   color: TSHColors().titleCardColor,
+                  //                 ),
+                  //               )),
+                  //       SizedBox(width: 8),
+                  //       CachedNetworkImage(
+                  //         imageUrl: daily?.image2 ?? '',
+                  //         fit: BoxFit.fitHeight,
+                  //         height: 38,
+                  //         errorWidget: (_, __, ___) => Skeletonizer(
+                  //           enabled: true,
+                  //           child: Container(
+                  //             height: 38,
+                  //             width: 20,
+                  //             color: TSHColors().titleCardColor,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  //   SizedBox(height: 8),
+                  //   Align(
+                  //       alignment: Alignment.centerRight,
+                  //       child: Material(
+                  //         color: Colors.transparent,
+                  //         child: InkWell(
+                  //           onTap: _navigateToDaily,
+                  //           child: BlinkText(
+                  //             'Xem thêm...',
+                  //             endColor: Colors.white,
+                  //             beginColor: TSHColors().titleCardColor,
+                  //             style: TextStyle(
+                  //                 fontSize: 15,
+                  //                 color: TSHColors().titleCardColor,
+                  //                 fontWeight: FontWeight.w400),
+                  //             duration: Duration(milliseconds: 1000),
+                  //             times: 2,
+                  //           ),
+                  //         ),
+                  //       ))
+                  // ]
                 ],
-              ),
-              SizedBox(height: 8),
-              Align(
-                  alignment: Alignment.centerRight,
-                  child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: _navigateToDaily,
-                      child: BlinkText(
-                        'Xem thêm...',
-                        endColor: Colors.white,
-                        beginColor: TSHColors().titleCardColor,
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: TSHColors().titleCardColor,
-                            fontWeight: FontWeight.w400),
-                        duration: Duration(milliseconds: 1000),
-                        times: 2,
-                      ),
-                    ),
-                  ))
-            ]
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

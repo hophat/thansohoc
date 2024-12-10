@@ -46,85 +46,174 @@ class _DailyScreenState extends State<DailyScreen> {
     super.initState();
   }
 
+  Widget get _bg => Container(
+    decoration: BoxDecoration(
+      image: DecorationImage(
+        image: AssetImage('assets/tet/bg.png'),
+        fit: BoxFit.cover,
+      ),
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(color: Colors.white
-            // image: DecorationImage(
-            //   // image: AssetImage('assets/tet/bg.png'),
-            //   fit: BoxFit.cover,
-            // ),
-            ),
-        child: Column(
-          children: [
-            AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              title: Text('Tử vi hôm nay'),
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Skeletonizer(
-                  enabled: _isLoading,
-                  child: Column(
-                    children: [
-                      _date(),
-                      ...() {
-                        if (daily == null && !_isLoading)
-                          return [
-                            SizedBox(height: 150),
-                            Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Center(
-                                child: Text(
-                                  'Chưa tìm thấy thông tin tử vi của bạn! Quay lại vào ngày hôm sau nhé!',
-                                  style: TextStyle(fontSize: 16),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            )
-                          ];
-                        return [
-                          // _tarotCard(),
-                          // SizedBox(height: 12),
-                          // Text(
-                          //   daily?.card ?? '',
-                          //   style: TextStyle(
-                          //       fontSize: 16, fontWeight: FontWeight.bold),
-                          // ),
-                          // Text(
-                          //   daily?.category != null
-                          //       ? '(${daily?.category})'
-                          //       : '',
-                          //   style: TextStyle(
-                          //       fontSize: 16,
-                          //       fontWeight: FontWeight.w400,
-                          //       fontStyle: FontStyle.italic),
-                          // ),
-                          _content(),
-                        ];
-                      }(),
-                      SizedBox(height: 150),
-                    ],
-                  ),
-                ),
-              ),
-            )
-          ],
-        ),
+      body: Stack(
+        children: [
+          Positioned.fill(child: _bg),
+          Positioned.fill(child: _body()),
+        ],
       ),
     );
   }
 
+  Widget _body() {
+    return Column(
+      children: [
+        AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: Text(
+            'Tử vi hàng ngày',
+            style: TextStyle(
+                fontSize: 24, color: TSHColors().primaryTextColor),
+          ),
+          leading: BackButton(
+            color: TSHColors().primaryTextColor,
+          ),
+          centerTitle: true,
+        ),
+        Expanded(
+          child: SingleChildScrollView(
+            child: Skeletonizer(
+              enabled: _isLoading,
+              child: Column(
+                children: [
+                  _date(),
+                  ...() {
+                    // if (daily == null && !_isLoading)
+                    //   return [
+                    //     SizedBox(height: 150),
+                    //     Padding(
+                    //       padding: const EdgeInsets.all(16.0),
+                    //       child: Center(
+                    //         child: Text(
+                    //           'Chưa tìm thấy thông tin tử vi của bạn! Quay lại vào ngày hôm sau nhé!',
+                    //           style: TextStyle(fontSize: 16),
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //       ),
+                    //     )
+                    //   ];
+                    return [
+                      _box(),
+
+                    ];
+                  }(),
+                  SizedBox(height: 150),
+                ],
+              ),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
   Widget _date() {
+    final formatter = DateFormat(langCur == 'vi' ? 'dd/MM/yyyy' : 'MM/dd/yyyy');
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Text(
-        daily?.createdAt != null
-            ? DateFormat('dd MMM yyyy', langCur).format(daily!.createdAt!)
-            : '',
-        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Container(
+          constraints: BoxConstraints(minHeight: 83,maxHeight: daily?.summary != null ? 150 : 83),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            gradient: LinearGradient(colors: TSHColors().gradiantCardColor),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Image.asset(
+                    'assets/icons/daily_flow_left.png',
+                    height: 83,
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Image.asset('assets/icons/daily_flow_right.png',
+                      height: 83),
+                ),
+                Positioned(
+                  top: 16,
+                  left: 16,
+                  right: 16,
+                  // bottom: 16,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        '${DateFormat('EEEE').format(DateTime.now())}',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          color: TSHColors().titleCardColor,
+                        ),
+                      ),
+                      Text(
+                        '${formatter.format(DateTime.now())}',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color: TSHColors().titleCardColor,
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          )),
+    );
+  }
+
+  TextStyle get _titleStyle => TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: Color(0xFFB22720),
+  );
+
+  TextStyle get _contentStyle => TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: Color(0xFF9B150E),
+  );
+
+
+  _box() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0).copyWith(bottom: 4),
+      child: Container(
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          gradient: LinearGradient(colors: TSHColors().gradiantCardColor),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                Icon(Icons.favorite, color: Color(0xFFB22720)),
+                SizedBox(width: 8),
+                Text('Tình duyên', style: _titleStyle),
+              ],
+            ),
+            Text(daily?.love ?? '', style: _contentStyle),
+          ],
+        ),
       ),
     );
   }

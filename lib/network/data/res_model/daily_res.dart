@@ -9,6 +9,7 @@ class DailyRes {
   String? image2;
   DateTime? createdAt;
   int? userId;
+  String? summary;
 
   DailyRes(
       {this.id,
@@ -20,6 +21,7 @@ class DailyRes {
         this.image,
         this.image2,
         this.createdAt,
+        this.summary,
         this.userId});
 
   DailyRes.fromJson(Map<String, dynamic> json) {
@@ -33,5 +35,6 @@ class DailyRes {
     image2 = json['image2'];
     createdAt = json['createdAt'] != null ? DateTime.tryParse(json['createdAt'].toString())?.toLocal() : null;
     userId = json['userId'];
+    summary = json['summary'];
   }
 }

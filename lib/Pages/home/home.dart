@@ -230,8 +230,8 @@ class _MyHomePageState extends State<HomePage> {
                   icon: Image.asset('assets/tet/ic_language.png')),
             ),
             Positioned(
-              top: 15 * 2 + 15,
-              left: 15,
+              top: 15 * 2 + 5,
+              left: 0,
               child: Hero(
                   tag: 'profile',
                   child: ProfileIconWidget()),
