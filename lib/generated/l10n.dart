@@ -999,6 +999,116 @@ class S {
       args: [],
     );
   }
+
+  /// `abc`
+  String get abc {
+    return Intl.message(
+      'abc',
+      name: 'abc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Daily Horoscope`
+  String get horo_today {
+    return Intl.message(
+      'Daily Horoscope',
+      name: 'horo_today',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Full Name`
+  String get horo_user_name {
+    return Intl.message(
+      'Full Name',
+      name: 'horo_user_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Birthday`
+  String get horo_birthday {
+    return Intl.message(
+      'Birthday',
+      name: 'horo_birthday',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gender`
+  String get horo_gender {
+    return Intl.message(
+      'Gender',
+      name: 'horo_gender',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Country`
+  String get horo_country {
+    return Intl.message(
+      'Country',
+      name: 'horo_country',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit`
+  String get horo_edit {
+    return Intl.message(
+      'Edit',
+      name: 'horo_edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View Horoscope`
+  String get horo_submit {
+    return Intl.message(
+      'View Horoscope',
+      name: 'horo_submit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Love`
+  String get horo_love {
+    return Intl.message(
+      'Love',
+      name: 'horo_love',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Career`
+  String get horo_career {
+    return Intl.message(
+      'Career',
+      name: 'horo_career',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Finance`
+  String get horo_fin {
+    return Intl.message(
+      'Finance',
+      name: 'horo_fin',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -1009,8 +1119,6 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
       Locale.fromSubtags(languageCode: 'en'),
       Locale.fromSubtags(languageCode: 'fr'),
       Locale.fromSubtags(languageCode: 'hi'),
-      Locale.fromSubtags(languageCode: 'id'),
-      Locale.fromSubtags(languageCode: 'in'),
       Locale.fromSubtags(languageCode: 'lo'),
       Locale.fromSubtags(languageCode: 'pt'),
       Locale.fromSubtags(languageCode: 'ru'),

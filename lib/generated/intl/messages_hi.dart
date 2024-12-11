@@ -146,6 +146,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "hello": MessageLookupByLibrary.simpleMessage("नमस्ते"),
         "hexagram_number_x": m0,
         "home": MessageLookupByLibrary.simpleMessage("घर"),
+        "horo_birthday": MessageLookupByLibrary.simpleMessage("जन्मदिन"),
+        "horo_career": MessageLookupByLibrary.simpleMessage("करियर"),
+        "horo_country": MessageLookupByLibrary.simpleMessage("देश"),
+        "horo_edit": MessageLookupByLibrary.simpleMessage("संपादित करें"),
+        "horo_fin": MessageLookupByLibrary.simpleMessage("वित्त"),
+        "horo_gender": MessageLookupByLibrary.simpleMessage("लिंग"),
+        "horo_love": MessageLookupByLibrary.simpleMessage("प्रेम"),
+        "horo_submit": MessageLookupByLibrary.simpleMessage("राशिफल देखें"),
+        "horo_today": MessageLookupByLibrary.simpleMessage("दैनिक राशिफल"),
+        "horo_user_name": MessageLookupByLibrary.simpleMessage("पूरा नाम"),
         "introl_1": MessageLookupByLibrary.simpleMessage(
             "न्यूमेरोलॉजी आपके नाम और जन्म की तारीख पर आधारित है ताकि आप बड़े पैमाने पर भविष्यवाणी कर सकें। न्यूमेरोलॉजी के साथ, देखें कि महत्वपूर्ण संख्या आपके जीवन को कैसे प्रभावित करती है।"),
         "introl_2": MessageLookupByLibrary.simpleMessage(

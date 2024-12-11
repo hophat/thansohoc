@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "abc": MessageLookupByLibrary.simpleMessage("abc"),
         "back": MessageLookupByLibrary.simpleMessage("Trở về"),
         "bieu_do_ngay_sinh":
             MessageLookupByLibrary.simpleMessage("Biểu đồ ngày sinh"),
@@ -145,6 +146,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "hello": MessageLookupByLibrary.simpleMessage("Xin chào"),
         "hexagram_number_x": m0,
         "home": MessageLookupByLibrary.simpleMessage("THẦN SỐ HỌC"),
+        "horo_birthday": MessageLookupByLibrary.simpleMessage("Sinh nhật"),
+        "horo_career": MessageLookupByLibrary.simpleMessage("Công việc"),
+        "horo_country": MessageLookupByLibrary.simpleMessage("Quốc gia"),
+        "horo_edit": MessageLookupByLibrary.simpleMessage("Chỉnh sửa"),
+        "horo_fin": MessageLookupByLibrary.simpleMessage("Tài chính"),
+        "horo_gender": MessageLookupByLibrary.simpleMessage("Giới tính"),
+        "horo_love": MessageLookupByLibrary.simpleMessage("Tình duyên"),
+        "horo_submit": MessageLookupByLibrary.simpleMessage("Xem tử vi"),
+        "horo_today": MessageLookupByLibrary.simpleMessage("Tử vi hằng ngày"),
+        "horo_user_name": MessageLookupByLibrary.simpleMessage("Họ và tên"),
         "introl_1": MessageLookupByLibrary.simpleMessage(
             "Thần số học sẽ dựa trên tên và ngày sinh của bạn để dự đoán về bạn một cách toàn diện. Với Thần số học toàn diện, hãy xem những con số quan trọng có ảnh hưởng như thế nào với cuộc sống của bạn."),
         "introl_2": MessageLookupByLibrary.simpleMessage(

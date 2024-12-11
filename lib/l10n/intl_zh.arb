@@ -1,4 +1,5 @@
 {
+"@@locale": "zh",
 "home":"家",
 "hay_chon_ngay_sinh_cua_ban":"请选择您的出生日期",
 "xem":"提交",
@@ -98,5 +99,6 @@
   "chuc_tet_mean_23" : "新的一年，祝愿身边人的夫妻不再悲伤，不再忧愁，反而心平气和，有福相伴。",
   "chuc_tet_mean_24" : "新年快乐，愿你身边的人永远健康快乐，和你爱的人在一起",
   "chuc_tet_mean_25" : "新的一年，一家人有福归家，功成名就，荣华富贵，生活富足",
-  "chuc_tet_mean_26" : ""
+  "chuc_tet_mean_26" : "",
+  "abc":"abc"
 }

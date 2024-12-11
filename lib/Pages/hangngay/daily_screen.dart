@@ -8,6 +8,8 @@ import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
 import 'package:intl/intl.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../generated/l10n.dart';
+
 class DailyScreen extends StatefulWidget {
   final DailyRes? daily;
 
@@ -74,7 +76,7 @@ class _DailyScreenState extends State<DailyScreen> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: Text(
-            'Tử vi hàng ngày',
+            S.of(context).horo_today,
             style: TextStyle(
                 fontSize: 24, color: TSHColors().primaryTextColor),
           ),
@@ -108,17 +110,17 @@ class _DailyScreenState extends State<DailyScreen> {
                     return [
                       SizedBox(height: 12),
                       _box(
-                        title: 'Tình duyên',
+                        title: S.of(context).horo_love,
                         content: daily?.love ?? '',
                         icon: Icon(Icons.favorite, color: Color(0xFFB22720)),
                       ),
                       _box(
-                        title: 'Công việc',
+                        title: S.of(context).horo_career,
                         content: daily?.career ?? '',
                         icon: Icon(Icons.work, color: Color(0xFFB22720)),
                       ),
                       _box(
-                        title: 'Tài chính',
+                        title: S.of(context).horo_fin,
                         content: daily?.finance ?? '',
                         icon: Icon(Icons.monetization_on, color: Color(0xFFB22720)),
                       ),
@@ -237,98 +239,6 @@ class _DailyScreenState extends State<DailyScreen> {
           ],
         ),
       ),
-    );
-  }
-
-  _content() {
-    return ExpansionPanelList(
-      children: [
-        ExpansionPanel(
-          headerBuilder: (context, isExpanded) {
-            return ListTile(
-              title: Text('Tình yêu'),
-              leading: _isOpens[0]
-                  ? Icon(Icons.favorite)
-                  : Icon(Icons.favorite_border),
-              onTap: () {
-                _isOpens[0] = !isExpanded;
-                setState(() {});
-              },
-            );
-          },
-          body: ListTile(
-            title: Text(daily?.love ?? ''),
-          ),
-          isExpanded: _isOpens[0],
-        ),
-        ExpansionPanel(
-          headerBuilder: (context, isExpanded) {
-            return ListTile(
-              title: Text('Sự nghiệp'),
-              leading:
-                  _isOpens[1] ? Icon(Icons.work) : Icon(Icons.work_outline),
-              onTap: () {
-                _isOpens[1] = !isExpanded;
-                setState(() {});
-              },
-            );
-          },
-          body: ListTile(
-            title: Text(daily?.career ?? ''),
-          ),
-          isExpanded: _isOpens[1],
-        ),
-        ExpansionPanel(
-          headerBuilder: (context, isExpanded) {
-            return ListTile(
-              title: Text('Tài chính'),
-              leading: _isOpens[2]
-                  ? Icon(Icons.monetization_on)
-                  : Icon(Icons.monetization_on_outlined),
-              onTap: () {
-                _isOpens[2] = !isExpanded;
-                setState(() {});
-              },
-            );
-          },
-          body: ListTile(
-            title: Text(daily?.finance ?? ''),
-          ),
-          isExpanded: _isOpens[2],
-        ),
-      ],
-      expansionCallback: (int index, isExpanded) {
-        _isOpens[index] = isExpanded;
-        setState(() {});
-      },
-    );
-  }
-
-  Widget _tarotCard() {
-    final skeleton = Skeletonizer(
-        child: Container(
-      color: Colors.grey,
-      height: 300,
-      width: 150,
-    ));
-    return Row(
-      children: [
-        Expanded(
-            child: CachedNetworkImage(
-          imageUrl: daily?.image ?? '',
-          height: 300,
-          placeholder: (context, url) => skeleton,
-          errorWidget: (context, url, error) => skeleton,
-        )),
-        SizedBox(width: 12),
-        Expanded(
-            child: CachedNetworkImage(
-          imageUrl: daily?.image2 ?? '',
-          height: 300,
-          placeholder: (context, url) => skeleton,
-          errorWidget: (context, url, error) => skeleton,
-        )),
-      ],
     );
   }
 }

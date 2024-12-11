@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "abc": MessageLookupByLibrary.simpleMessage("abc"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "bieu_do_ngay_sinh":
             MessageLookupByLibrary.simpleMessage("Birth date chart"),
@@ -147,6 +148,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "hello": MessageLookupByLibrary.simpleMessage("Hello"),
         "hexagram_number_x": m0,
         "home": MessageLookupByLibrary.simpleMessage("Home"),
+        "horo_birthday": MessageLookupByLibrary.simpleMessage("Birthday"),
+        "horo_career": MessageLookupByLibrary.simpleMessage("Career"),
+        "horo_country": MessageLookupByLibrary.simpleMessage("Country"),
+        "horo_edit": MessageLookupByLibrary.simpleMessage("Edit"),
+        "horo_fin": MessageLookupByLibrary.simpleMessage("Finance"),
+        "horo_gender": MessageLookupByLibrary.simpleMessage("Gender"),
+        "horo_love": MessageLookupByLibrary.simpleMessage("Love"),
+        "horo_submit": MessageLookupByLibrary.simpleMessage("View Horoscope"),
+        "horo_today": MessageLookupByLibrary.simpleMessage("Daily Horoscope"),
+        "horo_user_name": MessageLookupByLibrary.simpleMessage("Full Name"),
         "introl_1": MessageLookupByLibrary.simpleMessage(
             "Numerology is based on your name and date of birth to predict you comprehensively. With Numerology, see how important numbers affect your life."),
         "introl_2": MessageLookupByLibrary.simpleMessage(

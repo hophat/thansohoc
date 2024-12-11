@@ -1,4 +1,5 @@
 {
+"@@locale": "lo",
   "home": "ບ້ານ",
   "hay_chon_ngay_sinh_cua_ban": "ກະລຸນາເລືອກວັນເດືອນປີເກີດຂອງທ່ານ",
   "xem": "ສົ່ງ",
@@ -46,5 +47,6 @@
   "sow_next_hexagram" : "Taburkan heksagram berikutnya",
   "share" : "Untuk berbagi",
   "date_of_birth" : "Tanggal lahir",
-  "photo_has_been_saved" : "Foto telah disimpan"
+  "photo_has_been_saved" : "Foto telah disimpan",
+  "abc":"abc"
 }

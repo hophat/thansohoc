@@ -1,4 +1,5 @@
 {
+  "@@locale": "en",
   "home": "Home",
   "hay_chon_ngay_sinh_cua_ban":  "Please select your date of birth",
   "xem":  "Submit",
@@ -98,5 +99,17 @@
   "chuc_tet_mean_23" : "Couples wishing the person next to the new year will no longer be sad or worried, but will instead be peaceful and have blessings.",
   "chuc_tet_mean_24" : "Happy New Year, may the people around you always be healthy and happy with your loved ones",
   "chuc_tet_mean_25" : "In the new year, the family will have blessings to return home, will be successful and receive a lot of glory, a rich and rich life",
-  "chuc_tet_mean_26" : ""
+  "chuc_tet_mean_26" : "",
+  "abc":"abc",
+  "horo_today": "Daily Horoscope",
+  "horo_user_name": "Full Name",
+  "horo_birthday": "Birthday",
+  "horo_gender": "Gender",
+  "horo_country": "Country",
+  "horo_edit": "Edit",
+  "horo_submit": "View Horoscope",
+  "horo_love": "Love",
+  "horo_career": "Career",
+  "horo_fin": "Finance"
+
 }

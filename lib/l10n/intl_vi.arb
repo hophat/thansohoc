@@ -1,4 +1,5 @@
 {
+  "@@locale": "vi",
   "home": "THẦN SỐ HỌC",
   "hay_chon_ngay_sinh_cua_ban":  "Hãy chọn ngày sinh của bạn",
   "xem":  "Xem",
@@ -98,5 +99,16 @@
   "chuc_tet_mean_23" : "Câu đối chúc cho người bên cạnh năm mới sẽ không còn buồn phiền hay lo toan mà thay vào đó sẽ là sự an lành và có được phúc lộc",
   "chuc_tet_mean_24" : "Chúc mừng năm mới, chúc cho người bên cạnh luôn được khỏe mạnh, hạnh phúc bên người thân của mình",
   "chuc_tet_mean_25" : "Năm mới gia đình có phúc lộc về nhà, sẽ được thành công và nhận được nhiều vinh hoa cuộc sống giàu sang, phú quý",
-  "chuc_tet_mean_26" : ""
+  "chuc_tet_mean_26" : "",
+  "abc":"abc",
+  "horo_today": "Tử vi hằng ngày",
+  "horo_user_name": "Họ và tên",
+  "horo_birthday": "Sinh nhật",
+  "horo_gender": "Giới tính",
+  "horo_country":"Quốc gia",
+  "horo_edit":"Chỉnh sửa",
+  "horo_submit":"Xem tử vi",
+  "horo_love":"Tình duyên",
+  "horo_career":"Công việc",
+  "horo_fin": "Tài chính"
 }

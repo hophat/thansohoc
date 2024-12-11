@@ -20,6 +20,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../app/locator/app_locator.dart';
 import '../../class/Lang.dart';
+import '../../generated/l10n.dart';
 import '../../network/data/req/user_req.dart';
 import '../../network/data/res_model/daily_res.dart';
 import '../home/profile_icon_widget.dart';
@@ -199,7 +200,7 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
                       backgroundColor: Colors.transparent,
                       elevation: 0,
                       title: Text(
-                        'Tử vi hàng ngày',
+                        S.of(context).horo_today,
                         style: TextStyle(
                             fontSize: 24, color: TSHColors().primaryTextColor),
                       ),
@@ -211,11 +212,11 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
                     if (!_isEdit) ...[
                       Padding(
                         padding: EdgeInsets.all(16).copyWith(bottom: 0),
-                        child: _summary(),
+                        child: cardItem(auth.user),
                       ),
                       Padding(
                         padding: EdgeInsets.all(16).copyWith(bottom: 0),
-                        child: cardItem(auth.user),
+                        child: _summary(),
                       ),
 
                       Padding(
@@ -268,7 +269,7 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
                 end: Alignment.bottomCenter,
               )),
           child: BlinkText(
-            'Xem tử vi',
+            S.of(context).horo_submit,
             endColor: Colors.white,
             beginColor: TSHColors().primaryColor,
             duration: Duration(milliseconds: 600),
@@ -357,23 +358,15 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
           style: _style,
           controller: _nameCtrl,
           decoration: InputDecoration(
-            labelText: 'Họ và tên',
+            labelText: S.of(context).horo_user_name,
           ),
         ),
-        // SizedBox(height: 8),
-        // TextFormField(
-        //   style: _style,
-        //   controller: _emailCtrl,
-        //   decoration: InputDecoration(
-        //     labelText: 'E-mail',
-        //   ),
-        // ),
         SizedBox(height: 8),
         TextFormField(
           style: _style,
           controller: _birthDateCtrl,
           decoration: InputDecoration(
-            labelText: 'Sinh nhật',
+            labelText: S.of(context).horo_birthday,
           ),
           inputFormatters: [
             DateTextFormatter(),
@@ -405,7 +398,7 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
           style: _style,
           controller: _sexCtrl,
           decoration: InputDecoration(
-            labelText: 'Giới tính',
+            labelText: S.of(context).horo_gender,
           ),
           readOnly: true,
           onTap: () {
@@ -422,7 +415,7 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
           style: _style,
           controller: _countryCtrl,
           decoration: InputDecoration(
-            labelText: 'Quốc gia',
+            labelText: S.of(context).horo_country,
           ),
           readOnly: true,
           onTap: () {
@@ -433,35 +426,6 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
             });
           },
         ),
-        // SizedBox(height: 8),
-        // TextFormField(
-        //   style: _style,
-        //   controller: _noticeCtrl,
-        //   decoration: InputDecoration(
-        //     labelText: 'Thời gian nhận thông báo tử vi',
-        //   ),
-        //   inputFormatters: [
-        //     DateTextFormatter(),
-        //   ],
-        //   readOnly: true,
-        // ),
-        // SizedBox(height: 8),
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.end,
-        //   children: [
-        //     Text(
-        //       'Nhận thông báo mỗi ngày: ',
-        //       style: TextStyle(
-        //           fontSize: 15,
-        //           color: TSHColors().primaryTextColor),
-        //     ),
-        //     Checkbox(
-        //       value: _isNotice,
-        //       onChanged: (v) =>
-        //           setState(() => _isNotice = v ?? false),
-        //     ),
-        //   ],
-        // ),
         SizedBox(height: 20),
         Material(
           color: Colors.transparent,
@@ -513,7 +477,7 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
                     end: Alignment.bottomCenter,
                   )),
               child: BlinkText(
-                isLogin ? 'Chỉnh sửa' : 'Xem tử vi',
+                isLogin ? S.of(context).horo_edit : S.of(context).horo_submit,
                 endColor: Colors.white,
                 beginColor: TSHColors().primaryColor,
                 duration: Duration(milliseconds: 600),
@@ -575,12 +539,12 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
                 child: Hero(
                   tag: 'profile',
                   child: Transform.scale(
-                    scale: 3,
+                    scale: 4,
                     child: Transform.translate(
-                      offset: Offset(-7.5, 20),
+                      offset: Offset(-10.5, 8),
                       child: Image.asset(
                         'assets/icons/zodiac.png',
-                        height: 100,
+                        height: 50,
                       ),
                     ),
                   ),
@@ -591,11 +555,11 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
                 children: [
                   Row(
                     children: [
-                      Text('Thông tin cá nhân',
-                          style: TextStyle(
-                              fontSize: 24,
-                              color: TSHColors().primaryTextColor,
-                              fontWeight: FontWeight.w400)),
+                      Text(
+                        user?.name ?? '',
+                        style:
+                        TextStyle(fontSize: 18, color: TSHColors().primaryTextColor, fontWeight: FontWeight.w600),
+                      ),
                       Spacer(),
                       Material(
                           elevation: 0,
@@ -614,119 +578,9 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
                     ],
                   ),
                   Text(
-                    'Tên: ${user?.name}',
-                    style:
-                    TextStyle(fontSize: 18, color: TSHColors().primaryTextColor),
-                  ),
-                  Text(
-                    'Ngày sinh: ${DateFormat(langCur == 'vi' ? 'dd/MM/yyyy' : 'MM/dd/yyyy').format(user?.birthDate ?? DateTime.now())}',
+                    DateFormat(langCur == 'vi' ? 'dd/MM/yyyy' : 'MM/dd/yyyy').format(user?.birthDate ?? DateTime.now()),
                     style: TextStyle(fontSize: 18, color: TSHColors().primaryTextColor),
                   ),
-                  Text(
-                    'Giới tính: ${Gender.fromString(user?.sex).display}',
-                    style: TextStyle(fontSize: 18, color: TSHColors().primaryTextColor),
-                  ),
-                  // Divider(
-                  //   color: TSHColors().borderCardColor,
-                  //   thickness: 4,
-                  // ),
-                  // if (daily == null)
-                  //   Align(
-                  //     alignment: Alignment.centerRight,
-                  //     child: Material(
-                  //       color: Colors.transparent,
-                  //       child: InkWell(
-                  //         onTap: _navigateToDaily,
-                  //         child: Container(
-                  //           height: 40,
-                  //           width: 160,
-                  //           alignment: Alignment.center,
-                  //           decoration: BoxDecoration(
-                  //               borderRadius: BorderRadius.circular(8),
-                  //               color: TSHColors().titleCardColor2),
-                  //           child: BlinkText(
-                  //             'Xem Tử vi',
-                  //             endColor: Colors.white,
-                  //             beginColor: TSHColors().primaryTextColor,
-                  //             duration: Duration(milliseconds: 600),
-                  //             style: TextStyle(
-                  //                 fontSize: 16,
-                  //                 fontWeight: FontWeight.w600,
-                  //                 color: TSHColors().primaryTextColor),
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // if (daily != null) ...[
-                  //   Text(
-                  //       'Tử vi ngày ${DateFormat('dd MMM yyyy').format(daily?.createdAt ?? DateTime.now())}',
-                  //       style: TextStyle(
-                  //           fontSize: 15,
-                  //           color: TSHColors().titleCardColor,
-                  //           fontWeight: FontWeight.w400)),
-                  //   Row(
-                  //     children: [
-                  //       Expanded(
-                  //         child: Text(
-                  //             (daily?.card ?? '') +
-                  //                 (daily?.category != null
-                  //                     ? '(${daily?.category})'
-                  //                     : ''),
-                  //             style: TextStyle(
-                  //                 fontSize: 13,
-                  //                 color: TSHColors().titleCardColor,
-                  //                 fontWeight: FontWeight.w400)),
-                  //       ),
-                  //       CachedNetworkImage(
-                  //           imageUrl: daily?.image ?? '',
-                  //           fit: BoxFit.fitHeight,
-                  //           height: 38,
-                  //           errorWidget: (_, __, ___) => Skeletonizer(
-                  //                 enabled: true,
-                  //                 child: Container(
-                  //                   height: 38,
-                  //                   width: 20,
-                  //                   color: TSHColors().titleCardColor,
-                  //                 ),
-                  //               )),
-                  //       SizedBox(width: 8),
-                  //       CachedNetworkImage(
-                  //         imageUrl: daily?.image2 ?? '',
-                  //         fit: BoxFit.fitHeight,
-                  //         height: 38,
-                  //         errorWidget: (_, __, ___) => Skeletonizer(
-                  //           enabled: true,
-                  //           child: Container(
-                  //             height: 38,
-                  //             width: 20,
-                  //             color: TSHColors().titleCardColor,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  //   SizedBox(height: 8),
-                  //   Align(
-                  //       alignment: Alignment.centerRight,
-                  //       child: Material(
-                  //         color: Colors.transparent,
-                  //         child: InkWell(
-                  //           onTap: _navigateToDaily,
-                  //           child: BlinkText(
-                  //             'Xem thêm...',
-                  //             endColor: Colors.white,
-                  //             beginColor: TSHColors().titleCardColor,
-                  //             style: TextStyle(
-                  //                 fontSize: 15,
-                  //                 color: TSHColors().titleCardColor,
-                  //                 fontWeight: FontWeight.w400),
-                  //             duration: Duration(milliseconds: 1000),
-                  //             times: 2,
-                  //           ),
-                  //         ),
-                  //       ))
-                  // ]
                 ],
               )
             ],

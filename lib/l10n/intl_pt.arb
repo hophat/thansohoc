@@ -1,4 +1,5 @@
 {
+  "@@locale": "pt",
   "home": "Casa",
   "hay_chon_ngay_sinh_cua_ban": "Selecione sua data de nascimento",
   "xem": "Enviar",
@@ -98,5 +99,6 @@
   "chuc_tet_mean_23" : "Os casais que desejam a próxima pessoa no ano novo não ficarão mais tristes ou preocupados, mas estarão em paz e terão bênçãos.",
   "chuc_tet_mean_24" : "Feliz Ano Novo, que as pessoas ao seu redor estejam sempre com saúde e felizes com seus entes queridos",
   "chuc_tet_mean_25" : "No ano novo, a família terá bênçãos para voltar para casa, terá sucesso e receberá muita glória, uma vida rica e rica",
-  "chuc_tet_mean_26" : ""
+  "chuc_tet_mean_26" : "",
+  "abc":"abc"
 }
