@@ -87,7 +87,7 @@ class UserRepositoryImpl implements UserRepository {
         TSHPath.I.daily.v1,
         queryParam: {
           'deviceID': getIt.get<SharedPreferences>().getString(deviceIDKey),
-          'region': langCur.toLowerCase() == 'vi' ? 'vi' : 'en',
+          'region': _service.apiSupportedLocales[langCur] ?? 'en',
         },
         dataFactory: DailyRes.fromJson,
       );

@@ -5,12 +5,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:either_dart/either.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_app_than_so_hoc_2/app/locator/app_locator.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
+import 'package:flutter_app_than_so_hoc_2/main.dart';
 import 'package:flutter_app_than_so_hoc_2/network/data/base_response.dart';
+import 'package:flutter_app_than_so_hoc_2/provider/list_extension.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../class/Lang.dart';
 import '../utils/const.dart';
 
 typedef DataFactory<T> = T Function(Map<String,dynamic> json);
@@ -20,6 +25,22 @@ class TSHClient {
   final firestore = FirebaseFirestore.instanceFor(
     app: Firebase.app(),
   );
+
+  Map<String, String> supportedLocales = {};
+  Map<String, String> apiSupportedLocales = {};
+
+  List<Lang> get listLang {
+    final lst = <Lang>[];
+    for(final key in supportedLocales.keys) {
+      lst.add(
+        defaultLangs.firstWhereOrDefault(
+          (e) => e.key == key,
+          defaultValue: defaultLangs.first,
+        ),
+      );
+    }
+    return lst.toSet().toList();
+  }
 
   TSHClient._() {
     BaseOptions options = BaseOptions(
@@ -171,6 +192,34 @@ class TSHClient {
       message: response.data['message'],
       success: response.statusCode == 200,
     ));
+  }
+
+  getConfig({String scdNumber = '2', String lang = 'en'}) async {
+    final  v = await firestore
+        .collection('app')
+        .doc('config')
+        .get();
+    Map<String, dynamic> data = {};
+    if (v.exists) {
+      data = v.data() ?? {};
+    }
+    for(final key in data['api_supported_locales'] ?? {}) {
+      log('api_supported_locales key -> $key');
+      apiSupportedLocales[key] = key;
+    }
+    if(apiSupportedLocales.isEmpty) {
+      supportedLocales['vi'] = 'vi';
+    }
+
+    for(final key in data['supported_locales'] ?? {}) {
+      log('supported_locales key -> $key');
+      supportedLocales[key] = key;
+    }
+    if(supportedLocales.isEmpty) {
+      supportedLocales['vi'] = 'vi';
+    }
+
+    print('config -> ${data}');
   }
 
   Future<Res?> getSoChuDao({String scdNumber = '2', String lang = 'en'}) async {

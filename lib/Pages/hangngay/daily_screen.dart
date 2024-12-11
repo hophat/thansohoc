@@ -144,7 +144,10 @@ class _DailyScreenState extends State<DailyScreen> {
           constraints: BoxConstraints(minHeight: 83, maxHeight: 83),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            gradient: LinearGradient(colors: TSHColors().gradiantCardColor),
+            gradient: LinearGradient(colors: TSHColors().gradiantCardColor,
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(12),
@@ -223,7 +226,9 @@ class _DailyScreenState extends State<DailyScreen> {
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          gradient: LinearGradient(colors: TSHColors().gradiantCardColor),
+          gradient: LinearGradient(colors: TSHColors().gradiantCardColor,
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

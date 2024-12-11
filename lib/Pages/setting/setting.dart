@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Lang.dart';
 import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
+import 'package:flutter_app_than_so_hoc_2/network/tsh_client.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/local_db/shared_pref.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
 import 'package:intl/intl.dart';
@@ -24,7 +25,7 @@ class _MySettingPage extends State<settingPage> {
 
   detectLang() {
     if (langCur.isNotEmpty) return;
-    listLang.forEach((ele) {
+    TSHClient.instance.listLang.forEach((ele) {
       if (Intl.getCurrentLocale() == ele.key) {
         langCur = ele.key;
       }
@@ -63,7 +64,7 @@ class _MySettingPage extends State<settingPage> {
             SizedBox(
               height: 20,
             ),
-            for (var item in listLang)
+            for (var item in TSHClient.instance.listLang)
               ListTile(
                 title: Text(
                   item.lable,

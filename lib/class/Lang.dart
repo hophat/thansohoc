@@ -10,7 +10,7 @@ class Lang {
 
 StreamController<String> langSteamController = StreamController<String>();
 
-final List<Lang> listLang = <Lang>[
+final List<Lang> defaultLangs = <Lang>[
   Lang('en', "English", "US"),
   Lang('vi', "Tiếng Việt", "VietNam"), // vn
   // Lang('ru', "русский язык"),// nga

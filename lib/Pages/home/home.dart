@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'dart:math';
 
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/detail.dart';

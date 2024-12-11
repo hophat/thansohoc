@@ -23,6 +23,7 @@ import '../../class/Lang.dart';
 import '../../generated/l10n.dart';
 import '../../network/data/req/user_req.dart';
 import '../../network/data/res_model/daily_res.dart';
+import '../../network/tsh_client.dart';
 import '../home/profile_icon_widget.dart';
 import 'daily_screen.dart';
 
@@ -95,12 +96,12 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
         builder: (ctx) {
           return ListView.separated(
               shrinkWrap: true,
-              itemCount: listLang.length,
+              itemCount: TSHClient.instance.listLang.length,
               separatorBuilder: (_, __) => Divider(),
               itemBuilder: (_, index) => ListTile(
-                    title: Text(listLang[index].country),
+                    title: Text(TSHClient.instance.listLang[index].country),
                     onTap: () {
-                      Navigator.pop(ctx, listLang[index]);
+                      Navigator.pop(ctx, TSHClient.instance.listLang[index]);
                     },
                   ));
         });
@@ -288,10 +289,13 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
     final formatter = DateFormat(langCur == 'vi' ? 'dd/MM/yyyy' : 'MM/dd/yyyy');
     return AnimatedContainer(
       duration: Duration(milliseconds: 500),
-      constraints: BoxConstraints(minHeight: 83,maxHeight: daily?.summary != null ? 150 : 83),
+      constraints: BoxConstraints(minHeight: 83,maxHeight: daily?.summary != null ? 155 : 83),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          gradient: LinearGradient(colors: TSHColors().gradiantCardColor),
+          gradient: LinearGradient(colors: TSHColors().gradiantCardColor,
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          ),
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(12),
@@ -335,9 +339,9 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
                     ),
                     SizedBox(height: 16),
                     Text(
-                      daily?.summary ?? '',
+                      (daily?.summary ?? ''),
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 16,
                         fontWeight: FontWeight.w400,
                         color: TSHColors().titleCardColor,
                       ),

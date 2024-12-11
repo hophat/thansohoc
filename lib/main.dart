@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_than_so_hoc_2/app/locator/app_locator.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Lang.dart';
+import 'package:flutter_app_than_so_hoc_2/network/tsh_client.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/admob/admob_provider.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/auth/auth_provider.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/list_extension.dart';
@@ -41,6 +42,7 @@ void main() async {
   myShared = getIt.get<SharedPreferences>();
   langCur = await myShared.getString('langCur') ?? '';
   print('langCur before => $langCur');
+  await TSHClient.instance.getConfig();
   if (langCur.isNotEmpty) {
     await S.load(Locale(langCur));
   }else{
@@ -129,10 +131,10 @@ class _MyAppState extends State<MyApp> {
   }
 
   Locale _findLocale(String? code) {
-    return Locale(listLang
+    return Locale(TSHClient.instance.listLang
         .firstWhereOrDefault(
             (element) => element.key.toUpperCase() == code?.toUpperCase(),
-            defaultValue: listLang.first)
+            defaultValue: TSHClient.instance.listLang.first)
         .key);
   }
 }
