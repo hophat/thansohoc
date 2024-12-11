@@ -572,13 +572,16 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
             children: [
               Align(
                 alignment: Alignment.bottomRight,
-                child: Transform.scale(
-                  scale: 3,
-                  child: Transform.translate(
-                    offset: Offset(-7.5, 20),
-                    child: Image.asset(
-                      'assets/icons/zodiac.png',
-                      height: 100,
+                child: Hero(
+                  tag: 'profile',
+                  child: Transform.scale(
+                    scale: 3,
+                    child: Transform.translate(
+                      offset: Offset(-7.5, 20),
+                      child: Image.asset(
+                        'assets/icons/zodiac.png',
+                        height: 100,
+                      ),
                     ),
                   ),
                 ),

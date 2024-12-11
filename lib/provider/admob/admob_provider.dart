@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -19,6 +20,7 @@ class AdmobProvider extends ChangeNotifier {
   }
 
   show() async {
+    if(kDebugMode) return;
     if(_interstitialAd != null) {
       _interstitialAd!.fullScreenContentCallback =
           FullScreenContentCallback(onAdDismissedFullScreenContent: (ad) {

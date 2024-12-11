@@ -48,6 +48,7 @@ class _XamHomeState extends State<XamHome> {
 
   void _subscribe(){
     AppLocalPubSub.I.listenManyEvents(listEventName: [EventName.shareXAM], handler: (ps){
+      if(!mounted) return;
       _sharingHandler();
     });
   }

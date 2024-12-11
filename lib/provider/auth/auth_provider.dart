@@ -46,7 +46,7 @@ class AuthProvider extends ChangeNotifier{
         _defaultToken = r.token;
         final SharedPreferences prefs = getIt.get<SharedPreferences>();
         prefs.setString(defaultTokenKey, r.token);
-        fetchUser();
+        fetchUser(notify: true);
       });
     });
   }

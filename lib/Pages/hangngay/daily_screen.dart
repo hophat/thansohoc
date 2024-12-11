@@ -106,8 +106,22 @@ class _DailyScreenState extends State<DailyScreen> {
                     //     )
                     //   ];
                     return [
-                      _box(),
-
+                      SizedBox(height: 12),
+                      _box(
+                        title: 'Tình duyên',
+                        content: daily?.love ?? '',
+                        icon: Icon(Icons.favorite, color: Color(0xFFB22720)),
+                      ),
+                      _box(
+                        title: 'Công việc',
+                        content: daily?.career ?? '',
+                        icon: Icon(Icons.work, color: Color(0xFFB22720)),
+                      ),
+                      _box(
+                        title: 'Tài chính',
+                        content: daily?.finance ?? '',
+                        icon: Icon(Icons.monetization_on, color: Color(0xFFB22720)),
+                      ),
                     ];
                   }(),
                   SizedBox(height: 150),
@@ -125,7 +139,7 @@ class _DailyScreenState extends State<DailyScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Container(
-          constraints: BoxConstraints(minHeight: 83,maxHeight: daily?.summary != null ? 150 : 83),
+          constraints: BoxConstraints(minHeight: 83, maxHeight: 83),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             gradient: LinearGradient(colors: TSHColors().gradiantCardColor),
@@ -136,15 +150,19 @@ class _DailyScreenState extends State<DailyScreen> {
               children: [
                 Align(
                   alignment: Alignment.topLeft,
-                  child: Image.asset(
-                    'assets/icons/daily_flow_left.png',
-                    height: 83,
+                  child: Skeleton.keep(
+                    child: Image.asset(
+                      'assets/icons/daily_flow_left.png',
+                      height: 83,
+                    ),
                   ),
                 ),
                 Align(
                   alignment: Alignment.topRight,
-                  child: Image.asset('assets/icons/daily_flow_right.png',
-                      height: 83),
+                  child: Skeleton.keep(
+                    child: Image.asset('assets/icons/daily_flow_right.png',
+                        height: 83),
+                  ),
                 ),
                 Positioned(
                   top: 16,
@@ -192,9 +210,13 @@ class _DailyScreenState extends State<DailyScreen> {
   );
 
 
-  _box() {
+  _box({
+    String title = 'Tình duyên',
+    String content = '',
+    Widget? icon,
+}) {
     return Padding(
-      padding: const EdgeInsets.all(16.0).copyWith(bottom: 4),
+      padding: const EdgeInsets.all(16.0).copyWith(bottom: 4, top: 4),
       child: Container(
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
@@ -206,12 +228,12 @@ class _DailyScreenState extends State<DailyScreen> {
           children: [
             Row(
               children: [
-                Icon(Icons.favorite, color: Color(0xFFB22720)),
+                icon ?? Icon(Icons.favorite, color: Color(0xFFB22720)),
                 SizedBox(width: 8),
-                Text('Tình duyên', style: _titleStyle),
+                Text(title, style: _titleStyle),
               ],
             ),
-            Text(daily?.love ?? '', style: _contentStyle),
+            Text(content, style: _contentStyle),
           ],
         ),
       ),
