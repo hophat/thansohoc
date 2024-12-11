@@ -109,6 +109,7 @@ class _My_tab1 extends State<tab1_Page> with AutomaticKeepAliveClientMixin{
           }catch(_){}finally{
             _isSharing = false;
             EasyLoading.dismiss();
+            setState(() {});
           }
         }
       });
