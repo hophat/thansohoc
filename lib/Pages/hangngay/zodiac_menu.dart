@@ -286,7 +286,8 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
 
   Widget _summary() {
     final formatter = DateFormat(langCur == 'vi' ? 'dd/MM/yyyy' : 'MM/dd/yyyy');
-    return Container(
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 500),
       constraints: BoxConstraints(minHeight: 83,maxHeight: daily?.summary != null ? 150 : 83),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
