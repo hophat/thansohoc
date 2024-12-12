@@ -28,6 +28,8 @@ class TSHClient {
 
   Map<String, String> supportedLocales = {};
   Map<String, String> apiSupportedLocales = {};
+  bool _isTet = false;
+  bool get isTet => _isTet;
 
   List<Lang> get listLang {
     final lst = <Lang>[];
@@ -218,6 +220,8 @@ class TSHClient {
     if(supportedLocales.isEmpty) {
       supportedLocales['vi'] = 'vi';
     }
+
+    _isTet = data['is_tet'] == true;
 
     print('config -> ${data}');
   }

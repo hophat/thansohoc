@@ -1109,6 +1109,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Coin-casting`
+  String get xam_title {
+    return Intl.message(
+      'Coin-casting',
+      name: 'xam_title',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -200,10 +200,13 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
                     AppBar(
                       backgroundColor: Colors.transparent,
                       elevation: 0,
-                      title: Text(
-                        S.of(context).horo_today,
-                        style: TextStyle(
-                            fontSize: 24, color: TSHColors().primaryTextColor),
+                      title: Hero(
+                        tag: 'profile_txt',
+                        child: Text(
+                          S.of(context).horo_today,
+                          style: TextStyle(
+                              fontSize: 24, color: TSHColors().primaryTextColor),
+                        ),
                       ),
                       leading: BackButton(
                         color: TSHColors().primaryTextColor,
@@ -547,9 +550,8 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
                     scale: 4,
                     child: Transform.translate(
                       offset: Offset(-10.5, 8),
-                      child: Image.asset(
-                        'assets/icons/zodiac.png',
-                        height: 50,
+                      child: HoroIconWidget(
+                        size: 50,
                       ),
                     ),
                   ),

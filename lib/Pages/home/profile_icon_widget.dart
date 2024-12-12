@@ -54,10 +54,8 @@ class _ProfileIconWidgetState extends State<ProfileIconWidget>
         onTap: () {
           Navigator.push(NavigatorService.I.context, MaterialPageRoute(builder: (context) => ZodiacMenu()));
         },
-        child: Image.asset(
-          'assets/icons/zodiac.png',
-          fit: BoxFit.cover,
-          // color: Color(0xFF9B150E),
+        child: HoroIconWidget(
+          size: _boxSize,
         ),
         // icon: Stack(
         //   fit: StackFit.expand,
@@ -119,6 +117,54 @@ class _ProfileIconWidgetState extends State<ProfileIconWidget>
         //     // )
         //   ],
         // ),
+      ),
+    );
+  }
+}
+
+class HoroIconWidget extends StatefulWidget {
+  final double? size;
+  const HoroIconWidget({super.key, this.size});
+
+  @override
+  State<HoroIconWidget> createState() => _HoroIconWidgetState();
+}
+
+class _HoroIconWidgetState extends State<HoroIconWidget> with SingleTickerProviderStateMixin{
+
+  late final AnimationController _ctrl;
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 20),
+    )..repeat();
+  }
+
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _ctrl,
+      builder: (_, child) {
+        return Transform.rotate(
+          angle: _ctrl.value * 2 * 3.141592653589793,
+          child: child,
+        );
+      },
+      child: Image.asset(
+        'assets/icons/zodiac.png',
+        fit: BoxFit.cover,
+        height: widget.size,
+        width: widget.size,
       ),
     );
   }

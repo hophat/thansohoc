@@ -192,6 +192,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "tu_vi_hom_nay": MessageLookupByLibrary.simpleMessage("Tử vi hôm nay"),
         "tuoi": MessageLookupByLibrary.simpleMessage("Tuổi"),
         "uu_diem": MessageLookupByLibrary.simpleMessage("Ưu điểm"),
+        "xam_title": MessageLookupByLibrary.simpleMessage("Gieo quẻ"),
         "xem": MessageLookupByLibrary.simpleMessage("Xem"),
         "xem_ngay_sinh": MessageLookupByLibrary.simpleMessage("Xem ngày sinh"),
         "y_nghia_cac_con_so_tren_bieu_do": MessageLookupByLibrary.simpleMessage(

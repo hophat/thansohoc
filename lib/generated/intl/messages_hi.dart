@@ -195,6 +195,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Horoscope today"),
         "tuoi": MessageLookupByLibrary.simpleMessage("वर्ष पुराना"),
         "uu_diem": MessageLookupByLibrary.simpleMessage("लाभ"),
+        "xam_title": MessageLookupByLibrary.simpleMessage("सिक्का ढलाई"),
         "xem": MessageLookupByLibrary.simpleMessage("सबमिट करें"),
         "xem_ngay_sinh": MessageLookupByLibrary.simpleMessage("होम"),
         "y_nghia_cac_con_so_tren_bieu_do":

@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+
 // import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/detail.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/hangngay/zodiac_menu.dart';
@@ -234,10 +236,45 @@ class _MyHomePageState extends State<HomePage> {
             Positioned(
               top: 15 * 2 + 5,
               left: 0,
-              child: Hero(
-                  tag: 'profile',
-                  child: ProfileIconWidget()),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Hero(tag: 'profile', child: ProfileIconWidget()),
+                      Hero(
+                        tag: 'profile_txt',
+                        child: Text(
+                          S.of(context).horo_today,
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: TSHColors().primaryTextColor,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    ],
+                  ),
+                 if(TSHClient.instance.isTet) Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(width: 15),
+                      TetBtnWidget(),
+                      SizedBox(width: 19),
+                      Text(
+                        S.of(context).xam_title,
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: TSHColors().primaryTextColor,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ],
+                  ),
+                ],
               ),
+            ),
           ],
         ),
       ),
@@ -245,6 +282,7 @@ class _MyHomePageState extends State<HomePage> {
   }
 
   _buildTet() {
+    return SizedBox.shrink();
     return TetBtnWidget();
   }
 

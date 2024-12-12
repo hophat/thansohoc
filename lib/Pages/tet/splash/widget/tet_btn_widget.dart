@@ -45,9 +45,9 @@ class _TetBtnWidgetState extends State<TetBtnWidget>
         }));
       },
       child: Container(
-        height: 70 ,
-        width: 70,
-        padding: EdgeInsets.all(15),
+        height: 40 ,
+        width: 40,
+        padding: EdgeInsets.all(5),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           gradient: LinearGradient(colors: TSHColors().gradiantBtnColor),
