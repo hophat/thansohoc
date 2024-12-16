@@ -7,6 +7,7 @@ import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../generated/l10n.dart';
 import '../../../../provider/audio/audio_provider.dart';
 import '../../../../provider/local_db/shared_pref.dart';
 import '../../../../utils/const.dart';
@@ -172,7 +173,7 @@ class _XamSplashScreenState extends State<XamSplashScreen> {
         ),
         child: FittedBox(
           child: Text(
-            'Gieo quẻ',
+            S.of(context).xam_title,
             style: GoogleFonts.livvic(
               // fontSize: 12,
               fontWeight: FontWeight.w600,
@@ -224,7 +225,7 @@ class _XamSplashScreenState extends State<XamSplashScreen> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Ngày sinh'.toUpperCase(),
+            S.of(context).date_of_birth.toUpperCase(),
             style: GoogleFonts.livvic(
               fontSize: 15,
               fontWeight: FontWeight.w900,
@@ -265,7 +266,7 @@ class _XamSplashScreenState extends State<XamSplashScreen> {
           ),
           const SizedBox(height: 24),
           Text(
-            'Giới tính'.toUpperCase(),
+            S.of(context).gender.toUpperCase(),
             style: GoogleFonts.livvic(
               fontSize: 15,
               fontWeight: FontWeight.w900,
@@ -283,7 +284,7 @@ class _XamSplashScreenState extends State<XamSplashScreen> {
                     _currentGender = Gender.values[_genderIndex];
                     setState(() {});
                   },
-                  child: dateStr(_currentGender.display),
+                  child: dateStr(_currentGender.display(context)),
                 ),
               ),
               const Expanded(child: SizedBox.shrink()),
@@ -317,7 +318,7 @@ class _XamSplashScreenState extends State<XamSplashScreen> {
                     opacity: v == 1 ? 1 : 0,
                     duration: _scaleDuration,
                     child: Text(
-                      'Xin Chào',
+                      S.of(context).xam_hello,
                       style: GoogleFonts.livvic(
                         fontSize: 48,
                         fontWeight: FontWeight.w900,

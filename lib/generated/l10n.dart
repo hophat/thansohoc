@@ -1110,11 +1110,81 @@ class S {
     );
   }
 
+  /// `Male`
+  String get horo_male {
+    return Intl.message(
+      'Male',
+      name: 'horo_male',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Female`
+  String get horo_female {
+    return Intl.message(
+      'Female',
+      name: 'horo_female',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Secret`
+  String get horo_secret {
+    return Intl.message(
+      'Secret',
+      name: 'horo_secret',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Coin-casting`
   String get xam_title {
     return Intl.message(
       'Coin-casting',
       name: 'xam_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hello`
+  String get xam_hello {
+    return Intl.message(
+      'Hello',
+      name: 'xam_hello',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date of Birth`
+  String get xam_dob {
+    return Intl.message(
+      'Date of Birth',
+      name: 'xam_dob',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gender`
+  String get xam_gender {
+    return Intl.message(
+      'Gender',
+      name: 'xam_gender',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New`
+  String get xam_new {
+    return Intl.message(
+      'New',
+      name: 'xam_new',
       desc: '',
       args: [],
     );

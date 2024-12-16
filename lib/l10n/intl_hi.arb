@@ -110,5 +110,12 @@
   "horo_love": "प्रेम",
   "horo_career": "करियर",
   "horo_fin": "वित्त",
-  "xam_title": "सिक्का ढलाई"
+  "horo_male": "पुरुष",
+  "horo_female": "महिला",
+  "horo_secret": "गुप्त",
+  "xam_title": "सिक्का ढलाई",
+  "xam_hello": "नमस्ते",
+  "xam_dob": "जन्म तिथि",
+  "xam_gender": "लिंग",
+  "xam_new": "नई तंत्र विद्या"
 }

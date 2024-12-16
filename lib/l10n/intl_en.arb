@@ -111,6 +111,13 @@
   "horo_love": "Love",
   "horo_career": "Career",
   "horo_fin": "Finance",
-  "xam_title": "Coin-casting"
+  "horo_male": "Male",
+  "horo_female": "Female",
+  "horo_secret": "Secret",
+  "xam_title": "Coin-casting",
+  "xam_hello":"Hello",
+  "xam_dob": "Date of Birth",
+  "xam_gender": "Gender",
+  "xam_new": "New"
 
 }

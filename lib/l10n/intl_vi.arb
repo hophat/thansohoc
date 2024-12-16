@@ -111,5 +111,13 @@
   "horo_love":"Tình duyên",
   "horo_career":"Công việc",
   "horo_fin": "Tài chính",
-  "xam_title": "Gieo quẻ"
+  "horo_male":"Nam",
+  "horo_female": "Nữ",
+  "horo_secret":"Bí mật",
+  "xam_title": "Gieo quẻ",
+  "xam_hello": "Xin chào",
+  "xam_dob":"Ngày sinh",
+  "xam_gender":"Giới tính",
+  "xam_new":"Quẻ mới"
+
 }

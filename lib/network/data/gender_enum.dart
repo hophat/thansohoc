@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+
+import '../../generated/l10n.dart';
+
 enum Gender {
   man('man'), feMan('feMan'), other('other');
   final String v;
@@ -18,14 +22,14 @@ enum Gender {
 
 extension GenderExtension on Gender{
   String get value => v;
-  String get display {
+  String display(BuildContext context) {
     switch (this) {
       case Gender.man:
-        return 'Nam';
+        return S.of(context).horo_male;
       case Gender.feMan:
-        return 'Nữ';
+        return S.of(context).horo_female;
       default:
-        return 'Bí mật';
+        return S.of(context).horo_secret;
     }
   }
 }

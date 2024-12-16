@@ -80,7 +80,7 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
               itemCount: Gender.values.length,
               separatorBuilder: (_, __) => Divider(),
               itemBuilder: (_, index) => ListTile(
-                    title: Text(Gender.values[index].display),
+                    title: Text(Gender.values[index].display(context)),
                     onTap: () {
                       Navigator.pop(ctx, Gender.values[index]);
                     },
@@ -121,7 +121,7 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
           ? formatter.format(_authProvider.user?.birthDate ?? DateTime.now())
           : formatter.format(DateTime.tryParse(dateStore) ?? DateTime.now());
     _currentGender = Gender.fromString(_authProvider.user?.sex);
-    _sexCtrl = TextEditingController()..text = _currentGender.display;
+    _sexCtrl = TextEditingController()..text = _currentGender.display(context);
     _countryCtrl = TextEditingController()
       ..text = _authProvider.user?.country ?? 'VietNam';
     _noticeCtrl = TextEditingController()
@@ -413,7 +413,7 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
             _selectGender().then((v) {
               if (v != null) {
                 _currentGender = v;
-                _sexCtrl.text = _currentGender.display;
+                _sexCtrl.text = _currentGender.display(context);
               }
             });
           },
