@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:audioplayers/audioplayers.dart';
+// import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shake/shake.dart';
@@ -21,7 +21,7 @@ class _XamState extends State<Xam> {
   int _shakeCount = 0;
   late spine.SpineWidgetController ctrl;
 
-  final AudioPlayer shakerPlayer = AudioPlayer();
+  // final AudioPlayer shakerPlayer = AudioPlayer();
 
   final Random _random = Random();
   ShakeDetector? detector;
@@ -60,7 +60,7 @@ class _XamState extends State<Xam> {
 
   _shakeHandler() {
     Future.delayed(const Duration(milliseconds: 400), (){
-      shakerPlayer.play(AssetSource('audio/shaker.mp3'));
+      // shakerPlayer.play(AssetSource('audio/shaker.mp3'));
     });
     _shakeCount++;
     Vibration.vibrate(duration: 100);
@@ -122,11 +122,11 @@ class _XamState extends State<Xam> {
     _setUpXam();
 
     _shakeSetup();
-    shakerPlayer.onPositionChanged.listen((event) {
-      if (event.inMilliseconds > 1100) {
-        shakerPlayer.stop();
-      }
-    });
+    // shakerPlayer.onPositionChanged.listen((event) {
+    //   if (event.inMilliseconds > 1100) {
+    //     shakerPlayer.stop();
+    //   }
+    // });
 
     super.initState();
   }
@@ -134,7 +134,7 @@ class _XamState extends State<Xam> {
   @override
   void dispose() {
     _debounce?.cancel();
-    shakerPlayer.dispose();
+    // shakerPlayer.dispose();
     super.dispose();
   }
 

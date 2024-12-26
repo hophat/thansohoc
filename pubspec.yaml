@@ -34,7 +34,7 @@ dependencies:
   flutter_easyloading: #^2.2.2
   html: #^0.15.0
   flutter_html:
-  google_mobile_ads: ^1.2.0
+  google_mobile_ads: ^5.2.0
   dio: ^4.0.6
 
   #  flutter_view_widgets: ^1.0.6
@@ -53,10 +53,10 @@ dependencies:
   google_fonts:
 #  appinio_swiper: ^1.1.1
   card_swiper: ^2.0.4
-  firebase_core: ^2.22.0
-  firebase_database: ^10.3.4
-  cloud_firestore: ^4.13.1
-  firebase_analytics:
+  firebase_core: ^3.9.0
+  firebase_database: ^11.2.0
+  cloud_firestore: ^5.6.0
+  firebase_analytics: ^11.3.6
 #HUXAM
   spine_flutter: 4.1.14
   vibration: 1.8.4
@@ -64,8 +64,8 @@ dependencies:
   shake: 2.2.0
   flutter_screenutil: 5.9.0
 #  url_launcher: ^6.1.7
-  audioplayers: 6.1.0
-  firebase_messaging: ^14.7.10
+#  audioplayers: 6.0.0
+  firebase_messaging: ^15.1.6
   flutter_local_notifications: ^18.0.1
   either_dart: ^1.0.0
   get_it: ^8.0.2
