@@ -121,13 +121,27 @@ class _ZodiacMenuState extends State<ZodiacMenu> {
           ? formatter.format(_authProvider.user?.birthDate ?? DateTime.now())
           : formatter.format(DateTime.tryParse(dateStore) ?? DateTime.now());
     _currentGender = Gender.fromString(_authProvider.user?.sex);
-    _sexCtrl = TextEditingController()..text = _currentGender.display(context);
+    try{
+      _sexCtrl = TextEditingController()..text = _currentGender.display(context);
+    }catch(e){
+      _sexCtrl = TextEditingController()..text = '';
+    }
     _countryCtrl = TextEditingController()
       ..text = _authProvider.user?.country ?? 'VietNam';
     _noticeCtrl = TextEditingController()
       ..text = _authProvider.user?.timeNotice != null
           ? _authProvider.user?.timeNotice.toString() ?? ''
           : '';
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    try{
+      _sexCtrl.text = _currentGender.display(context);
+    }catch(e){
+      _sexCtrl.text = '';
+    }
   }
 
   @override
