@@ -1,15 +1,23 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_app_than_so_hoc_2/Pages/detail/detail.dart';
+import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
+import 'package:flutter_app_than_so_hoc_2/Pages/detail/detail.dart';
+import 'package:flutter_app_than_so_hoc_2/Pages/setting/setting.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
 import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
-
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:intl/intl.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:flutter_app_than_so_hoc_2/network/tsh_client.dart';
+import 'package:flutter_app_than_so_hoc_2/provider/local_db/shared_pref.dart';
+import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:intl/intl.dart';
+import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../provider/admob/admob_service.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -27,7 +35,7 @@ Future<int> tinh_scd(date_) async {
   } else {
     // print(sum);
     // return sum;
-    return Future.value(sum);
+    return Future<int>.value(sum);
   }
 }
 
@@ -39,25 +47,68 @@ extension ParseToString on LocaleType {
 
 class _MyHomePageState extends State<HomePage> {
   dynamic name;
-  static DateTime dateCur = DateTime.parse('1996-01-01');
+  static DateTime dateCur = DateTime.now();
   late String ngay;
   late String thang;
   late String nam;
   late int dateValue;
-  late String lang;
+
+  String get lang => Intl.getCurrentLocale().toString();
+
+  InterstitialAd? _interstitialAd;
+
+  Size get _size => MediaQuery.of(context).size;
+
+  LocaleType get locate {
+    LocaleType _l = LocaleType.en;
+    if (Intl.getCurrentLocale().toString() != "en") {
+      LocaleType.values.forEach((LocaleType_) {
+        if (LocaleType_.toString().split('.').elementAt(1) ==
+            Intl.getCurrentLocale().toString()) {
+          _l = LocaleType_;
+        }
+      });
+    }
+    return _l;
+  }
+
+  _createInterstitialAd() {
+    if (Platform.isIOS) return;
+    InterstitialAd.load(
+        // adUnitId: 'ca-app-pub-3940256099942544/1033173712',//test
+        adUnitId: AdMobService.instance.InterstitialAdUnitId,
+        request: AdRequest(),
+        adLoadCallback: InterstitialAdLoadCallback(onAdLoaded: (ad) {
+          _interstitialAd = ad;
+        }, onAdFailedToLoad: (err) {
+          _interstitialAd = null;
+        }));
+  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    lang = Intl.getCurrentLocale().toString();
+    // lang = Intl.getCurrentLocale().toString();
     this._get_birh_date();
+    _createInterstitialAd();
+  }
+
+  @override
+  void dispose() {
+    _interstitialAd?.dispose();
+    super.dispose();
   }
 
   void _changeDate(_dateCur) async {
     setState(() {
-      name = DateFormat('dd-MM-yyyy').format(_dateCur);
       dateCur = _dateCur;
+      myShared.setString('birh_date_store', dateCur.toString());
+      if (Intl.getCurrentLocale().toString() == "vi") {
+        name = DateFormat('dd-MM-yyyy').format(dateCur);
+      } else {
+        name = DateFormat('yyyy-MM-dd').format(dateCur);
+      }
     });
   }
 
@@ -76,27 +127,66 @@ class _MyHomePageState extends State<HomePage> {
   }
 
   void _submit() async {
+    // if (_interstitialAd != null) {
+    //   _interstitialAd!.fullScreenContentCallback =
+    //       FullScreenContentCallback(onAdDismissedFullScreenContent: (ad) {
+    //     ad.dispose();
+    //     _createInterstitialAd();
+    //   }, onAdFailedToShowFullScreenContent: (ad, err) {
+    //     ad.dispose();
+    //     _createInterstitialAd();
+    //   });
+    //   _interstitialAd!.show();
+    //   _interstitialAd = null;
+    // } else {
+    //   _createInterstitialAd();
+    // }
+    // await _interstitialAd?.show();
+
+    // AnalyticsService.I.analytics.logAppOpen();
+
     dateValue = await tinh_scd(DateFormat('yyyyMMdd').format(dateCur));
     ngay = DateFormat('dd').format(dateCur);
     thang = DateFormat('MM').format(dateCur);
     nam = DateFormat('yyyy').format(dateCur);
-    EasyLoading.show(status: 'loading...');
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('birh_date_store', dateCur.toString());
-    var url =
-        'https://edu.gulagi.com:443/admin/api/tsh_so_chu_dao/get_v2?scd_number=$dateValue&langapp=$lang';
-    Map<String, String> requestHeaders = {
-      'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',
-    };
-    http.get(url, headers: requestHeaders).then((response) {
+    String path = 'collections/get/tsh_sochudao';
+    var bodyHttp = jsonEncode({
+      "filter": {"scd_number": dateValue.toString(), "lang": lang}
+    });
+    EasyLoading.show();
+    TSHClient.instance
+        .getSoChuDao(
+      scdNumber: dateValue.toString(),
+      lang: lang,
+    )
+        .then((res) {
       EasyLoading.dismiss();
-      var dataDecode = jsonDecode(response.body);
-
-      final res =
-          Res(dataDecode['status'], dataDecode['message'], dataDecode['data']);
+      if (res == null) return;
       res.data['ngay'] = ngay;
       res.data['thang'] = thang;
       res.data['nam'] = nam;
+      print('res => ${res.data}');
+      print('res => ${res.data['ngay']}');
+      print('res => ${res.data['thang']}');
+      print('res => ${res.data['nam']}');
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DetailPage(res: res),
+        ),
+      );
+    });
+    return;
+    TSHClient.instance.dio.post<String>(path, data: bodyHttp).then((response) {
+      var dataDecode = jsonDecode(response.data ?? '');
+
+      final res = Res(true, "22", dataDecode);
+      res.data['ngay'] = ngay;
+      res.data['thang'] = thang;
+      res.data['nam'] = nam;
+      print('res => ${res.data}');
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -108,16 +198,6 @@ class _MyHomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var locate = LocaleType.en;
-
-    if (Intl.getCurrentLocale().toString() != "en") {
-      LocaleType.values.forEach((LocaleType_) {
-        if (LocaleType_?.toString()?.split('.')?.elementAt(1) ==
-            Intl.getCurrentLocale().toString()) {
-          locate = LocaleType_;
-        }
-      });
-    }
     return Material(
       shape: BeveledRectangleBorder(
         borderRadius: BorderRadius.only(topLeft: Radius.circular(46.0)),
@@ -125,80 +205,112 @@ class _MyHomePageState extends State<HomePage> {
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/bg01.jpg"),
+            image: AssetImage("assets/tet/bg.png"),
             fit: BoxFit.cover,
           ),
         ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              // ignore: deprecated_member_use
-              Image(
-                image: AssetImage('assets/EYEb.png'),
-                height: 220,
-              ),
-              SizedBox(height: 30),
-              Text(
-                S.of(context).hay_chon_ngay_sinh_cua_ban,
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.white70,
-                ),
-              ),
-              SizedBox(height: 20),
-              FlatButton(
-                  height: 70.0,
-                  minWidth: 250,
-                  color: Color(0x00000000),
-                  splashColor: Colors.grey,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(13.0),
-                      side: BorderSide(color: Colors.white, width: 3)),
-                  onPressed: () {
-                    DatePicker.showDatePicker(context,
-                        showTitleActions: true,
-                        onChanged: (date) {}, onConfirm: (date) {
-                      this._changeDate(date);
-                    }, currentTime: dateCur, locale: locate);
-                  },
-                  child: RichText(
-                    text: TextSpan(
-                      children: [
-                        WidgetSpan(
-                          child: Icon(Icons.date_range_outlined,
-                              size: 30, color: Colors.white),
-                        ),
-                        TextSpan(
-                          text: '$name',
-                          style: TextStyle(color: Colors.white, fontSize: 28),
-                        ),
-                      ],
+        child: Stack(
+          children: [
+            Center(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    // ignore: deprecated_member_use
+                    Image(
+                      image: AssetImage('assets/tet/logo_home.png'),
+                      height: 220,
                     ),
-                  )),
-              SizedBox(height: 20),
-              RaisedButton(
-                // height: 60.0,
-                // minWidth: 200,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    side: BorderSide(color: Colors.black12)),
-                color: Color(0xffcdae59),
-                // splashColor: Colors.white,
-                padding: EdgeInsets.fromLTRB(30, 14, 30, 15),
-                onPressed: () {
-                  this._submit();
-                },
-                child: Text(
-                  S.of(context).xem,
-                  style: TextStyle(color: Colors.black, fontSize: 22),
+                    SizedBox(height: 30),
+                    Text(
+                      S.of(context).hay_chon_ngay_sinh_cua_ban,
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: TSHColors().primaryTextColor,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 20),
+                    _buildDate(),
+                    SizedBox(height: 20),
+                    _buildSubmit(),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+            Positioned(
+              top: 15 * 2 + 10,
+              right: 15,
+              child: IconButton(
+                  onPressed: () {
+                    showModalBottomSheet(
+                        backgroundColor: Colors.transparent,
+                        context: context,
+                        builder: (_) => settingPage());
+                  },
+                  icon: Image.asset('assets/tet/ic_language.png')),
+            )
+          ],
         ),
       ),
     );
   }
+
+  _buildDate() => InkWell(
+        onTap: () => DatePicker.showDatePicker(context,
+            minTime: DateTime(1900, 1, 1),
+            showTitleActions: true,
+            onChanged: (date) {}, onConfirm: (date) {
+          this._changeDate(date);
+        }, currentTime: dateCur, locale: locate),
+        child: Container(
+          alignment: Alignment.center,
+          constraints:
+              BoxConstraints(minWidth: 150, maxWidth: _size.width / 1.5),
+          decoration: BoxDecoration(
+              color: Colors.black26,
+              borderRadius: BorderRadius.circular(16.0),
+              border: Border.all(
+                color: TSHColors().primaryColor,
+                width: 2.0,
+              )),
+          padding: EdgeInsets.symmetric(
+            vertical: 16,
+          ),
+          child: Text(
+            '$name',
+            style: TextStyle(
+                color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
+          ),
+        ),
+      );
+
+  _buildSubmit() => InkWell(
+        onTap: () => _submit(),
+        borderRadius: BorderRadius.circular(12.0),
+        child: Container(
+          alignment: Alignment.center,
+          constraints:
+              BoxConstraints(minWidth: 150, maxWidth: _size.width / 2.5),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(colors: TSHColors().gradiantBtnColor),
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          padding: EdgeInsets.symmetric(
+            horizontal: 40,
+            vertical: 12,
+          ),
+          child: FittedBox(
+            fit: BoxFit.fitWidth,
+            child: Text(
+              S.of(context).xem,
+              style: TextStyle(
+                  color: TSHColors().primaryColor,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
+      );
 }

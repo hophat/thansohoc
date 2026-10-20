@@ -5,9 +5,8 @@ import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
 import 'package:flutter_app_than_so_hoc_2/components/box_card.dart';
 import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
 
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_html/style.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -105,13 +104,13 @@ class _HangNgayPageState extends State<HangNgayPage> {
 
   get_today(year) async {
     // lây thông tin của 4 moc thoi gian
-    var url =
+    String url =
         'https://edu.gulagi.com/admin/api/tsh_so_ngay_sinh/get_today/?year=$year&_lang=$lang' ;
     print(url);
     Map<String, String> requestHeaders = {
       'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',
     };
-    final response = await http.get(url, headers: requestHeaders);
+    final response = await http.get(Uri.parse(url), headers: requestHeaders);
     // return response;
     var dataDecode = await jsonDecode(response.body);
     return Res(dataDecode['status'], dataDecode['message'], dataDecode['data']);
@@ -164,14 +163,25 @@ class _HangNgayPageState extends State<HangNgayPage> {
                 ),
               ),
               SizedBox(height: 20),
-              FlatButton(
-                  height: 50.0,
-                  minWidth: 200,
-                  color: Color(0x00000000),
-                  splashColor: Colors.grey,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(13.0),
-                      side: BorderSide(color: Colors.white, width: 3)),
+              ElevatedButton(
+                  // height: 50.0,
+                  // minWidth: 200,
+                style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll<Color>(
+                      Color(0x00000000)
+                  ),
+                  shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(13.0),
+                        side: BorderSide(color: Colors.white, width: 3)),
+                  ),
+
+                ),
+                  // color: Color(0x00000000),
+                  // splashColor: Colors.grey,
+                  // shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.circular(13.0),
+                  //     side: BorderSide(color: Colors.white, width: 3)),
                   onPressed: () {
                     DatePicker.showDatePicker(context,
                         showTitleActions: true,
@@ -194,15 +204,28 @@ class _HangNgayPageState extends State<HangNgayPage> {
                     ),
                   )),
               SizedBox(height: 20),
-              RaisedButton(
+              ElevatedButton(
                 // height: 60.0,
                 // minWidth: 200,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    side: BorderSide(color: Colors.black12)),
-                color: Color(0xffcdae59),
-                // splashColor: Colors.white,
-                padding: EdgeInsets.fromLTRB(30, 14, 30, 15),
+                style: ButtonStyle(
+                  shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        side: BorderSide(color: Colors.black12)),
+                  ),
+                  backgroundColor: MaterialStatePropertyAll<Color>(
+                    Color(0xffcdae59),
+                  ),
+                  padding: MaterialStatePropertyAll<EdgeInsets>(
+                    EdgeInsets.fromLTRB(30, 14, 30, 15),
+                  )
+                ),
+                // shape: RoundedRectangleBorder(
+                //     borderRadius: BorderRadius.circular(10.0),
+                //     side: BorderSide(color: Colors.black12)),
+                // color: Color(0xffcdae59),
+                // // splashColor: Colors.white,
+                // padding: EdgeInsets.fromLTRB(30, 14, 30, 15),
                 onPressed: () {
                   this._submit();
                 },

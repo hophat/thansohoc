@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "950960231767",
+    "project_id": "thansohoc-1",
+    "storage_bucket": "thansohoc-1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:950960231767:android:60e3d6507b3021e649da12",
+        "android_client_info": {
+          "package_name": "com.boitoan.thansohoc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "950960231767-r48lra6ha87577m3e6ujebb5mkjct6pc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZTlMnG-q9oZtR0Vef6N4tmjK1LHp2j7w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "950960231767-r48lra6ha87577m3e6ujebb5mkjct6pc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "950960231767-c65ru7mohoibj43imh0c63pghmd1lfm2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.thansohoc"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
