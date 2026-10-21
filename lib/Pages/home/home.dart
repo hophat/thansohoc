@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/detail.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/setting/setting.dart';
-import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
 import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
 import 'package:flutter_app_than_so_hoc_2/network/tsh_client.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/local_db/shared_pref.dart';
@@ -14,10 +13,10 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
-import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../provider/admob/admob_service.dart';
+import 'package:flutter_app_than_so_hoc_2/v2/screens/v2_hub.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -151,10 +150,6 @@ class _MyHomePageState extends State<HomePage> {
     nam = DateFormat('yyyy').format(dateCur);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('birh_date_store', dateCur.toString());
-    String path = 'collections/get/tsh_sochudao';
-    var bodyHttp = jsonEncode({
-      "filter": {"scd_number": dateValue.toString(), "lang": lang}
-    });
     EasyLoading.show();
     TSHClient.instance
         .getSoChuDao(
@@ -171,22 +166,6 @@ class _MyHomePageState extends State<HomePage> {
       print('res => ${res.data['ngay']}');
       print('res => ${res.data['thang']}');
       print('res => ${res.data['nam']}');
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DetailPage(res: res),
-        ),
-      );
-    });
-    return;
-    TSHClient.instance.dio.post<String>(path, data: bodyHttp).then((response) {
-      var dataDecode = jsonDecode(response.data ?? '');
-
-      final res = Res(true, "22", dataDecode);
-      res.data['ngay'] = ngay;
-      res.data['thang'] = thang;
-      res.data['nam'] = nam;
-      print('res => ${res.data}');
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -235,6 +214,8 @@ class _MyHomePageState extends State<HomePage> {
                     _buildDate(),
                     SizedBox(height: 20),
                     _buildSubmit(),
+                    SizedBox(height: 16),
+                    _buildV2Entry(),
                   ],
                 ),
               ),
@@ -305,6 +286,39 @@ class _MyHomePageState extends State<HomePage> {
             fit: BoxFit.fitWidth,
             child: Text(
               S.of(context).xem,
+              style: TextStyle(
+                  color: TSHColors().primaryColor,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
+      );
+
+  // Lối vào các tính năng mới (v2) — phần duy nhất thêm vào màn hình cũ,
+  // dùng đúng style nút gradient gold sẵn có ở trên.
+  _buildV2Entry() => InkWell(
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => V2Hub()),
+        ),
+        borderRadius: BorderRadius.circular(12.0),
+        child: Container(
+          alignment: Alignment.center,
+          constraints:
+              BoxConstraints(minWidth: 150, maxWidth: _size.width / 2.5),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(colors: TSHColors().gradiantBtnColor),
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          padding: EdgeInsets.symmetric(
+            horizontal: 40,
+            vertical: 12,
+          ),
+          child: FittedBox(
+            fit: BoxFit.fitWidth,
+            child: Text(
+              '✦ Tính năng mới',
               style: TextStyle(
                   color: TSHColors().primaryColor,
                   fontSize: 22,

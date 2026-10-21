@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/tabs/diengiai_tab3.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/tabs/tab1.dart';
 import 'package:flutter_app_than_so_hoc_2/Pages/detail/tabs/tab2.dart';
 import 'package:flutter_app_than_so_hoc_2/network/tsh_client.dart';
-import 'package:flutter_app_than_so_hoc_2/network/tsh_client2.dart';
 import 'package:flutter_app_than_so_hoc_2/utils/theme/app_color.dart';
 import 'package:flutter/material.dart';
 
@@ -45,16 +43,6 @@ Future<int> tinh_dinh_cao_1(date_) async {
 
 get4(dinh_cao, lang) async {
   return TSHClient.instance.getDinhCao(dcNumber: dinh_cao.toString(), lang: lang);
-  // lây thông tin của 4 moc thoi gian
-  var path = 'collections/get/tsh_dinhcao';
-  var bodyHttp = jsonEncode({
-    "filter": {"dinh_cao_key": dinh_cao.toString(), "lang": lang}
-  });
-  final response =
-      await TSHClient.instance.dio.post<String>(path, data: bodyHttp);
-
-  var dataDecode = await jsonDecode(response.data ?? '');
-  return Res(true, "ok", dataDecode);
 }
 
 class _MyDetailPage extends State<DetailPage>
@@ -289,11 +277,4 @@ class _MyDetailPage extends State<DetailPage>
 
 get_so_ngay_sinh(sns_key, lang) async {
   return TSHClient.instance.getNgaySinh(snsKey: sns_key.toString(), lang: lang);
-  // lây thông tin của 4 moc thoi gian
-  // var url = 'http://apitwo.gulagi.com/ngaysinh?date=$sns_key&appLang=$lang';
-  var path = 'ngaysinh?date=$sns_key&appLang=$lang';
-  // final response = await http.get(Uri.parse(url));
-  final response = await TSHClient2.instance.blankGet<String>(path);
-  var dataDecode = await jsonDecode(response.data ?? '');
-  return Res(true, "ok", dataDecode);
 }

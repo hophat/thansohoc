@@ -35,7 +35,6 @@ dependencies:
   html: #^0.15.0
   flutter_html:
   google_mobile_ads: ^1.2.0
-  dio: ^4.0.6
 
   #  flutter_view_widgets: ^1.0.6
 #  flutter_webview_plugin: ^0.3.11
@@ -51,11 +50,9 @@ dependencies:
   confetti: ^0.7.0
   flutter_animated_dialog: ^2.0.1
   google_fonts: ^3.0.1
+  share_plus: ^7.2.2
 #  appinio_swiper: ^1.1.1
   card_swiper: ^2.0.4
-  firebase_core: ^2.22.0
-  firebase_database: ^10.3.4
-  cloud_firestore: ^4.13.1
 #  url_launcher: ^6.1.7
 #  audioplayers: ^2.0.0
 #  shake: ^2.2.0

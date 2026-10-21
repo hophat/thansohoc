@@ -1,49 +1,15 @@
-import 'dart:convert';
-import 'dart:developer';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dio/dio.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_app_than_so_hoc_2/data/local_data.dart';
 
+/// Lớp tương thích ngược với client cũ.
+///
+/// Trước đây các hàm này đọc dữ liệu từ Firestore (và bản nháp API
+/// gulagi.com qua Dio); nay toàn bộ nội dung đã được đóng gói trong
+/// `assets/data/` và delegate sang [LocalData] để app hoạt động 100%
+/// offline. Chữ ký hàm và kiểu trả về (`Future<Res?>`, `Res(true, "22",
+/// data)`) được giữ nguyên nên các caller (home, detail) không đổi.
 class TSHClient {
-  late final Dio dio;
-  final firestore = FirebaseFirestore.instanceFor(
-    app: Firebase.app(),
-  );
-
-  TSHClient._() {
-    BaseOptions options = BaseOptions(
-      baseUrl: 'http://app.gulagi.com/api/',
-      headers: {
-        'Cockpit-Token': '235a9449e91330b05871d371121134',
-        'Content-Type': 'application/json; charset=UTF-8'
-      },
-    );
-
-    dio = Dio(options);
-
-    _setUpInterceptors();
-  }
-
-  _setUpInterceptors() {
-    dio.interceptors.add(InterceptorsWrapper(onRequest: (op, req) {
-      EasyLoading.show();
-      log('[REQUEST] [${op.method}] -> ${op.baseUrl}${op.path}');
-      log('[HEADER] -> ${op.headers}');
-      log('[BODY] -> ${op.data}');
-      req.next(op);
-    }, onResponse: (op, res) {
-      EasyLoading.dismiss();
-      log('[RESPONSE] [${op.statusCode}] -> ${op.data}');
-      res.next(op);
-    }, onError: (err, errHandle) {
-      EasyLoading.dismiss();
-      log('[ERROR] -> [${err.message}');
-      errHandle.next(err);
-    }));
-  }
+  TSHClient._();
 
   static TSHClient? _instance;
 
@@ -53,81 +19,20 @@ class TSHClient {
   }
 
   Future<Res?> getSoChuDao({String scdNumber = '2', String lang = 'en'}) async {
-    final QuerySnapshot<Map<String, dynamic>> v = await firestore
-        .collection('sochudao')
-        .where('scd_number', isEqualTo: scdNumber)
-        .where('lang', isEqualTo: lang)
-        .get();
-    Map<String, dynamic> data = {};
-    if (v.docs.isNotEmpty) {
-      data = v.docs.first.data();
-    }
+    final Map<String, dynamic> data = await LocalData.instance
+        .getSoChuDao(scdNumber: scdNumber, lang: lang);
     return Res(true, "22", data);
   }
 
   Future<Res?> getDinhCao({String dcNumber = '2', String lang = 'en'}) async {
-    final QuerySnapshot<Map<String, dynamic>> v = await firestore
-        .collection('dinhcao')
-        .where('dinh_cao_key', isEqualTo: dcNumber)
-        .where('lang', isEqualTo: lang)
-        .get();
-    Map<String, dynamic> data = {};
-    if (v.docs.isNotEmpty) {
-      data = v.docs.first.data();
-    }
+    final Map<String, dynamic> data =
+        await LocalData.instance.getDinhCao(dcNumber: dcNumber, lang: lang);
     return Res(true, "22", data);
   }
 
   Future<Res?> getNgaySinh({String snsKey = '22223344', String lang = 'en'}) async {
-    var listString = snsKey.split('').map((String text) => text).toList();
-
-    var one = '';
-    var two = '';
-    var three = '';
-    var four = '';
-    var five = '';
-    var six = '';
-    var seven = '';
-    var eight = '';
-    var nine = '';
-
-    for (var item in listString) {
-      if (int.parse(item) == 1) {
-        one = one + item;
-      } else if (int.parse(item) == 2) {
-        two = two + item;
-      } else if (int.parse(item) == 3) {
-        three = three + item;
-      } else if (int.parse(item) == 4) {
-        four = four + item;
-      } else if (int.parse(item) == 5) {
-        five = five + item;
-      } else if (int.parse(item) == 6) {
-        six = six + item;
-      } else if (int.parse(item) == 7) {
-        seven = seven + item;
-      } else if (int.parse(item) == 8) {
-        eight = eight + item;
-      } else if (int.parse(item) == 9) {
-        nine = nine + item;
-      }
-    }
-
-    final List<String> queryData =  [one, two, three, four, five, six, seven, eight, nine];
-    queryData.removeWhere((element) => element.trim().isEmpty);
-
-    final QuerySnapshot<Map<String, dynamic>> v = await firestore
-        .collection('ngaysinh')
-        .where(
-          'sns_key',
-          whereIn: queryData,
-        )
-        .where('lang', isEqualTo: lang)
-        .get();
-    List<Map<String, dynamic>> data = [];
-    for(final doc in v.docs) {
-      data.add(doc.data());
-    }
+    final List<Map<String, dynamic>> data =
+        await LocalData.instance.getNgaySinh(snsKey: snsKey, lang: lang);
     return Res(true, "22", data);
   }
 }

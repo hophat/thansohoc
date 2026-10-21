@@ -1,15 +1,15 @@
 buildscript {
     ext.kotlin_version = '1.6.10'
     repositories {
+        // TEMP-BUILD-HACK (revert after APK): offline file repo seeded via curl,
+        // because the sandbox blocks Java TLS to Maven Central. — panto 2026-10-21
+        maven { url = uri("file:///home/hatch/workspace/thansohoc-build/localrepo") }
         google()
         mavenCentral()
     }
 
     dependencies {
         classpath 'com.android.tools.build:gradle:7.1.2'
-        // START: FlutterFire Configuration
-        classpath 'com.google.gms:google-services:4.3.10'
-        // END: FlutterFire Configuration
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }

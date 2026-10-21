@@ -1,13 +1,7 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_app_than_so_hoc_2/class/Lang.dart';
-import 'package:flutter_app_than_so_hoc_2/provider/admob/admob_service.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/list_extension.dart';
 import 'package:flutter_app_than_so_hoc_2/provider/local_db/shared_pref.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -16,16 +10,14 @@ import 'package:intl/intl.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Pages/home/home.dart';
-import 'firebase_options.dart';
 import 'generated/l10n.dart';
 
 String langCur = '';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform
-  );
+  // Bản offline: không khởi tạo Firebase nữa — toàn bộ dữ liệu nội dung
+  // được đọc từ assets qua LocalData (lib/data/local_data.dart).
   if(Platform.isAndroid) {
     MobileAds.instance.initialize();
   }
@@ -139,21 +131,6 @@ class _MainPageState extends State<MainPage> {
           return HomePage();
         },
       ),
-
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () async {
-      //     // return;
-      //     String jsonString = await rootBundle.loadString('assets/data/sochudao.json');
-      //     final data = json.decode(jsonString);
-      //     EasyLoading.show();
-      //     for(final cc in data) {
-      //       // cc['lang'] = 'vi';
-      //       await FirebaseFirestore.instance.collection('sochudao').add(cc);
-      //     }
-      //     EasyLoading.dismiss();
-      //
-      //   },
-      // ),
     );
   }
 }

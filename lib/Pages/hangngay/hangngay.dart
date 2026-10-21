@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_than_so_hoc_2/Pages/detail/detail.dart';
 
 import 'package:flutter_app_than_so_hoc_2/class/Res.dart';
-import 'package:flutter_app_than_so_hoc_2/components/box_card.dart';
 import 'package:flutter_app_than_so_hoc_2/generated/l10n.dart';
 
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_app_than_so_hoc_2/v2/meanings.dart';
+import 'package:flutter_app_than_so_hoc_2/v2/numerology_engine.dart';
 import 'package:intl/intl.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -103,18 +101,19 @@ class _HangNgayPageState extends State<HangNgayPage> {
   }
 
   get_today(year) async {
-    // lây thông tin của 4 moc thoi gian
-    String url =
-        'https://edu.gulagi.com/admin/api/tsh_so_ngay_sinh/get_today/?year=$year&_lang=$lang' ;
-    print(url);
-    Map<String, String> requestHeaders = {
-      'X-Api-Key': '0B03393E2DABCA692F7458294DBAEC2F',
-    };
-    final response = await http.get(Uri.parse(url), headers: requestHeaders);
-    // return response;
-    var dataDecode = await jsonDecode(response.body);
-    return Res(dataDecode['status'], dataDecode['message'], dataDecode['data']);
-    // return Res.fromJson(jsonDecode(response.body));
+    // Bản offline: không còn gọi API "tử vi hôm nay" (edu.gulagi.com)
+    // nữa. Nội dung được suy ra ngay trên máy từ Số Ngày Cá Nhân của
+    // người dùng (engine v2) + phần diễn giải đóng gói sẵn trong
+    // Meanings.personalDayInfo, trả về dạng HTML như API cũ để phần
+    // hiển thị (Html widget) không phải thay đổi.
+    final int personalDay = NumerologyEngine.personalDay(dateCur);
+    final String title =
+        Meanings.titleOf(Meanings.personalDayInfo, personalDay);
+    final String body =
+        Meanings.bodyOf(Meanings.personalDayInfo, personalDay);
+    final String html =
+        '<p><b>Số ngày cá nhân: $personalDay — $title</b></p><p>$body</p>';
+    return Res(true, 'ok', html);
   }
 
   @override

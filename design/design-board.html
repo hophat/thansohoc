@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thần Số Học 2.0 — Design Board</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Be Vietnam Pro',sans-serif; background:#1A0505; color:#FFF6DE; }
+  .wrap { max-width:1400px; margin:0 auto; padding:40px 28px 80px; }
+  header h1 { font-family:'Playfair Display',serif; font-size:42px; color:#FAE9B1; }
+  header h1 span { color:#E94944; }
+  header p.sub { margin-top:10px; font-size:16px; color:#E8D9AE; max-width:820px; line-height:1.6; }
+  .badge { display:inline-block; background:#9B150E; color:#FAE9B1; border:1px solid #EDBE72; padding:4px 12px; border-radius:999px; font-size:12px; font-weight:600; margin-right:8px; }
+  h2.section { font-size:22px; margin:48px 0 6px; color:#FAE9B1; }
+  p.note { color:#CBB87F; font-size:14px; margin-bottom:20px; line-height:1.6; max-width:900px; }
+
+  /* Design system */
+  .ds { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; }
+  .ds-card { background:#2A0A08; border:1px solid #5A1D16; border-radius:16px; padding:18px; }
+  .ds-card h3 { font-size:14px; text-transform:uppercase; letter-spacing:1px; color:#EDBE72; margin-bottom:14px; }
+  .swatches { display:flex; flex-wrap:wrap; gap:10px; }
+  .sw { width:86px; }
+  .sw i { display:block; height:44px; border-radius:10px; border:1px solid rgba(255,255,255,.15); }
+  .sw b { display:block; font-size:11px; margin-top:6px; color:#FFF6DE; }
+  .sw span { font-size:10px; color:#CBB87F; }
+  .type-row { margin-bottom:10px; }
+  .comp { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+
+  /* Buttons / chips (shared with mockups) */
+  .btn-gold { background:linear-gradient(90deg,#EDBE72,#FAE9B1,#EDBE72); color:#5C0E08; font-weight:700; border:none; border-radius:999px; padding:12px 22px; font-size:14px; font-family:inherit; }
+  .btn-ghost { background:transparent; color:#FAE9B1; border:1.5px solid #EDBE72; border-radius:999px; padding:11px 20px; font-size:14px; font-weight:600; font-family:inherit; }
+  .chip { background:#3A0F0B; border:1px solid #7A2A20; color:#F3E3B2; padding:6px 12px; border-radius:999px; font-size:12px; font-weight:500; }
+  .chip.on { background:linear-gradient(90deg,#C72C25,#E94944); border-color:#EDBE72; color:#FFF; }
+
+  /* Phone mockups */
+  .screens { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:28px; }
+  .screen-box h3 { font-size:15px; margin-bottom:4px; }
+  .screen-box h3 em { font-style:normal; color:#E94944; }
+  .screen-box p.d { font-size:12.5px; color:#CBB87F; margin-bottom:12px; line-height:1.55; min-height:38px; }
+  .phone { width:300px; height:610px; margin:0 auto; border-radius:38px; border:3px solid #6B241C; background:linear-gradient(170deg,#8F130C 0%,#6E0D08 45%,#4A0805 100%); overflow:hidden; position:relative; box-shadow:0 24px 50px rgba(0,0,0,.55); display:flex; flex-direction:column; }
+  .notch { width:110px; height:22px; background:#1A0505; border-radius:0 0 14px 14px; margin:0 auto; flex:none; }
+  .scr { padding:16px 16px 12px; flex:1; display:flex; flex-direction:column; overflow:hidden; }
+  .status { display:flex; justify-content:space-between; font-size:10px; color:#F3E3B2; margin-bottom:10px; }
+  .greet { font-size:12px; color:#EDBE72; }
+  .h-title { font-family:'Playfair Display',serif; font-size:21px; color:#FAE9B1; line-height:1.3; }
+  .card { background:linear-gradient(180deg,rgba(250,233,177,.14),rgba(250,233,177,.05)); border:1px solid rgba(237,190,114,.55); border-radius:18px; padding:14px; }
+  .card.solid { background:linear-gradient(180deg,#FAE9B1,#EDBE72); color:#4A0805; border:none; }
+  .card.solid .mut { color:#7A3B12; }
+  .mut { color:#D8C58E; font-size:11.5px; }
+  .small { font-size:11.5px; line-height:1.5; }
+  .tabbar { flex:none; display:flex; justify-content:space-around; padding:10px 6px 16px; background:rgba(26,5,5,.65); border-top:1px solid rgba(237,190,114,.35); }
+  .tabbar div { text-align:center; font-size:9.5px; color:#CBB87F; }
+  .tabbar div b { display:block; font-size:16px; margin-bottom:2px; }
+  .tabbar div.on { color:#FAE9B1; }
+  .bignum { font-family:'Playfair Display',serif; font-weight:800; color:#FAE9B1; text-align:center; }
+  .ring { width:138px; height:138px; margin:6px auto; border-radius:50%; border:3px solid #EDBE72; background:radial-gradient(circle at 50% 35%, #C72C25, #7E0F09 75%); display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 0 0 8px rgba(237,190,114,.14), 0 14px 30px rgba(0,0,0,.4); }
+  .ring .n { font-family:'Playfair Display',serif; font-size:58px; font-weight:800; color:#FAE9B1; line-height:1; }
+  .ring .t { font-size:10px; letter-spacing:1.5px; color:#FFD98A; text-transform:uppercase; margin-top:4px; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:9px; }
+  .idx { background:rgba(250,233,177,.09); border:1px solid rgba(237,190,114,.4); border-radius:14px; padding:10px 11px; }
+  .idx b { font-family:'Playfair Display',serif; font-size:24px; color:#FAE9B1; float:right; }
+  .idx span { font-size:11px; color:#EDBE72; font-weight:600; display:block; margin-bottom:3px; }
+  .idx p { font-size:10.5px; color:#E8D9AE; line-height:1.45; clear:both; }
+  .field { background:rgba(26,5,5,.45); border:1.5px solid rgba(237,190,114,.6); border-radius:14px; padding:12px 14px; margin-bottom:11px; }
+  .field label { font-size:10.5px; color:#EDBE72; font-weight:600; letter-spacing:.6px; text-transform:uppercase; display:block; margin-bottom:4px; }
+  .field div { font-size:15px; color:#FFF6DE; font-weight:500; }
+  .field div.ph { color:#A68B54; font-weight:400; }
+  .birthgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:7px; }
+  .birthgrid div { aspect-ratio:1.25; border:1.5px solid rgba(237,190,114,.55); border-radius:10px; display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:19px; color:#FAE9B1; background:rgba(250,233,177,.07); }
+  .birthgrid div.empty { color:rgba(250,233,177,.22); background:transparent; border-style:dashed; }
+  .tl { display:flex; justify-content:space-between; margin:8px 2px 0; }
+  .tl div { text-align:center; flex:1; }
+  .tl i { display:block; width:34px; height:34px; margin:0 auto 4px; border-radius:50%; border:2px solid #EDBE72; background:#7E0F09; font-style:normal; font-family:'Playfair Display',serif; font-size:15px; line-height:31px; color:#FAE9B1; }
+  .tl span { font-size:9.5px; color:#D8C58E; }
+  .profile { display:flex; align-items:center; gap:11px; padding:11px 0; border-bottom:1px solid rgba(237,190,114,.25); }
+  .ava { width:44px; height:44px; flex:none; border-radius:50%; background:radial-gradient(circle at 50% 35%, #C72C25, #7E0F09 78%); border:2px solid #EDBE72; display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-weight:800; color:#FAE9B1; font-size:17px; }
+  .profile b { font-size:13.5px; display:block; }
+  .profile span { font-size:11px; color:#D8C58E; }
+  .profile .go { margin-left:auto; color:#EDBE72; font-size:16px; }
+  .meter { height:8px; border-radius:99px; background:rgba(250,233,177,.18); overflow:hidden; margin:6px 0 3px; }
+  .meter i { display:block; height:100%; background:linear-gradient(90deg,#EDBE72,#E94944); }
+  .vs { display:flex; align-items:center; justify-content:space-around; margin:8px 0; }
+  .vs .ring { width:96px; height:96px; margin:0; }
+  .vs .ring .n { font-size:40px; }
+  .vs b.vstxt { font-family:'Playfair Display',serif; color:#EDBE72; font-size:15px; }
+  .price { border:1.5px solid rgba(237,190,114,.5); border-radius:16px; padding:13px 14px; margin-bottom:10px; background:rgba(250,233,177,.06); }
+  .price.best { border-color:#EDBE72; background:linear-gradient(180deg,rgba(250,233,177,.2),rgba(250,233,177,.06)); }
+  .price b { font-size:15px; }
+  .price .p { font-family:'Playfair Display',serif; font-size:20px; color:#FAE9B1; float:right; }
+  .check { font-size:12px; line-height:1.9; color:#F3E3B2; }
+  footer { margin-top:56px; border-top:1px solid #5A1D16; padding-top:20px; font-size:13px; color:#CBB87F; line-height:1.7; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <span class="badge">DESIGN V2.0 — CHỜ DUYỆT</span><span class="badge">THEO PO REVIEW</span>
+  <h1>Thần Số Học <span>2.0</span></h1>
+  <p class="sub">Hiện đại hoá app hiện tại: giữ DNA thương hiệu <b>đỏ – vàng tài lộc</b> (đỏ #9B150E, gold #EDBE72) nhưng bo góc lớn, card kính mờ, số hero dùng serif Playfair Display. Bổ sung 4 tính năng P0 từ PO review: nhập họ tên → chỉ số theo tên, Năng lượng hôm nay, chia sẻ story 9:16, nhiều hồ sơ.</p>
+</header>
+
+<h2 class="section">1 · Design System</h2>
+<p class="note">Kế thừa palette trong <i>lib/utils/theme/app_color.dart</i>, tinh chỉnh độ tương phản và thêm màu nền sâu để nội dung dài dễ đọc hơn.</p>
+<div class="ds">
+  <div class="ds-card"><h3>Màu sắc</h3><div class="swatches">
+    <div class="sw"><i style="background:#9B150E"></i><b>Đỏ chủ đạo</b><span>#9B150E</span></div>
+    <div class="sw"><i style="background:#E94944"></i><b>Đỏ nhấn</b><span>#E94944</span></div>
+    <div class="sw"><i style="background:#EDBE72"></i><b>Vàng gold</b><span>#EDBE72</span></div>
+    <div class="sw"><i style="background:#FAE9B1"></i><b>Vàng sáng / chữ</b><span>#FAE9B1</span></div>
+    <div class="sw"><i style="background:#2A0A08"></i><b>Nền sâu</b><span>#2A0A08</span></div>
+    <div class="sw"><i style="background:#843C02"></i><b>Nâu card</b><span>#843C02</span></div>
+  </div></div>
+  <div class="ds-card"><h3>Typography</h3>
+    <div class="type-row"><span style="font-family:'Playfair Display',serif;font-size:30px;color:#FAE9B1">Số hero — Playfair Display 800</span></div>
+    <div class="type-row" style="font-size:19px;font-weight:700">Tiêu đề — Be Vietnam Pro Bold</div>
+    <div class="type-row" style="font-size:14px;color:#E8D9AE">Nội dung diễn giải — Be Vietnam Pro Regular, line-height 1.6, tối thiểu 14px (app cũ đang nhỏ hơn, khó đọc).</div>
+  </div>
+  <div class="ds-card"><h3>Components</h3><div class="comp">
+    <button class="btn-gold">Xem kết quả</button>
+    <button class="btn-ghost">Để sau</button>
+    <span class="chip on">Hôm nay</span><span class="chip">Tuần này</span><span class="chip">Năm 2026</span>
+  </div><p class="small" style="margin-top:12px;color:#CBB87F">Bo góc 16–18px cho card, 999px cho nút/chip. Nút chính luôn là gradient gold, chữ đỏ đậm — nhận diện giữ nguyên từ app cũ.</p></div>
+</div>
+
+<h2 class="section">2 · Màn hình — Luồng chính</h2>
+<p class="note">Mỗi màn ghi rõ: mới / nâng cấp từ màn nào của app hiện tại, và tính năng PO tương ứng.</p>
+<div class="screens">
+
+  <div class="screen-box">
+    <h3>01 · Tạo hồ sơ <em>MỚI — P0</em></h3>
+    <p class="d">Lần đầu mở app (thay luồng chọn ngày sinh đơn lẻ hiện tại). Thêm ô <b>họ tên</b> — điều kiện để tính Sứ mệnh / Linh hồn / Nhân cách.</p>
+    <div class="phone"><div class="notch"></div><div class="scr">
+      <div class="status"><span>9:41</span><span>Thần Số Học</span><span>VN ▾</span></div>
+      <div class="bignum" style="font-size:64px;margin:14px 0 2px">✦</div>
+      <div class="h-title" style="text-align:center">Khám phá con số<br>của cuộc đời bạn</div>
+      <p class="mut" style="text-align:center;margin:8px 0 20px">Dựa trên họ tên &amp; ngày sinh — theo trường phái Pythagoras</p>
+      <div class="field"><label>Họ và tên khai sinh</label><div>Nguyễn Văn An</div></div>
+      <div class="field"><label>Ngày tháng năm sinh</label><div>15 / 08 / 1996</div></div>
+      <div class="field"><label>Quan hệ</label><div class="ph">Bản thân · Gia đình · Người yêu…</div></div>
+      <button class="btn-gold" style="width:100%;margin-top:6px">Xem kết quả ✦</button>
+      <p class="mut" style="text-align:center;margin-top:12px">Thông tin chỉ lưu trên máy của bạn</p>
+    </div><div class="tabbar"><div class="on"><b>⌂</b>Trang chủ</div><div><b>☰</b>Hồ sơ</div><div><b>♥</b>Tương hợp</div><div><b>⚙</b>Cài đặt</div></div></div>
+  </div>
+
+  <div class="screen-box">
+    <h3>02 · Trang chủ — Năng lượng hôm nay <em>MỚI — P0</em></h3>
+    <p class="d">Retention loop mỗi ngày: Ngày / Tháng / Năm cá nhân ngay trên Home (app cũ phải vào sâu và chỉ có Số Chủ Đạo).</p>
+    <div class="phone"><div class="notch"></div><div class="scr">
+      <div class="status"><span>9:41</span><span>Thứ Ba, 20/10/2026</span><span>🔔</span></div>
+      <div class="greet">Xin chào, An 👋</div>
+      <div class="h-title" style="margin-bottom:10px">Năng lượng hôm nay</div>
+      <div class="card solid"><div style="display:flex;align-items:center;gap:13px">
+        <div class="bignum" style="font-size:52px;color:#9B150E">7</div>
+        <div><b style="font-size:14px">Ngày cá nhân 7 — Ngày của chiêm nghiệm</b>
+        <p class="mut small" style="margin-top:3px">Hôm nay hợp học hỏi, tĩnh tâm và hoàn thiện kế hoạch hơn là bắt đầu việc lớn.</p></div>
+      </div></div>
+      <div class="grid2" style="margin-top:10px">
+        <div class="idx"><span>Tháng cá nhân</span><b>5</b><p>Thay đổi &amp; cơ hội mới đang mở ra.</p></div>
+        <div class="idx"><span>Năm cá nhân</span><b>9</b><p>Năm kết thúc chu kỳ — buông bỏ &amp; tổng kết.</p></div>
+      </div>
+      <div style="margin-top:12px">
+        <div class="mut" style="margin-bottom:7px;font-weight:600;color:#EDBE72">HỒ SƠ CỦA TÔI</div>
+        <div style="display:flex;gap:8px"><span class="chip on">An · SCD 8</span><span class="chip">Mẹ · SCD 6</span><span class="chip">+ Thêm</span></div>
+      </div>
+      <div class="card" style="margin-top:12px"><b style="font-size:13px;color:#FAE9B1">✦ Gợi ý hôm nay</b>
+      <p class="small" style="color:#E8D9AE;margin-top:4px">Người số 7 nên dành 15 phút viết nhật ký — xem thêm diễn giải đầy đủ →</p></div>
+    </div><div class="tabbar"><div class="on"><b>⌂</b>Trang chủ</div><div><b>☰</b>Hồ sơ</div><div><b>♥</b>Tương hợp</div><div><b>⚙</b>Cài đặt</div></div></div>
+  </div>
+
+  <div class="screen-box">
+    <h3>03 · Chi tiết hồ sơ — Bộ chỉ số <em>NÂNG CẤP — P0</em></h3>
+    <p class="d">Mở rộng Detail hiện tại: thêm Sứ mệnh, Linh hồn, Nhân cách, Thái độ (từ họ tên). Giữ số Master 11/22/33, sửa bug rút gọn của app cũ.</p>
+    <div class="phone"><div class="notch"></div><div class="scr">
+      <div class="status"><span>‹ Hồ sơ</span><span>Nguyễn Văn An</span><span>⤴</span></div>
+      <div class="ring"><div class="n">8</div><div class="t">Số chủ đạo</div></div>
+      <p class="small" style="text-align:center;color:#E8D9AE;margin-bottom:10px">Con người của quyền lực, độc lập và thành tựu vật chất.</p>
+      <div class="grid2">
+        <div class="idx"><span>Sứ mệnh</span><b>1</b><p>Người tiên phong, dẫn dắt.</p></div>
+        <div class="idx"><span>Linh hồn</span><b>5</b><p>Khao khát tự do, trải nghiệm.</p></div>
+        <div class="idx"><span>Nhân cách</span><b>3</b><p>Ấn tượng vui vẻ, sáng tạo.</p></div>
+        <div class="idx"><span>Ngày sinh</span><b>6</b><p>Giàu tình cảm, trách nhiệm.</p></div>
+        <div class="idx"><span>Thái độ</span><b>2</b><p>Điềm tĩnh, hoà giải.</p></div>
+        <div class="idx"><span>Trưởng thành</span><b>9</b><p>Hướng về cộng đồng.</p></div>
+      </div>
+      <button class="btn-gold" style="width:100%;margin-top:12px">Chia sẻ kết quả ⤴</button>
+    </div><div class="tabbar"><div><b>⌂</b>Trang chủ</div><div class="on"><b>☰</b>Hồ sơ</div><div><b>♥</b>Tương hợp</div><div><b>⚙</b>Cài đặt</div></div></div>
+  </div>
+
+  <div class="screen-box">
+    <h3>04 · Biểu đồ ngày sinh &amp; Đỉnh cao <em>NÂNG CẤP</em></h3>
+    <p class="d">Gộp 2 tab rời của app cũ (Tab Biểu đồ + Tab Đỉnh cao) vào một màn cuộn dọc, thêm mũi tên sức mạnh và timeline đỉnh cao.</p>
+    <div class="phone"><div class="notch"></div><div class="scr">
+      <div class="status"><span>‹ Chi tiết</span><span>Biểu đồ ngày sinh</span><span>⤴</span></div>
+      <div class="birthgrid">
+        <div>3</div><div class="empty">·</div><div>9</div>
+        <div>6</div><div class="empty">·</div><div class="empty">·</div>
+        <div>1</div><div>5</div><div>8</div>
+      </div>
+      <div class="card" style="margin-top:11px"><b style="font-size:13px;color:#FAE9B1">Mũi tên Quyết tâm 1–5–9</b>
+      <p class="small" style="color:#E8D9AE;margin-top:3px">Bạn kiên trì theo đuổi mục tiêu đến cùng. Thiếu số 2 &amp; 4: cần rèn trực giác và tính tổ chức.</p></div>
+      <div class="mut" style="margin-top:14px;font-weight:600;color:#EDBE72">4 ĐỈNH CAO ĐỜI NGƯỜI</div>
+      <div class="tl">
+        <div><i>4</i><span>Đỉnh 1 · 28t</span></div>
+        <div><i>1</i><span>Đỉnh 2 · 37t</span></div>
+        <div><i>5</i><span>Đỉnh 3 · 46t</span></div>
+        <div><i>8</i><span>Đỉnh 4 · 55t</span></div>
+      </div>
+      <div class="card" style="margin-top:11px"><b style="font-size:13px;color:#FAE9B1">Đỉnh cao 1 — Số 4 (năm 28 tuổi)</b>
+      <p class="small" style="color:#E8D9AE;margin-top:3px">Giai đoạn xây nền: kỷ luật, tích luỹ và tạo dựng sự nghiệp vững chắc…</p></div>
+    </div><div class="tabbar"><div><b>⌂</b>Trang chủ</div><div class="on"><b>☰</b>Hồ sơ</div><div><b>♥</b>Tương hợp</div><div><b>⚙</b>Cài đặt</div></div></div>
+  </div>
+</div>
+
+<h2 class="section">3 · Màn hình — Tính năng mở rộng</h2>
+<p class="note">Nhóm tạo tăng trưởng (chia sẻ, hồ sơ gia đình) và doanh thu (tương hợp là tính năng hút premium, paywall).</p>
+<div class="screens">
+
+  <div class="screen-box">
+    <h3>05 · Hồ sơ của tôi <em>MỚI — P0</em></h3>
+    <p class="d">Thay giới hạn "1 ngày sinh duy nhất" của app cũ (biến <i>birh_date_store</i>) bằng danh sách nhiều hồ sơ có quan hệ.</p>
+    <div class="phone"><div class="notch"></div><div class="scr">
+      <div class="status"><span>9:41</span><span>Hồ sơ của tôi</span><span>+</span></div>
+      <div class="h-title" style="margin-bottom:6px">Hồ sơ đã lưu</div>
+      <div class="profile"><div class="ava">8</div><div><b>Nguyễn Văn An</b><span>Bản thân · 15/08/1996 · Sứ mệnh 1</span></div><div class="go">›</div></div>
+      <div class="profile"><div class="ava">6</div><div><b>Trần Thị Bình</b><span>Mẹ · 02/03/1970 · Sứ mệnh 4</span></div><div class="go">›</div></div>
+      <div class="profile"><div class="ava">3</div><div><b>Nguyễn Khánh Linh</b><span>Con gái · 21/11/2021 · Sứ mệnh 9</span></div><div class="go">›</div></div>
+      <div class="profile"><div class="ava">11</div><div><b>Lê Minh Tuấn</b><span>Người yêu · 30/06/1998 · Master 11</span></div><div class="go">›</div></div>
+      <button class="btn-ghost" style="width:100%;margin-top:16px">+ Thêm hồ sơ</button>
+      <p class="mut" style="text-align:center;margin-top:10px">Miễn phí tối đa 3 hồ sơ · Premium: không giới hạn</p>
+    </div><div class="tabbar"><div><b>⌂</b>Trang chủ</div><div class="on"><b>☰</b>Hồ sơ</div><div><b>♥</b>Tương hợp</div><div><b>⚙</b>Cài đặt</div></div></div>
+  </div>
+
+  <div class="screen-box">
+    <h3>06 · Tương hợp cặp đôi <em>MỚI — P1</em></h3>
+    <p class="d">Tính năng được tìm kiếm nhiều nhất trong ngách thần số học. So sánh Chủ đạo + Linh hồn + Sứ mệnh, cho % hợp tổng thể.</p>
+    <div class="phone"><div class="notch"></div><div class="scr">
+      <div class="status"><span>‹ Tương hợp</span><span>An × Tuấn</span><span>⤴</span></div>
+      <div class="vs">
+        <div class="ring"><div class="n">8</div><div class="t">An</div></div>
+        <b class="vstxt">×</b>
+        <div class="ring"><div class="n">11</div><div class="t">Tuấn</div></div>
+      </div>
+      <div class="bignum" style="font-size:40px">82%</div>
+      <p class="small" style="text-align:center;color:#E8D9AE">Mức độ hoà hợp tổng thể — "Cặp đôi bù trừ"</p>
+      <div style="margin-top:12px">
+        <span class="small" style="color:#EDBE72;font-weight:600">Số chủ đạo 8 × 11</span><div class="meter"><i style="width:78%"></i></div>
+        <span class="small" style="color:#EDBE72;font-weight:600">Linh hồn 5 × 7</span><div class="meter"><i style="width:88%"></i></div>
+        <span class="small" style="color:#EDBE72;font-weight:600">Sứ mệnh 1 × 2</span><div class="meter"><i style="width:70%"></i></div>
+      </div>
+      <div class="card" style="margin-top:10px"><b style="font-size:13px;color:#FAE9B1">Điểm mạnh của cặp đôi</b>
+      <p class="small" style="color:#E8D9AE;margin-top:3px">Một người quyết đoán về mục tiêu, một người sâu sắc về cảm xúc… <span style="color:#EDBE72">Đọc tiếp với Premium 🔒</span></p></div>
+    </div><div class="tabbar"><div><b>⌂</b>Trang chủ</div><div><b>☰</b>Hồ sơ</div><div class="on"><b>♥</b>Tương hợp</div><div><b>⚙</b>Cài đặt</div></div></div>
+  </div>
+
+  <div class="screen-box">
+    <h3>07 · Chia sẻ Story 9:16 <em>MỚI — P0</em></h3>
+    <p class="d">Xuất ảnh dọc cho TikTok / Facebook / Zalo story, có watermark tên app — kênh viral miễn phí mà app cũ hoàn toàn thiếu.</p>
+    <div class="phone"><div class="notch"></div><div class="scr" style="align-items:center">
+      <div class="status" style="width:100%"><span>‹</span><span>Chia sẻ kết quả</span><span></span></div>
+      <div style="width:190px;height:338px;border-radius:20px;border:2px solid #EDBE72;background:radial-gradient(circle at 50% 30%, #A3160F, #4A0805 80%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;text-align:center">
+        <div style="font-size:10px;letter-spacing:2px;color:#FFD98A">THẦN SỐ HỌC</div>
+        <div class="bignum" style="font-size:84px;margin:8px 0 0">8</div>
+        <div style="font-size:11px;letter-spacing:1.5px;color:#FFD98A">SỐ CHỦ ĐẠO</div>
+        <p style="font-size:11px;color:#F3E3B2;line-height:1.55;margin-top:10px">"Quyền lực · Độc lập<br>Thành tựu vật chất"</p>
+        <p style="font-size:10px;color:#CBB87F;margin-top:12px">Nguyễn Văn An · 15/08/1996</p>
+        <p style="font-size:9px;color:#EDBE72;margin-top:8px">Tải app Thần Số Học ✦</p>
+      </div>
+      <div style="display:flex;gap:9px;margin-top:16px;flex-wrap:wrap;justify-content:center">
+        <button class="btn-gold" style="padding:10px 16px;font-size:12.5px">Lưu ảnh</button>
+        <button class="btn-ghost" style="padding:9px 16px;font-size:12.5px">Story</button>
+        <button class="btn-ghost" style="padding:9px 16px;font-size:12.5px">Zalo</button>
+      </div>
+      <p class="mut" style="margin-top:12px;text-align:center">3 mẫu template: Đỏ tài lộc · Tím huyền bí · Sáng tối giản</p>
+    </div><div class="tabbar"><div><b>⌂</b>Trang chủ</div><div class="on"><b>☰</b>Hồ sơ</div><div><b>♥</b>Tương hợp</div><div><b>⚙</b>Cài đặt</div></div></div>
+  </div>
+
+  <div class="screen-box">
+    <h3>08 · Premium Paywall <em>MỚI — P1</em></h3>
+    <p class="d">App cũ monetization ≈ 0 (ads nạp mà không hiện). Đề xuất 2 tầng: bản Free có AdMob thật + gói Premium bỏ ads, mở khoá sâu.</p>
+    <div class="phone"><div class="notch"></div><div class="scr">
+      <div class="status"><span>✕</span><span>Thần Số Học Premium</span><span></span></div>
+      <div class="bignum" style="font-size:44px">✦</div>
+      <div class="h-title" style="text-align:center;margin-bottom:8px">Mở khoá toàn bộ<br>bản đồ cuộc đời bạn</div>
+      <div class="check">✓ Diễn giải sâu từng chỉ số (Sứ mệnh, Linh hồn…)<br>✓ Tương hợp cặp đôi không giới hạn<br>✓ Hồ sơ gia đình không giới hạn<br>✓ Dự báo Năm / Tháng cá nhân chi tiết<br>✓ Không quảng cáo</div>
+      <div class="price best" style="margin-top:12px"><b>Năm</b><span class="p">299k₫</span><p class="mut small" style="clear:both">≈ 25k/tháng — tiết kiệm 58% · dùng thử 7 ngày</p></div>
+      <div class="price"><b>Tháng</b><span class="p">59k₫</span><p class="mut small" style="clear:both">Huỷ bất cứ lúc nào</p></div>
+      <button class="btn-gold" style="width:100%">Dùng thử 7 ngày miễn phí</button>
+      <p class="mut" style="text-align:center;margin-top:9px">Giá tham chiếu thị trường VN — chốt sau khi test A/B</p>
+    </div><div class="tabbar"><div><b>⌂</b>Trang chủ</div><div><b>☰</b>Hồ sơ</div><div><b>♥</b>Tương hợp</div><div class="on"><b>⚙</b>Cài đặt</div></div></div>
+  </div>
+</div>
+
+<footer>
+  <b style="color:#FAE9B1">Nguyên tắc khi code (rút từ PO review):</b> Bottom-nav 4 tab cố định thay cho luồng tuyến tính cũ · Mọi màn kết quả đều có nút Chia sẻ · Dữ liệu hồ sơ lưu local đa hồ sơ, đồng bộ Firestore sau · Giữ nguyên AdMob ID và package name <i>com.boitoan.thansohoc</i> khi nâng cấp để không mất người dùng cũ.<br>
+  Design board này là bản duyệt hướng (direction) — spacing/số liệu trong mockup là minh hoạ, chốt chi tiết ở bước UI spec khi bắt đầu code.
+</footer>
+</div>
+</body>
+</html>
